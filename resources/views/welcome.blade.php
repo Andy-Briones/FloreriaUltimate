@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio - Florería</title>
-    {{--  @include('forms', ['Modo' => 'Encabezado'])  --}}
+    @include('forms', ['Modo' => 'Encabezado'])
 </head>
 <body>
     <div><h3>FLORERÍA ALESSA</h3></div>
