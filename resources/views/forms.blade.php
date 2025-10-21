@@ -350,7 +350,7 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Inicio</a>
         </li>
-        <li class="nav-item">
+        {{--  <li class="nav-item">
           <a class="nav-link" href="{{url('/products')}}">Producto</a>
         </li>
         <li class="nav-item">
@@ -358,7 +358,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{route('contactanos')}}">Contacto</a>
-        </li>
+        </li>  --}}
         <li class="nav-item">
           <a class="nav-link" href="#">Sobre Nosotros</a>
         </li>
