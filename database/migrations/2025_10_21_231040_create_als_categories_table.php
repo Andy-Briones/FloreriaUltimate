@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('als_orders', function (Blueprint $table) {
+        Schema::create('als_categories', function (Blueprint $table) {
             $table->id();
-            $table->date('fecha_pedido');
-            $table->decimal('total', 10, 2);
-            $table->string('estado');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('name');
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('als_orders');
+        Schema::dropIfExists('als_categories');
     }
 };
