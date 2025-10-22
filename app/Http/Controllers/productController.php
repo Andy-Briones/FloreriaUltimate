@@ -13,7 +13,7 @@ class productController extends Controller
     public function index(Request $request)
     {
         // Cargar relaciones correctas (por ejemplo: categories y supplier)
-        $query = alsProduct::with(['categories', 'supplier']);
+        $query = alsProduct::with(['category', 'supplier']);
 
         if ($request->filled('search')) {
             $search = $request->input('search');
