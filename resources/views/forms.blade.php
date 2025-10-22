@@ -50,6 +50,11 @@
                     value="{{ isset($product->stock) ? $product->stock : '' }}">
             </div>
             <div class="col-md-6">
+            <label for="image_path" class="form-label">📝 Imagen</label>
+                <input type="text" name="image_path" id="image_path" class="form-control"
+                    value="{{ isset($product->image_path) ? $product->image_path : '' }}">
+            </div>
+            <div class="col-md-6">
                 <label for="als_category_id" class="form-label">📂 Categoria</label>
                 <select name="als_category_id" id="als_category_id" class="form-select">
                     @foreach($categorys as $category) 
