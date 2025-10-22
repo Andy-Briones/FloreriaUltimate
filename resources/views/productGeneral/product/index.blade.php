@@ -34,6 +34,7 @@
                             <th>Descripción</th>
                             <th>Precio</th>
                             <th>Stock</th>
+                            <th>imagen</th>
                             <th>Categoría</th>
                             <th>Proveedor</th>
                             <th class="text-center">Acciones</th>
@@ -47,7 +48,8 @@
                                 <td>{{ $product->description }}</td>
                                 <td>💲{{ number_format($product->price, 2) }}</td>
                                 <td>{{ $product->stock }}</td>
-                                <td>{{ $product->categories->name ?? 'N/A' }}</td>
+                                <td>{{ $product->image_path }}</td>
+                                <td>{{ $product->category->name ?? 'N/A' }}</td>
                                 <td>{{ $product->supplier->contactoName ?? 'N/A' }}</td>
                                 <td class="text-center">
                                     <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-warning">
