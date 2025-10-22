@@ -9,12 +9,12 @@
             <div class="col-md-6">
                 <label for="name" class="form-label">📌 Nombre de la Categoria</label>
                 <input type="text" name="name" id="name" class="form-control"
-                    value="{{ isset($category->name) ? $category->name : '' }}">
+                    value="{{ isset($categoria->name) ? $categoria->name : '' }}">
             </div>
             <div class="col-md-6">
                 <label for="description" class="form-label">📝 Descripción</label>
                 <input type="text" name="description" id="description" class="form-control"
-                    value="{{ isset($category->description) ? $category->description : '' }}">
+                    value="{{ isset($categoria->description) ? $categoria->description : '' }}">
             </div>
         </div>
     </div>
@@ -50,21 +50,21 @@
                     value="{{ isset($product->stock) ? $product->stock : '' }}">
             </div>
             <div class="col-md-6">
-                <label for="alsproduct_category_id" class="form-label">📂 Categoria</label>
-                <select name="alsproduct_category_id" id="alsproduct_category_id" class="form-select">
-                    @foreach($categorys as $category)
-                        <option value="{{ $category->id }}" {{ isset($product->alsproduct_category_id) && $product->alsproduct_category_id == $category->id ? 'selected' : '' }}>
+                <label for="als_category_id" class="form-label">📂 Categoria</label>
+                <select name="als_category_id" id="als_category_id" class="form-select">
+                    @foreach($categoria as $category) 
+                        <option value="{{ $category->id }}" {{ isset($product->als_category_id) && $product->als_category_id == $category->id ? 'selected' : '' }}>
                             {{ $category->name }}
                         </option>
                     @endforeach
                 </select>
             </div>
             <div class="col-md-6">
-                <label for="alssupllier_id" class="form-label">🚚 Proveedor</label>
-                <select name="alssupllier_id" id="alssupllier_id" class="form-select">
-                    @foreach($suppliers as $supplier)
-                        <option value="{{ $supplier->id }}" {{ isset($product->alssupllier_id) && $product->alssupllier_id == $supplier->id ? 'selected' : '' }}>
-                            {{ $supplier->contactoName }}
+                <label for="als_supllier_id" class="form-label">🚚 Proveedor</label>
+                <select name="als_supllier_id" id="als_supllier_id" class="form-select">
+                    @foreach($supplier as $suppliers) suppliers supplier
+                        <option value="{{ $suppliers->id }}" {{ isset($product->als_supllier_id) && $product->als_supllier_id == $suppliers->id ? 'selected' : '' }}>
+                            {{ $suppliers->contactoName }}
                         </option>
                     @endforeach
                 </select>
