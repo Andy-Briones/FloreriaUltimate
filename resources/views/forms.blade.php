@@ -9,12 +9,12 @@
             <div class="col-md-6">
                 <label for="name" class="form-label">📌 Nombre de la Categoria</label>
                 <input type="text" name="name" id="name" class="form-control"
-                    value="{{ isset($categoria->name) ? $categoria->name : '' }}">
+                    value="{{ isset($categorys->name) ? $categorys->name : '' }}">
             </div>
             <div class="col-md-6">
                 <label for="description" class="form-label">📝 Descripción</label>
                 <input type="text" name="description" id="description" class="form-control"
-                    value="{{ isset($categoria->description) ? $categoria->description : '' }}">
+                    value="{{ isset($categorys->description) ? $categorys->description : '' }}">
             </div>
         </div>
     </div>
