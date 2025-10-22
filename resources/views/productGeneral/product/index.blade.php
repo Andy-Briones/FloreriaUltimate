@@ -81,6 +81,162 @@
         </div>
     </div>
 </div>
+<style>
+    /* Fondo general */
+body {
+    background: linear-gradient(135deg, #e6ffe6 0%, #ffffff 100%);
+    font-family: "Poppins", sans-serif;
+    color: #333;
+}
+
+/* Título principal */
+h4 {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Tarjeta principal */
+.card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Encabezado de la tarjeta */
+.card-header {
+    background: linear-gradient(90deg, #198754, #25a86d);
+    border: none;
+    font-weight: 500;
+    letter-spacing: 0.4px;
+}
+
+/* Botones del encabezado */
+.card-header .btn {
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.card-header .btn:hover {
+    background-color: #f8f9fa;
+    color: #198754;
+    transform: scale(1.05);
+}
+
+/* Tabla */
+.table {
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: #212529;
+    color: #fff;
+    font-weight: 500;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #d1f3d1;
+    transition: 0.2s ease-in-out;
+}
+
+/* Celdas */
+.table td, .table th {
+    vertical-align: middle;
+    text-align: center;
+}
+
+/* Imagen o texto en columna imagen */
+.table td:nth-child(6) {
+    font-style: italic;
+    color: #666;
+}
+
+/* Botones de acción */
+.btn-warning {
+    background-color: #ffc107;
+    border: none;
+    color: #fff;
+    font-weight: 500;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+    transform: scale(1.05);
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border: none;
+    font-weight: 500;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+/* Alertas */
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-left: 5px solid #198754;
+    border-radius: 10px;
+}
+
+/* Paginación */
+.pagination {
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.page-link {
+    color: #198754;
+    border-radius: 10px;
+}
+
+.page-item.active .page-link {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .card-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    .table thead {
+        display: none;
+    }
+    .table tbody tr {
+        display: block;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 10px;
+    }
+    .table td {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+    }
+    .table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #198754;
+    }
+}
+
+</style>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
