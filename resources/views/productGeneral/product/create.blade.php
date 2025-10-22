@@ -12,7 +12,7 @@
 
 <body>
     <div class="container mt-4">
-        <form action="{{url('/products')}}" method="POST" enctype="multipart/form-data"
+        <form action="{{secure_url('/products')}}" method="POST" enctype="multipart/form-data"
             class="p-4 bg-white shadow rounded">
             @csrf
             @include('forms', ['Modo' => 'crearP'])
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnGuardarCarac.addEventListener('click', () => {
         const formData = new FormData(document.getElementById('caracFormFloating'));
 
-        fetch("{{ route('product_categories.store') }}", {
+        fetch("{{ secure_url('product_categories.store') }}", {
             method: 'POST',
             body: formData,
             headers: {
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnGuardarSupplier.addEventListener('click', () => {
         const formData = new FormData(document.getElementById('supplierFormFloating'));
 
-        fetch("{{ route('suppliers.store') }}", {
+        fetch("{{ secure_url('suppliers.store') }}", {
             method: 'POST',
             body: formData,
             headers: {

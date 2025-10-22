@@ -1,5 +1,5 @@
 <div class="container mt-4">
-    <form action="{{url('/product_categories')}}" method="POST" enctype="multipart/form-data"
+    <form action="{{secure_url('/product_categories')}}" method="POST" enctype="multipart/form-data"
         class="p-4 bg-white shadow rounded">
         @csrf
         @include('forms', ['Modo' => 'crearPRC'])
