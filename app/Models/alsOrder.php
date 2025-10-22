@@ -7,4 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class alsOrder extends Model
 {
     //
+    public function details()
+    {
+        return $this->hasMany(alsDetaOP::class, 'als_order_id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
