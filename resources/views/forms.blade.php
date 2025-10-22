@@ -64,7 +64,7 @@
                 <select name="als_supllier_id" id="als_supllier_id" class="form-select">
                     @foreach($suppliers as $supplier) suppliers supplier
                         <option value="{{ $supplier->id }}" {{ isset($product->als_supllier_id) && $product->als_supllier_id == $supplier->id ? 'selected' : '' }}>
-                            {{ $supplier->contactoName }}
+                            {{ $supplier->name }}
                         </option>
                     @endforeach
                 </select>
@@ -83,19 +83,24 @@
     <div class="card-body">
         <div class="row g-3">
             <div class="col-md-6">
-                <label for="contactoName" class="form-label">👤 Nombre del Proveedor</label>
-                <input type="text" name="contactoName" id="contactoName" class="form-control"
-                    value="{{ isset($supplier->contactName) ? $supplier->contactName : '' }}">
+                <label for="name" class="form-label">👤 Nombre del Proveedor</label>
+                <input type="text" name="name" id="name" class="form-control"
+                    value="{{ isset($supplier->name) ? $supplier->name : '' }}">
             </div>
             <div class="col-md-6">
-                <label for="nameEmpresa" class="form-label">🏢 Nombre de Empresa</label>
-                <input type="text" name="nameEmpresa" id="nameEmpresa" class="form-control"
-                    value="{{ isset($supplier->nameEmpresa) ? $supplier->nameEmpresa : '' }}">
+                <label for="contact_email" class="form-label">🏢 Correo de contacto</label>
+                <input type="text" name="contact_email" id="contact_email" class="form-control"
+                    value="{{ isset($supplier->contact_email) ? $supplier->contact_email : '' }}">
             </div>
             <div class="col-md-6">
-                <label for="direccion" class="form-label">📍 Dirección</label>
-                <input type="text" name="direccion" id="direccion" class="form-control"
-                    value="{{ isset($supplier->direccion) ? $supplier->direccion : '' }}">
+                <label for="phone_number" class="form-label">🏢 Telefono</label>
+                <input type="text" name="phone_number" id="phone_number" class="form-control"
+                    value="{{ isset($supplier->phone_number) ? $supplier->phone_number : '' }}">
+            </div>
+            <div class="col-md-6">
+                <label for="address" class="form-label">📍 Dirección</label>
+                <input type="text" name="address" id="address" class="form-control"
+                    value="{{ isset($supplier->address) ? $supplier->address : '' }}">
             </div>
         </div>
     </div>
