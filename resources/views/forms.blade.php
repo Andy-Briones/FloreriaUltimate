@@ -63,7 +63,7 @@
                 <label for="als_supllier_id" class="form-label">🚚 Proveedor</label>
                 <select name="als_supllier_id" id="als_supllier_id" class="form-select">
                     @foreach($suppliers as $supplier) suppliers supplier
-                        <option value="{{ $supplier->id }}" {{ isset($product->als_supllier_id) && $product->als_supllier_id == $supplier->id ? 'selected' : '' }}>
+                        <option value="{{ $supplier->id }}" {{ isset($product->als_supplier_id) && $product->als_supplier_id == $supplier->id ? 'selected' : '' }}>
                             {{ $supplier->name }}
                         </option>
                     @endforeach
