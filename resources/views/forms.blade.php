@@ -52,7 +52,7 @@
             <div class="col-md-6">
                 <label for="als_category_id" class="form-label">📂 Categoria</label>
                 <select name="als_category_id" id="als_category_id" class="form-select">
-                    @foreach($categoria as $category) 
+                    @foreach($categorys as $category) 
                         <option value="{{ $category->id }}" {{ isset($product->als_category_id) && $product->als_category_id == $category->id ? 'selected' : '' }}>
                             {{ $category->name }}
                         </option>
