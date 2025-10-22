@@ -50,7 +50,7 @@
                                 <td>{{ $product->stock }}</td>
                                 <td>{{ $product->image_path }}</td>
                                 <td>{{ $product->category->name ?? 'N/A' }}</td>
-                                <td>{{ $product->supplier->contactoName ?? 'N/A' }}</td>
+                                <td>{{ $product->supplier->name ?? 'N/A' }}</td>
                                 <td class="text-center">
                                     <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-warning">
                                         ✏️ Editar
@@ -81,6 +81,6 @@
         </div>
     </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
