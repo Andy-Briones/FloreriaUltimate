@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnGuardarCarac.addEventListener('click', () => {
         const formData = new FormData(document.getElementById('caracFormFloating'));
 
-        fetch("{{ secure_url('product_categories.store') }}", {
+        fetch("{{ route('product_categories.store') }}", {
             method: 'POST',
             body: formData,
             headers: {
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnGuardarSupplier.addEventListener('click', () => {
         const formData = new FormData(document.getElementById('supplierFormFloating'));
 
-        fetch("{{ secure_url('suppliers.store') }}", {
+        fetch("{{ route('suppliers.store') }}", {
             method: 'POST',
             body: formData,
             headers: {
