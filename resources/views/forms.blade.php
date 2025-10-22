@@ -60,8 +60,8 @@
                 </select>
             </div>
             <div class="col-md-6">
-                <label for="als_supllier_id" class="form-label">🚚 Proveedor</label>
-                <select name="als_supllier_id" id="als_supllier_id" class="form-select">
+                <label for="als_supplier_id" class="form-label">🚚 Proveedor</label>
+                <select name="als_supplier_id" id="als_supplier_id" class="form-select">
                     @foreach($suppliers as $supplier) suppliers supplier
                         <option value="{{ $supplier->id }}" {{ isset($product->als_supplier_id) && $product->als_supplier_id == $supplier->id ? 'selected' : '' }}>
                             {{ $supplier->name }}
