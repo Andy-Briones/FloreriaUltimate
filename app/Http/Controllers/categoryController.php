@@ -21,7 +21,7 @@ class categoryController extends Controller
     {
         $categoria = $request->except('_token');
         alsCategory::insert($categoria);
-        return redirect()->json(['success' => true]);//->with('mensaje', 'Categoría agregada con éxito');
+        return response()->json(['success' => true]);//->with('mensaje', 'Categoría agregada con éxito');
     }
     public function show()
     {

@@ -33,7 +33,7 @@
     <span class="close-btn">&times;</span>
     <div class="form-header">➕ Agregar Categoría</div>
 
-    <form id="caracFormFloating" action="{{ route('product_categories.create') }}" method="POST" enctype="multipart/form-data">
+    <form id="caracFormFloating" action="{{ route('product_categories.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         @include('forms', ['Modo' => 'crearPRC'])
         <div class="text-center mt-4">
