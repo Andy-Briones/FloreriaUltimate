@@ -16,7 +16,7 @@ Route::resource('buys', buyController::class);
 Route::resource('product_categories', categoryController::class);
 Route::resource('orders', orderController::class);
 Route::get('/contactanos', function () {
-    return view('vistasextras.contactanos');
+    return view('vistasextra.contactanos');
 })->name('contactanos');
 Route::get('/nosotros', function () {
     return view('vistasextras.sobrenoso');

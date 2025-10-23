@@ -329,9 +329,9 @@
         <li class="nav-item">
           <a class="nav-link" href="{{url('/products')}}">Catálogo</a>
         </li>
-        <li class="nav-item">
+        {{--  <li class="nav-item">
           <a class="nav-link" href="{{ route('orders.create') }}">Pedido</a>
-        </li>
+        </li>  --}}
         <li class="nav-item">
           <a class="nav-link" href="{{route('contactanos')}}">Contacto</a>
         </li>
