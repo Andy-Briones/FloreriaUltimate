@@ -345,6 +345,96 @@
     </div>
   </div>
 </nav>
+<Style>
+    /* ===== NAVBAR GENERAL ===== */
+.navbar {
+  background: linear-gradient(135deg, #ffd9e0, #ffeef2);
+  box-shadow: 0 4px 15px rgba(201, 79, 124, 0.25);
+  border-bottom: 2px solid #ffb6c1;
+  padding: 0.8rem 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* ===== LOGO O TÍTULO DE LA FLORERÍA ===== */
+.navbar-brand {
+  font-family: "Playfair Display", serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #c94f7c !important;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+.navbar-brand:hover {
+  color: #a6315b !important;
+}
+
+/* ===== LINKS DEL NAVBAR ===== */
+.navbar-nav .nav-link {
+  color: #4b3b3b !important;
+  font-weight: 500;
+  margin: 0 0.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  font-size: 1rem;
+}
+
+/* ===== EFECTO DE SUBRAYADO BONITO ===== */
+.navbar-nav .nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #c94f7c;
+  transition: width 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+  width: 100%;
+}
+
+/* ===== COLOR ACTIVO ===== */
+.navbar-nav .nav-link.active {
+  color: #c94f7c !important;
+  font-weight: 600;
+}
+
+/* ===== BOTÓN HAMBURGUESA ===== */
+.navbar-toggler {
+  border: none;
+  background-color: transparent;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+/* ===== ICONO DEL HAMBURGUESA ===== */
+.navbar-toggler-icon {
+  filter: invert(35%) sepia(60%) saturate(400%) hue-rotate(300deg) brightness(90%);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 991px) {
+  .navbar-nav {
+    background-color: #fff;
+    border-radius: 15px;
+    margin-top: 0.5rem;
+    box-shadow: 0 4px 15px rgba(201, 79, 124, 0.15);
+    padding: 1rem;
+  }
+
+  .navbar-nav .nav-link {
+    margin: 0.3rem 0;
+  }
+}
+
+</Style>
 @endif
 
 
