@@ -345,43 +345,56 @@
     </div>
   </div>
 </nav>
-<Style>
-    /* ===== NAVBAR GENERAL ===== */
+<style>
+/* ===== NAVBAR GENERAL ===== */
 .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: linear-gradient(135deg, #ffd9e0, #ffeef2);
   box-shadow: 0 4px 15px rgba(201, 79, 124, 0.25);
   border-bottom: 2px solid #ffb6c1;
-  padding: 0.8rem 1.5rem;
+  padding: 0.8rem 2rem;
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
-/* ===== LOGO O TÍTULO DE LA FLORERÍA ===== */
+/* ===== LOGO / TÍTULO ===== */
 .navbar-brand {
   font-family: "Playfair Display", serif;
-  font-size: 1.7rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  color: #c94f7c !important;
+  color: #c94f7c;
   letter-spacing: 1px;
+  text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .navbar-brand:hover {
-  color: #a6315b !important;
+  color: #a6315b;
 }
 
-/* ===== LINKS DEL NAVBAR ===== */
+/* ===== CONTENEDOR DE LINKS ===== */
+.navbar-nav {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== LINKS ===== */
 .navbar-nav .nav-link {
-  color: #4b3b3b !important;
+  color: #4b3b3b;
+  text-decoration: none;
   font-weight: 500;
-  margin: 0 0.5rem;
-  transition: all 0.3s ease;
-  position: relative;
   font-size: 1rem;
+  position: relative;
+  transition: all 0.3s ease;
 }
 
-/* ===== EFECTO DE SUBRAYADO BONITO ===== */
+/* ===== EFECTO DE SUBRAYADO ===== */
 .navbar-nav .nav-link::after {
   content: "";
   position: absolute;
@@ -398,43 +411,42 @@
   width: 100%;
 }
 
-/* ===== COLOR ACTIVO ===== */
+/* ===== LINK ACTIVO ===== */
 .navbar-nav .nav-link.active {
-  color: #c94f7c !important;
+  color: #c94f7c;
   font-weight: 600;
 }
 
-/* ===== BOTÓN HAMBURGUESA ===== */
-.navbar-toggler {
-  border: none;
-  background-color: transparent;
+/* ===== BOTÓN DE SESIÓN DESTACADO ===== */
+.navbar-nav .nav-link:last-child {
+  background-color: #c94f7c;
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
 }
 
-.navbar-toggler:focus {
-  box-shadow: none;
-}
-
-/* ===== ICONO DEL HAMBURGUESA ===== */
-.navbar-toggler-icon {
-  filter: invert(35%) sepia(60%) saturate(400%) hue-rotate(300deg) brightness(90%);
+.navbar-nav .nav-link:last-child:hover {
+  background-color: #a6315b;
+  transform: translateY(-2px);
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 991px) {
-  .navbar-nav {
-    background-color: #fff;
-    border-radius: 15px;
-    margin-top: 0.5rem;
-    box-shadow: 0 4px 15px rgba(201, 79, 124, 0.15);
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    text-align: center;
     padding: 1rem;
   }
 
-  .navbar-nav .nav-link {
-    margin: 0.3rem 0;
+  .navbar-nav {
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 0.8rem;
   }
 }
+</style>
 
-</Style>
 @endif
 
 

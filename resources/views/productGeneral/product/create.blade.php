@@ -8,6 +8,7 @@
     <div>
         @include('forms', ['Modo' => 'Encabezado'])
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -141,6 +142,178 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+<style>
+/* ===== RESET ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ===== BODY ===== */
+body {
+  background: linear-gradient(120deg, #ffeef2, #fff8f7);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+/* ===== FORMULARIO PRINCIPAL ===== */
+.container form {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 25px rgba(201, 79, 124, 0.15);
+  max-width: 700px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.container form:hover {
+  box-shadow: 0 12px 35px rgba(201, 79, 124, 0.25);
+}
+
+/* ===== BOTONES ===== */
+.btn {
+  border-radius: 30px;
+  font-weight: 500;
+  padding: 10px 22px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #ff7aa8, #c94f7c);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #c94f7c, #a62c5f);
+  transform: translateY(-2px);
+}
+
+.btn-outline-secondary {
+  border: 2px solid #c94f7c;
+  color: #c94f7c;
+  background: transparent;
+}
+
+.btn-outline-secondary:hover {
+  background: #c94f7c;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ===== BOTONES NUEVA CATEGORÍA / PROVEEDOR ===== */
+#btnOpenCarac, #btnOpenSupplier {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 100;
+  border-radius: 50px;
+  padding: 12px 18px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 15px rgba(201, 79, 124, 0.25);
+  transition: all 0.3s ease;
+}
+
+#btnOpenCarac:hover, #btnOpenSupplier:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(201, 79, 124, 0.35);
+}
+
+#btnOpenSupplier {
+  right: 190px;
+  background: linear-gradient(135deg, #4fb1c9, #6ad7f2);
+  border: none;
+}
+
+/* ===== FORMULARIOS FLOTANTES ===== */
+.form-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 25px rgba(201, 79, 124, 0.3);
+  border-radius: 20px;
+  width: 90%;
+  max-width: 600px;
+  padding: 2rem;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+/* ===== ENCABEZADO DEL FORMULARIO FLOTANTE ===== */
+.form-header {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #c94f7c;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 1px 2px rgba(201, 79, 124, 0.3);
+}
+
+/* ===== BOTÓN CERRAR (X) ===== */
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #c94f7c;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #a62c5f;
+  transform: scale(1.1);
+}
+
+/* ===== EFECTO DE ANIMACIÓN ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* ===== FORMULARIO INTERNO ===== */
+.form-container form {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+
+  .container form {
+    padding: 1.5rem;
+  }
+
+  #btnOpenCarac, #btnOpenSupplier {
+    font-size: 0.85rem;
+    padding: 10px 14px;
+  }
+
+  #btnOpenSupplier {
+    right: 150px;
+  }
+}
+</style>
+
 </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
