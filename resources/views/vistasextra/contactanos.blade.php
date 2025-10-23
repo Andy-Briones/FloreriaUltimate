@@ -12,7 +12,6 @@
 </head>
 
 <body>
-    @include('forms', ['Modo' => 'Encabezado'])
     <!-- Archivo: contacto.html -->
     <section class="card">
         <h1>Contáctanos</h1>
