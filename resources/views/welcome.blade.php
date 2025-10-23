@@ -60,82 +60,128 @@
         <a href="{{ url('/orders/create')}}" class="btn">Pedidos</a>
     </div>  --}}
     <style>
-        * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      /* ===== RESET GENERAL ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
-/* Body */
+/* ===== BODY ===== */
 body {
-    background-color: #fff8f0; /* color suave tipo florería */
-    color: #333;
+  background-color: #fff8f7;
+  color: #333;
+  overflow-x: hidden;
 }
 
-/* Encabezado */
-div > h3 {
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #d6336c; /* color floral */
-    margin: 20px 0;
-    text-transform: uppercase;
+/* ===== TÍTULO PRINCIPAL ===== */
+h3 {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #c94f7c;
+  margin: 1.5rem 0;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 2px rgba(201, 79, 124, 0.2);
+  font-weight: 700;
 }
 
-/* Carousel */
-.carousel-inner {
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    max-width: 800px;
-    margin: 20px auto;
+/* ===== CARRUSEL ===== */
+.carousel {
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto 3rem auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
+/* Imagen del carrusel */
 .carousel-item img {
-    object-fit: cover;
-    height: 400px; /* tamaño fijo para carrusel */
+  height: 500px;
+  object-fit: cover;
+  filter: brightness(85%);
 }
 
-/* Captions */
+/* ===== CAPTIONS ===== */
+.carousel-caption {
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 15px;
+  padding: 1.2rem 2rem;
+  backdrop-filter: blur(5px);
+}
+
 .carousel-caption h5 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #fff;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #fff;
 }
 
 .carousel-caption p {
-    font-size: 1rem;
-    color: #f8f9fa;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  font-size: 1rem;
+  color: #f0e6e6;
 }
 
-/* Botones de navegación del carousel */
+/* ===== BOTONES DEL CARRUSEL ===== */
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-    background-color: rgba(214, 51, 108, 0.7);
-    border-radius: 50%;
-    padding: 10px;
+  filter: invert(1) drop-shadow(0 0 4px #fff);
 }
 
-/* Botones (si los activas) */
-.btn {
-    display: inline-block;
-    margin: 10px;
-    padding: 12px 25px;
-    background-color: #d6336c;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    font-weight: 600;
+/* ===== BOTONES DE NAVEGACIÓN ===== */
+a.btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff7aa8, #c94f7c);
+  color: white;
+  padding: 12px 25px;
+  border-radius: 30px;
+  text-decoration: none;
+  margin: 0.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(201, 79, 124, 0.3);
 }
 
-.btn:hover {
-    background-color: #a12d55;
-    transform: translateY(-2px);
+a.btn:hover {
+  background: linear-gradient(135deg, #c94f7c, #a62c5f);
+  transform: translateY(-3px);
 }
+
+/* ===== CONTENEDORES DE BOTONES ===== */
+div > .btn {
+  text-align: center;
+  display: block;
+}
+
+div a.btn:first-child {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  h3 {
+    font-size: 1.7rem;
+  }
+
+  .carousel-item img {
+    height: 350px;
+  }
+
+  .carousel-caption h5 {
+    font-size: 1.4rem;
+  }
+
+  .carousel-caption p {
+    font-size: 0.9rem;
+  }
+
+  a.btn {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+  }
+}
+
     </style>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
