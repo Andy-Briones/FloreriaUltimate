@@ -146,7 +146,6 @@ div a.btn:first-child {
       {{--  <img src="{{ asset('imgs/logo.png') }}" class="d-block w-100" width="150px" height="150px">  --}}
       <div class="carousel-caption d-none d-md-block">
         <h5>First slide label</h5>
-        <a>XDDDDDDDDDDDDDDDDDDDD</a>
         <p>Some representative placeholder content for the first slide.</p>
       </div>
     </div>
@@ -182,7 +181,7 @@ div a.btn:first-child {
     <div>
         <a href="{{ url('/product_categories/create')}}" class="btn">Categoria</a>
         <a href="{{ url('/suppliers/create')}}" class="btn">Proveedores</a>
-        <a href="{{ url('/orders/create')}}" class="btn"></a>
+        <a href="{{ url('/orders/create')}}" class="btn">Pedidos</a>
     </div>  --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
