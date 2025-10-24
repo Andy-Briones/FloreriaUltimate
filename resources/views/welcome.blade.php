@@ -146,6 +146,7 @@ div a.btn:first-child {
       {{--  <img src="{{ asset('imgs/logo.png') }}" class="d-block w-100" width="150px" height="150px">  --}}
       <div class="carousel-caption d-none d-md-block">
         <h5>First slide label</h5>
+        <a>XDDDDDDDDDDDDDDDDDDDD</a>
         <p>Some representative placeholder content for the first slide.</p>
       </div>
     </div>
