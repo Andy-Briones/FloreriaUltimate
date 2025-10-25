@@ -262,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(res => res.json())
         .then(data => {
             if (data.success) {
-                alert('✅ Categoría guardada correctamente');
+                {{--  alert('✅ Categoría guardada correctamente');  --}}
                 formCaracFloating.style.display = 'none';
                 location.reload();
             } else {
@@ -302,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(res => res.json())
         .then(data => {
             if (data.success) {
-                alert('✅ Proveedor guardado correctamente');
+                {{--  alert('✅ Proveedor guardado correctamente');  --}}
                 formSupplierFloating.style.display = 'none';
                 location.reload();
             } else {
