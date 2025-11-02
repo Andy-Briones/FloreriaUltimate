@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\buyController;
 use App\Http\Controllers\categoryController;
+use App\Http\Controllers\insumoController;
 use App\Http\Controllers\orderController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\supplierController;
@@ -15,6 +16,10 @@ Route::resource('suppliers', supplierController::class);
 Route::resource('buys', buyController::class);
 Route::resource('product_categories', categoryController::class);
 Route::resource('orders', orderController::class);
+Route::resource('insumos', insumoController::class);
+
+
+//Vistas extras
 Route::get('/contactanos', function () {
     return view('vistasextra.contactanos');
 })->name('contactanos');

@@ -21,6 +21,74 @@
 </div>
 @endif
 
+{{-- Insumo --}}
+@if($Modo == 'crearI' || $Modo == 'editarI')
+<div class="card shadow mb-4 border-0">
+    <div class="card-header bg-success text-white">
+        <h4 class="mb-0">{{ $Modo == 'crearI' ? '🛒 Agregar Insumo' : '✏️ Modificar Isumo' }}</h4>
+    </div>
+    <div class="card-body">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="nombre" class="form-label">📦 Nombre del Insumo</label>
+                <input type="text" name="nombre" id="nombre" class="form-control"
+                    value="{{ isset($insumo->nombre) ? $insumo->nombre : '' }}">
+            </div>
+            <div class="col-md-6">
+                <label for="descripcion" class="form-label">📝 Descripción</label>
+                <input type="text" name="descripcion" id="descripcion" class="form-control"
+                    value="{{ isset($insumo->descripcion) ? $insumo->descripcion : '' }}">
+            </div>
+            <div class="col-md-6">
+                <label for="tipo" class="form-label">Tipo </label>
+                <input type="text" name="tipo" id="tipo" class="form-control"
+                    value="{{ isset($insumo->tipo) ? $insumo->tipo : '' }}">
+            </div>
+            <div class="col-md-6">
+                <label for="costo_unitario" class="form-label">💲 Precio Unitario</label>
+                <input type="number" step="0.01" name="costo_unitario" id="costo_unitario" class="form-control"
+                    value="{{ isset($insumo->costo_unitario) ? $insumo->costo_unitario : '' }}">
+            </div>
+            <div class="col-md-6">
+                <label for="stock" class="form-label">📊 Stock</label>
+                <input type="number" name="stock" id="stock" class="form-control"
+                    value="{{ isset($insumo->stock) ? $insumo->stock : '' }}">
+            </div>
+            <div class="col-md-6">
+            <label for="unidad" class="form-label">📝 Unidad</label>
+                <input type="text" name="unidad" id="unidad" class="form-control"
+                    value="{{ isset($insumo->unidad) ? $insumo->unidad : '' }}">
+            </div>
+            <div class="col-md-6">
+            <label for="estado" class="form-label">📝 Estado</label>
+                <input type="text" name="estado" id="estado" class="form-control"
+                    value="{{ isset($insumo->estado) ? $insumo->estado : '' }}">
+            </div>
+            <div class="col-md-6">
+                <label for="als_category_id" class="form-label">📂 Categoria</label>
+                <select name="als_category_id" id="als_category_id" class="form-select">
+                    @foreach($categorys as $category) 
+                        <option value="{{ $category->id }}" {{ isset($insumo->als_category_id) && $insumo->als_category_id == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="als_supplier_id" class="form-label">🚚 Proveedor</label>
+                <select name="als_supplier_id" id="als_supplier_id" class="form-select">
+                    @foreach($suppliers as $supplier) suppliers supplier
+                        <option value="{{ $supplier->id }}" {{ isset($insumo->als_supplier_id) && $insumo->als_supplier_id == $supplier->id ? 'selected' : '' }}>
+                            {{ $supplier->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div> 
+        </div>
+    </div>
+</div>
+@endif
+
 {{-- Producto --}}
 @if($Modo == 'crearP' || $Modo == 'editarP')
 <div class="card shadow mb-4 border-0">
@@ -54,7 +122,7 @@
                 <input type="text" name="image_path" id="image_path" class="form-control"
                     value="{{ isset($product->image_path) ? $product->image_path : '' }}">
             </div>
-            <div class="col-md-6">
+            {{--  <div class="col-md-6">
                 <label for="als_category_id" class="form-label">📂 Categoria</label>
                 <select name="als_category_id" id="als_category_id" class="form-select">
                     @foreach($categorys as $category) 
@@ -76,7 +144,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endif
 
 {{-- Proveedor --}}
@@ -325,6 +393,9 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url('/insumos')}}">Insumos</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{url('/products')}}">Catálogo</a>

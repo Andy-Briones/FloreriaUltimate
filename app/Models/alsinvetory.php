@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class alsinvetory extends Model
 {
     //
+    public function deta()
+    {
+        return $this->hasMany(alsInventoryInsumo::class, 'alsinventories_id');
+    }
     public function products()
     {
-        return $this->hasMany(alsProduct::class, 'alsinventories_table');
+        return $this->hasMany(alsProduct::class, 'alsinventories_id');
     }
     public function insumo()
     {

@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('als_buys', function (Blueprint $table) {
+        Schema::create('als_inventory_insumos', function (Blueprint $table) {
             $table->id();
-            $table->date('fecha_compra');
-            $table->decimal('total', 10, 2);
-            $table->string('estado');
-            $table->foreignId('als_supplier_id')->constrained('als_suppliers')->onDelete('cascade');
+            $table->foreignId('als_insumos_id')->constrained('als_insumos')->onDelete('cascade');
+            $table->foreignId('alsinvetories_id')->constrained('alsinvetories')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('als_buys');
+        Schema::dropIfExists('als_inventory_insumos');
     }
 };

@@ -11,6 +11,10 @@ class alsInsumo extends Model
     {
         return $this->hasMany(alsinvetory::class, 'als_insumos_id');
     }
+    public function deta()
+    {
+        return $this->hasMany(alsInventoryInsumo::class, 'als_insumos_id');
+    }
 
     //Relacion con categoria y proveedor
     public function category()

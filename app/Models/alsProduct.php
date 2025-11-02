@@ -24,8 +24,4 @@ class alsProduct extends Model
     {
         return $this->hasMany(alsDetaOP::class, 'als_product_id');
     }
-    public function buyDetails()
-    {
-        return $this->hasMany(alsDetaB::class, 'als_product_id');
-    }
 }
