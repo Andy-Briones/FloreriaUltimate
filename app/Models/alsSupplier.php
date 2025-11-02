@@ -11,8 +11,8 @@ class alsSupplier extends Model
     {
         return $this->hasMany(alsBuy::class, 'als_supplier_id');
     }
-    public function products()
+    public function insumo()
     {
-        return $this->hasMany(alsProduct::class, 'als_supplier_id');
+        return $this->hasMany(alsInsumo::class, 'als_supplier_id');
     }
 }

@@ -14,10 +14,14 @@ return new class extends Migration
         Schema::create('als_insumos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->string('descripcion');
             $table->string('tipo');
             $table->integer('stock');
             $table->string('unidad');
+            $table->string('estado')->default('activo');
             $table->decimal('costo_unitario', 10,2);
+            $table->foreignId('als_supplier_id')->constrained('als_suppliers')->onDelete('cascade');
+            $table->foreignId('als_category_id')->constrained('als_categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

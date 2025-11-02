@@ -18,8 +18,9 @@ return new class extends Migration
             $table->decimal('price', 10, 2); 
             $table->integer('stock');
             $table->string('image_path');
-            $table->foreignId('als_supplier_id')->constrained('als_suppliers')->onDelete('cascade');
-            $table->foreignId('als_category_id')->constrained('als_categories')->onDelete('cascade');
+            $table->decimal('costo_produccion', 10, 2);
+            $table->string('estado')->default('activo');
+            $table->foreignId('alsinvetories_id')->constrained('alsinvetories')->onDelete('cascade');
             $table->timestamps();
         });
     }

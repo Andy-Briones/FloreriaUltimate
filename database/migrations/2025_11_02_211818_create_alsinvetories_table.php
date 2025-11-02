@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('als_arreglo_insumos', function (Blueprint $table) {
+        Schema::create('alsinvetories', function (Blueprint $table) {
             $table->id();
-            $table->integer('cantidad');
-            // $table->foreignId('als_insumos_id')->constrained('als_insumos')->onDelete('cascade');
-            // $table->foreignId('als_arreglo_florals_id')->constrained('als_arreglo_florals')->onDelete('cascade');
+            $table->integer('cantidad_usada');
+            $table->decimal('costo_total', 10, 2);
+            $table->string('descripcion');
+            $table->foreignId('als_insumos_id')->constrained('als_insumos')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('als_arreglo_insumos');
+        Schema::dropIfExists('alsinvetories');
     }
 };

@@ -7,14 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class alsProduct extends Model
 {
     //
-    public function category()
+    // public function category()
+    // {
+    //     return $this->belongsTo(alsCategory::class, 'als_category_id');
+    // }
+    // public function supplier()
+    // {
+    //     return $this->belongsTo(alsSupplier::class, 'als_supplier_id');
+    // }
+    public function inventario()
     {
-        return $this->belongsTo(alsCategory::class, 'als_category_id');
+        return $this->belongsTo(alsinvetory::class,'alsinventories_id');
     }
-    public function supplier()
-    {
-        return $this->belongsTo(alsSupplier::class, 'als_supplier_id');
-    }
+
     public function orderDetails()
     {
         return $this->hasMany(alsDetaOP::class, 'als_product_id');

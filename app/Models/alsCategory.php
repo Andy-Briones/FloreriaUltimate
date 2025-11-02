@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class alsCategory extends Model
 {
     //
-    public function products()
+    public function insumo()
     {
-        return $this->hasMany(alsProduct::class, 'als_category_id');
+        return $this->hasMany(alsinvetory::class, 'als_category_id');
     }
 }
