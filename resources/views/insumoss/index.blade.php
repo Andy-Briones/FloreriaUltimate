@@ -1,185 +1,124 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insumos</title>
-    <div>
-        @include('forms', ['Modo' => 'Encabezado'])
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <title>🌷 Lista de Insumos - Florería</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Estilos personalizados -->
     <style>
-    /* Fondo general */
-body {
-    background: linear-gradient(135deg, #e6ffe6 0%, #ffffff 100%);
-    font-family: "Poppins", sans-serif;
-    color: #333;
-}
+        body {
+            background: linear-gradient(to bottom right, #f9fff9, #fff0f5);
+            font-family: 'Poppins', sans-serif;
+        }
 
-/* Título principal */
-h4 {
-    font-weight: 600;
-    letter-spacing: 0.5px;
-}
+        .card {
+            border-radius: 20px;
+            background-color: #ffffffee;
+        }
 
-/* Tarjeta principal */
-.card {
-    border-radius: 15px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
+        .card-header {
+            background: linear-gradient(90deg, #58b368, #a3de83);
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
 
-.card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
+        .card-header h4 {
+            font-weight: 600;
+            font-family: 'Georgia', serif;
+        }
 
-/* Encabezado de la tarjeta */
-.card-header {
-    background: linear-gradient(90deg, #198754, #25a86d);
-    border: none;
-    font-weight: 500;
-    letter-spacing: 0.4px;
-}
+        .btn-light {
+            background-color: #ffe4ec;
+            border: none;
+            color: #5b705c;
+            font-weight: 500;
+            transition: 0.3s;
+        }
 
-/* Botones del encabezado */
-.card-header .btn {
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    font-weight: 500;
-}
+        .btn-light:hover {
+            background-color: #f7b7c1;
+            color: white;
+        }
 
-.card-header .btn:hover {
-    background-color: #f8f9fa;
-    color: #198754;
-    transform: scale(1.05);
-}
+        .btn-warning {
+            background-color: #ffda77;
+            border: none;
+            transition: 0.3s;
+        }
 
-/* Tabla */
-.table {
-    margin-top: 10px;
-    border-radius: 10px;
-    overflow: hidden;
-}
+        .btn-warning:hover {
+            background-color: #ffc447;
+        }
 
-.table thead {
-    background-color: #212529;
-    color: #fff;
-    font-weight: 500;
-}
+        .btn-danger {
+            background-color: #f26a6a;
+            border: none;
+            transition: 0.3s;
+        }
 
-.table-hover tbody tr:hover {
-    background-color: #d1f3d1;
-    transition: 0.2s ease-in-out;
-}
+        .btn-danger:hover {
+            background-color: #e74c3c;
+        }
 
-/* Celdas */
-.table td, .table th {
-    vertical-align: middle;
-    text-align: center;
-}
+        table {
+            background-color: #ffffffdd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
 
-/* Imagen o texto en columna imagen */
-.table td:nth-child(6) {
-    font-style: italic;
-    color: #666;
-}
+        thead {
+            background-color: #7dcfb6;
+            color: white;
+        }
 
-/* Botones de acción */
-.btn-warning {
-    background-color: #ffc107;
-    border: none;
-    color: #fff;
-    font-weight: 500;
-}
+        tbody tr:hover {
+            background-color: #eafbea;
+        }
 
-.btn-warning:hover {
-    background-color: #e0a800;
-    transform: scale(1.05);
-}
+        .alert-success {
+            background-color: #d9fdd3;
+            border: 1px solid #b2e8a7;
+            color: #2e7d32;
+        }
 
-.btn-danger {
-    background-color: #dc3545;
-    border: none;
-    font-weight: 500;
-}
+        .pagination {
+            justify-content: center;
+        }
 
-.btn-danger:hover {
-    background-color: #c82333;
-    transform: scale(1.05);
-}
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #5b705c;
+            font-size: 0.9rem;
+        }
+    </style>
 
-/* Alertas */
-.alert-success {
-    background-color: #d4edda;
-    color: #155724;
-    border-left: 5px solid #198754;
-    border-radius: 10px;
-}
-
-/* Paginación */
-.pagination {
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.page-link {
-    color: #198754;
-    border-radius: 10px;
-}
-
-.page-item.active .page-link {
-    background-color: #198754;
-    border-color: #198754;
-}
-
-/* Responsivo */
-@media (max-width: 768px) {
-    .card-header {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-    }
-    .table thead {
-        display: none;
-    }
-    .table tbody tr {
-        display: block;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        padding: 10px;
-    }
-    .table td {
-        display: flex;
-        justify-content: space-between;
-        padding: 6px 0;
-    }
-    .table td::before {
-        content: attr(data-label);
-        font-weight: bold;
-        color: #198754;
-    }
-}
-
-</style>
+    @include('forms', ['Modo' => 'Encabezado'])
 </head>
+
 <body>
-<div class="container mt-4">
+<div class="container mt-5">
     <div class="card shadow border-0">
-        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
-            <h4 class="mb-0">📋 Lista de Insumos</h4>
-            <a href="{{ route('insumos.create') }}" class="btn btn-light">➕ Nuevo Insumo</a>
-            <a href="{{url('/')}}" class="btn btn-light">Regresar</a>
+        <div class="card-header text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">🌸 Lista de Insumos</h4>
+            <div>
+                <a href="{{ route('insumos.create') }}" class="btn btn-light me-2">➕ Nuevo Insumo</a>
+                <a href="{{ url('/') }}" class="btn btn-light">🏠 Regresar</a>
+            </div>
         </div>
+
         <div class="card-body">
             @if(session('mensaje'))
-                <div class="alert alert-success">{{ session('mensaje') }}</div>
+                <div class="alert alert-success text-center">{{ session('mensaje') }}</div>
             @endif
 
             <div class="table-responsive">
-                <table class="table table-hover align-middle">
-                    <thead class="table-dark">
+                <table class="table table-hover align-middle text-center">
+                    <thead>
                         <tr>
                             <th>ID</th>
                             <th>Nombre</th>
@@ -189,22 +128,21 @@ h4 {
                             <th>Costo Unitario</th>
                             <th>Categoría</th>
                             <th>Proveedor</th>
-                            <th class="text-center">Acciones</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($insumos as $insumo)
                             <tr>
                                 <td>{{ $insumo->id }}</td>
-                                <td>{{ $insumo->nombre }}</td>
+                                <td><strong>{{ $insumo->nombre }}</strong></td>
                                 <td>{{ $insumo->descripcion }}</td>
                                 <td>{{ $insumo->tipo }}</td>
                                 <td>{{ $insumo->stock }}</td>
                                 <td>💲{{ number_format($insumo->costo_unitario, 2) }}</td>
-                                <td>{{ $insumo->estado }}</td>
                                 <td>{{ $insumo->category->name ?? 'N/A' }}</td>
                                 <td>{{ $insumo->supplier->name ?? 'N/A' }}</td>
-                                <td class="text-center">
+                                <td>
                                     <a href="{{ route('insumos.edit', $insumo->id) }}" class="btn btn-sm btn-warning">
                                         ✏️ Editar
                                     </a>
@@ -212,7 +150,7 @@ h4 {
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger"
-                                            onclick="return confirm('¿Seguro que deseas eliminar este insumo?')">
+                                            onclick="return confirm('¿Seguro que deseas eliminar este insumo? 🌹')">
                                             🗑️ Eliminar
                                         </button>
                                     </form>
@@ -220,21 +158,23 @@ h4 {
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="text-center text-muted">No hay insumos registrados</td>
+                                <td colspan="9" class="text-muted">🌼 No hay insumos registrados</td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
 
-            {{-- Paginación --}}
-            <div class="mt-3">
+            <div class="mt-4">
                 {{ $insumos->links() }}
             </div>
         </div>
     </div>
-</div>
 
+    <footer>
+        <p>🌷 Florería "Alessa" — Cuidando cada detalle de la naturaleza 🌿</p>
+    </footer>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

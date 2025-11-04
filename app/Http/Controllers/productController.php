@@ -12,13 +12,13 @@ class productController extends Controller
     //
     public function index()
     {
-        $productos = alsProduct::with('inventario')->latest()->get();
-        return view('producto.index', compact('productos'));
+        $products = alsProduct::with('inventario')->latest()->get();
+        return view('productGeneral.product.index', compact('products'));
     }
 
     public function create()
     {
-        return view('producto.create');
+        return view('productGeneral.product.create');
     }
 
     public function store(Request $request)
@@ -37,18 +37,18 @@ class productController extends Controller
             'estado' => 'activo',
         ]);
 
-        return redirect()->route('producto.index')->with('success', 'Producto agregado correctamente');
+        return redirect()->route('productGeneral.product.index')->with('success', 'Producto agregado correctamente');
     }
 
     public function edit($id)
     {
-        $producto = alsProduct::findOrFail($id);
-        return view('producto.edit', compact('producto'));
+        $products = alsProduct::findOrFail($id);
+        return view('productGeneral.product.edit', compact('producto'));
     }
 
     public function update(Request $request, $id)
     {
-        $producto = alsProduct::findOrFail($id);
+        $products = alsProduct::findOrFail($id);
 
         $request->validate([
             'name' => 'required|string|max:255',
@@ -56,14 +56,14 @@ class productController extends Controller
             'stock' => 'required|integer|min:0',
         ]);
 
-        $producto->update($request->all());
-        return redirect()->route('producto.index')->with('success', 'Producto actualizado correctamente');
+        $products->update($request->all());
+        return redirect()->route('productGeneral.product.index')->with('success', 'Producto actualizado correctamente');
     }
 
     public function destroy($id)
     {
         alsProduct::destroy($id);
-        return redirect()->route('producto.index')->with('success', 'Producto eliminado correctamente');
+        return redirect()->route('productGeneral.product.index')->with('success', 'Producto eliminado correctamente');
     }
     // public function index(Request $request)
     // {

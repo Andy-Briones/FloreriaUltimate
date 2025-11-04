@@ -66,17 +66,17 @@ class insumoController extends Controller
         $suppliers = alsSupplier::all();           // proveedores
         
         return view('insumoss.edit', [
-        'insumos' => $insumo,
+        'insumo' => $insumo,
         'categorys' => $categorys,
         'suppliers' => $suppliers,
-        'Modo' => 'editarP'
+        'Modo' => 'editarI'
         ]);
     }
     public function update(Request $request, $id)
     {
         $insumo = request()->except(['_token', '_method']);
         alsInsumo::where('id', '=', $id)->update($insumo);
-        return redirect()->route('insumoss.index');
+        return redirect()->route('insumos.index');
     }
     public function destroy($id)
     {

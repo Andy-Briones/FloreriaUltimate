@@ -1,16 +1,80 @@
-{{--  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">  --}}
-
-    {{-- Tu CSS personalizado --}}
-    {{--  <link href="{{ asset('css/app.css') }}" rel="stylesheet">  --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Productos</title>
     <div>
         @include('forms', ['Modo' => 'Encabezado'])
     </div>
+</head>
+<body>
+    <div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>🪴 Productos</h2>
+        <a href="{{ route('inventario.create') }}" class="btn btn-success">+ Nuevo Producto</a>
+    </div>
+
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
+    @if($products->count())
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio (S/)</th>
+                    <th>Stock</th>
+                    <th>Costo Producción</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($products as $product)
+                    <tr>
+                        <td>{{ $product->id }}</td>
+                        <td>{{ $product->name }}</td>
+                        <td>{{ number_format($product->price, 2) }}</td>
+                        <td>{{ $product->stock }}</td>
+                        <td>S/ {{ number_format($product->costo_produccion, 2) }}</td>
+                        <td>
+                            <span class="badge {{ $product->estado == 'activo' ? 'bg-success' : 'bg-secondary' }}">
+                                {{ ucfirst($product->estado) }}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                            <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro de eliminar este producto?')">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @else
+        <div class="alert alert-warning">No hay productos registrados aún.</div>
+    @endif
+</div>
+</body>
+</html>
+
+{{--  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">  --}}
+
+    {{-- Tu CSS personalizado --}}
+    {{--  <link href="{{ asset('css/app.css') }}" rel="stylesheet">  --}}
+{{--  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
     /* Fondo general */
@@ -231,7 +295,7 @@ h4 {
             </div>
 
             {{-- Paginación --}}
-            <div class="mt-3">
+            {{--  <div class="mt-3">
                 {{ $products->links() }}
             </div>
         </div>
@@ -241,4 +305,6 @@ h4 {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>
+</html>  --}}  
+
+

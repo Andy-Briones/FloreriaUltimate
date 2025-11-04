@@ -22,6 +22,9 @@ Route::resource('insumos', insumoController::class);
 Route::resource('inventario', inventarioController::class);
 Route::resource('inventario_insumo', InventarioInsumoController::class);
 
+//Detalle
+Route::get('inventario/{id}/detalle', [inventarioController::class, 'detalle'])->name('inventario.detalle');
+
 //Vistas extras
 Route::get('/contactanos', function () {
     return view('vistasextra.contactanos');

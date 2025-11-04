@@ -99,4 +99,12 @@ class inventarioController extends Controller
         $inventario = alsinvetory::with(['insumos', 'products'])->findOrFail($id);
         return view('inventario.show', compact('inventario'));
     }
+
+    //Consulta detalle
+    public function detalle($id)
+    {
+        $inventario = Alsinvetory::with('insumos')->findOrFail($id);
+        return view('inventario.detalle', compact('inventario'));
+    }
+
 }

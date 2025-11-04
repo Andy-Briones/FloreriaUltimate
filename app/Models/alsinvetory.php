@@ -16,8 +16,10 @@ class alsinvetory extends Model
     {
         return $this->hasMany(alsProduct::class, 'alsinvetories_id');
     }
-    // public function insumo()
-    // {
-    //     return $this->belongsTo(alsInsumo::class,'als_insumos_id');
-    // }
+    public function insumos()
+    {
+        return $this->belongsToMany(AlsInsumo::class, 'als_inventory_insumos', 'alsinvetories_id', 'als_insumos_id')
+                    ->withPivot('cantidad_usada', 'costo_total')
+                    ->withTimestamps();
+    }
 }

@@ -25,7 +25,7 @@
 @if($Modo == 'crearI' || $Modo == 'editarI')
 <div class="card shadow mb-4 border-0">
     <div class="card-header bg-success text-white">
-        <h4 class="mb-0">{{ $Modo == 'crearI' ? '🛒 Agregar Insumo' : '✏️ Modificar Isumo' }}</h4>
+        <h4 class="mb-0">{{ $Modo == 'crearI' ? '🛒 Agregar Insumo' : '✏️ Modificar Insumo' }}</h4>
     </div>
     <div class="card-body">
         <div class="row g-3">
@@ -427,7 +427,7 @@
 @endif
 
 
-{{--  Cliente  --}}
+{{--  NavbarAdministrador  --}}
 @if ($Modo == 'Encabezado')
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
@@ -443,7 +443,7 @@
           <a class="nav-link" href="{{url('/insumos')}}">Insumos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url('/products')}}">Catálogo</a>
+          <a class="nav-link" href="{{url('/inventario')}}">Crear Producto</a>
         </li>
         {{--  <li class="nav-item">
           <a class="nav-link" href="{{ route('orders.create') }}">Pedido</a>
@@ -566,8 +566,8 @@
 @endif
 
 
-{{--  Administrador  --}}
-@if ($Modo == 'EncabezadoAdmin')
+{{--  Navbar Cliente  --}}
+@if ($Modo == 'EncabezadoClie')
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -598,7 +598,6 @@
   </div>
 </nav>
 @endif
-
 
 {{-- Inventario + Producto --}}
 @if($Modo == 'crearInv' || $Modo == 'editarInv')

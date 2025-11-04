@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <div>
+        @include('forms', ['Modo' => 'Encabezado'])
+    </div>
 </head>
 <body>
     <div class="container mt-4">
-    <h2 class="mb-4 text-primary">📦 Crear Inventario</h2>
+    <h2 class="mb-4 text-primary">📦 Crear Producto</h2>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
