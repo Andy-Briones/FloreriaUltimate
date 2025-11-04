@@ -39,14 +39,21 @@ class insumoController extends Controller
     }
     public function store(Request $request)
     {
-        $insumo = request()->except('_token');
-        $request->validate([
-            'nombre'        => 'required|string|max:255',
-            'costo_unitario'       => 'required|numeric|min:0',
-            'stock'       => 'required|integer|min:0',
+        $validated = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'costo_unitario' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            'descripcion' => 'nullable|string|max:255',
+            'tipo' => 'nullable|string|max:100',
+            'unidad' => 'nullable|string|max:50',
+            'estado' => 'required|string',
+            'als_category_id' => 'required|exists:als_categories,id',
+            'als_supplier_id' => 'required|exists:als_suppliers,id',
         ]);
-        alsInsumo::insert($insumo);
-        return redirect('insumos');//->with('mensaje', 'Categoría agregada con éxito');
+
+        alsInsumo::create($validated);
+
+        return redirect()->route('insumos.index')->with('success', 'Insumo agregado correctamente');
     }
     public function show()
     {

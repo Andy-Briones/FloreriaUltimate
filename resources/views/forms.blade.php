@@ -90,7 +90,7 @@
 @endif
 
 {{-- Producto --}}
-@if($Modo == 'crearP' || $Modo == 'editarP')
+{{--  @if($Modo == 'crearP' || $Modo == 'editarP')
 <div class="card shadow mb-4 border-0">
     <div class="card-header bg-success text-white">
         <h4 class="mb-0">{{ $Modo == 'crearP' ? '🛒 Agregar Producto' : '✏️ Modificar Producto' }}</h4>
@@ -145,7 +145,52 @@
         </div>
     </div>
 </div> --}}
+{{--  @endif  --}}
+
+{{-- Listado de Productos --}}
+@if($Modo == 'listarProd')
+<div class="card shadow mb-4 border-0">
+    <div class="card-header bg-dark text-white">
+        <h4 class="mb-0">📦 Productos Registrados</h4>
+    </div>
+
+    <div class="card-body">
+        <a href="{{ route('inventario.create') }}" class="btn btn-success mb-3">➕ Nuevo Producto</a>
+
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Precio (S/)</th>
+                        <th>Costo Producción</th>
+                        <th>Stock</th>
+                        <th>Estado</th>
+                        <th>Inventario ID</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($productos as $producto)
+                    <tr>
+                        <td>{{ $producto->name }}</td>
+                        <td>S/ {{ number_format($producto->price, 2) }}</td>
+                        <td>S/ {{ number_format($producto->costo_produccion, 2) }}</td>
+                        <td>{{ $producto->stock }}</td>
+                        <td>{{ ucfirst($producto->estado) }}</td>
+                        <td>{{ $producto->alsinventories_id }}</td>
+                        <td>
+                            <a href="{{ route('inventario.detalle', $producto->alsinventories_id) }}" class="btn btn-sm btn-info">👁️ Detalle</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 @endif
+
 
 {{-- Proveedor --}}
 @if($Modo == 'crearSP' || $Modo == 'editarSP')
@@ -553,3 +598,140 @@
   </div>
 </nav>
 @endif
+
+
+{{-- Inventario + Producto --}}
+@if($Modo == 'crearInv' || $Modo == 'editarInv')
+<div class="card shadow mb-4 border-0">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">
+            {{ $Modo == 'crearInv' ? '🏗️ Crear Producto desde Inventario' : '✏️ Editar Inventario / Producto' }}
+        </h4>
+    </div>
+
+    <div class="card-body">
+        <div class="row g-3">
+
+            {{-- Datos del producto --}}
+            <div class="col-md-6">
+                <label for="name" class="form-label">🛍️ Nombre del Producto</label>
+                <input type="text" name="name" id="name" class="form-control"
+                    value="{{ isset($producto->name) ? $producto->name : '' }}" required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="price" class="form-label">💰 Precio de Venta (S/)</label>
+                <input type="number" step="0.01" name="price" id="price" class="form-control"
+                    value="{{ isset($producto->price) ? $producto->price : '' }}" required>
+            </div>
+
+            <div class="col-md-6">
+                <label for="stock" class="form-label">📦 Stock Inicial</label>
+                <input type="number" name="stock" id="stock" class="form-control" min="1"
+                    value="{{ isset($producto->stock) ? $producto->stock : 1 }}">
+            </div>
+
+            <div class="col-md-6">
+                <label for="image_path" class="form-label">🖼️ Imagen (opcional)</label>
+                <input type="text" name="image_path" id="image_path" class="form-control"
+                    value="{{ isset($producto->image_path) ? $producto->image_path : '' }}">
+            </div>
+
+            <div class="col-md-12">
+                <label for="description" class="form-label">📝 Descripción</label>
+                <textarea name="description" id="description" class="form-control"
+                    rows="2">{{ isset($producto->description) ? $producto->description : '' }}</textarea>
+            </div>
+
+            {{-- Descripción general del inventario --}}
+            <div class="col-md-12">
+                <label for="descripcion" class="form-label">📋 Descripción del Inventario</label>
+                <textarea name="descripcion" id="descripcion" class="form-control"
+                    rows="2">{{ isset($inventario->descripcion) ? $inventario->descripcion : '' }}</textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- Insumos --}}
+<div class="card shadow mb-4 border-0">
+    <div class="card-header bg-success text-white">
+        <h4 class="mb-0">🧾 Seleccionar Insumos para el Producto</h4>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th>Stock Disponible</th>
+                        <th>Unidad</th>
+                        <th>Costo Unitario</th>
+                        <th>Cantidad a Usar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($insumos as $index => $insumo)
+                    <tr>
+                        <td>
+                            {{ $insumo->nombre }}
+                            <input type="hidden" name="insumos[{{ $index }}][id]" value="{{ $insumo->id }}">
+                        </td>
+                        <td>{{ $insumo->tipo }}</td>
+                        <td>{{ $insumo->stock }}</td>
+                        <td>{{ $insumo->unidad }}</td>
+                        <td>S/ {{ number_format($insumo->costo_unitario, 2) }}</td>
+                        <td>
+                            <input type="number" name="insumos[{{ $index }}][cantidad_usada]" 
+                                class="form-control" min="0" max="{{ $insumo->stock }}" 
+                                placeholder="Ej. 2">
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@endif
+
+{{-- Detalle de Inventario --}}
+@if($Modo == 'detalleInv')
+<div class="card shadow mb-4 border-0">
+    <div class="card-header bg-info text-white">
+        <h4 class="mb-0">📋 Detalle del Inventario #{{ $inventario->id }}</h4>
+    </div>
+
+    <div class="card-body">
+        <p><strong>Descripción:</strong> {{ $inventario->descripcion ?? 'Sin descripción' }}</p>
+        <p><strong>Costo Total:</strong> S/ {{ number_format($inventario->costo_total, 2) }}</p>
+        <p><strong>Cantidad Total Usada:</strong> {{ $inventario->cantidad_usada }}</p>
+
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Insumo</th>
+                        <th>Cantidad Usada</th>
+                        <th>Costo Unitario</th>
+                        <th>Costo Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($inventario->deta as $detalle)
+                    <tr>
+                        <td>{{ $detalle->insumo->nombre }}</td>
+                        <td>{{ $detalle->cantidad_usada }}</td>
+                        <td>S/ {{ number_format($detalle->insumo->costo_unitario, 2) }}</td>
+                        <td>S/ {{ number_format($detalle->cantidad_usada * $detalle->insumo->costo_unitario, 2) }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@endif
+

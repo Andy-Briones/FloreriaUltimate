@@ -16,7 +16,6 @@ return new class extends Migration
             $table->integer('cantidad_usada');
             $table->decimal('costo_total', 10, 2);
             $table->string('descripcion');
-            $table->foreignId('als_insumos_id')->constrained('als_insumos')->onDelete('cascade');
             $table->timestamps();
         });
     }

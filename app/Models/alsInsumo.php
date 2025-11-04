@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class alsInsumo extends Model
 {
     //
+
+    protected $fillable = ['nombre', 'descripcion', 'tipo', 'stock', 'unidad', 'estado','costo_unitario','als_supplier_id', 'als_category_id'];
     public function inventario()
     {
         return $this->hasMany(alsinvetory::class, 'als_insumos_id');

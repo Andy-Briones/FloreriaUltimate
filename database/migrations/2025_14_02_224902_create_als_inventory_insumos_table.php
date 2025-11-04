@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('als_inventory_insumos', function (Blueprint $table) {
             $table->id();
+            $table->integer('cantidad_usada'); // 👈 cantidad de insumo usada
+            $table->decimal('costo_total', 10, 2)->default(0); // 👈 opcional: para guardar costo parcial
             $table->foreignId('als_insumos_id')->constrained('als_insumos')->onDelete('cascade');
             $table->foreignId('alsinvetories_id')->constrained('alsinvetories')->onDelete('cascade');
             $table->timestamps();

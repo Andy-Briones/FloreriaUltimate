@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class alsProduct extends Model
 {
     //
+    protected $fillable =['name', 'description', 'price', 'stock', 'image_path', 'costo_produccion','estado','alsinvetories_id'];
     // public function category()
     // {
     //     return $this->belongsTo(alsCategory::class, 'als_category_id');
@@ -17,7 +18,7 @@ class alsProduct extends Model
     // }
     public function inventario()
     {
-        return $this->belongsTo(alsinvetory::class,'alsinventories_id');
+        return $this->belongsTo(alsinvetory::class,'alsinvetories_id');
     }
 
     public function orderDetails()
