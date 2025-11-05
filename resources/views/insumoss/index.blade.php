@@ -11,7 +11,8 @@
     <!-- Estilos personalizados -->
     <style>
         body {
-            background: linear-gradient(to bottom right, #f9fff9, #fff0f5);
+            {{--  background: linear-gradient(to bottom right, #f9fff9, #fff0f5);  --}}
+            background-color: #e89af2ff;
             font-family: 'Poppins', sans-serif;
         }
 

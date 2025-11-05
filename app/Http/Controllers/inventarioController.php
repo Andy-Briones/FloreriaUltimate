@@ -97,7 +97,14 @@ class inventarioController extends Controller
     public function show($id)
     {
         $inventario = alsinvetory::with(['insumos', 'products'])->findOrFail($id);
-        return view('inventario.show', compact('inventario'));
+        $insumos = AlsInsumo::where('estado', 'activo')->get();
+        $producto = $inventario->products->first();
+        $Modo = 'editarInv';
+
+        // Mapeamos las cantidades usadas por insumo
+        $cantidadesUsadas = $inventario->insumos->pluck('pivot.cantidad_usada', 'id');
+
+        return view('inventario.edit', compact('inventario', 'producto', 'insumos', 'Modo', 'cantidadesUsadas'));
     }
 
     //Consulta detalle
@@ -105,6 +112,16 @@ class inventarioController extends Controller
     {
         $inventario = Alsinvetory::with('insumos')->findOrFail($id);
         return view('inventario.detalle', compact('inventario'));
+    }
+    public function buscarInsumo(Request $request)
+    {
+        $query = $request->get('nombre');
+        $insumos = AlsInsumo::where('nombre', 'LIKE', "%{$query}%")
+            ->where('estado', 'activo')
+            ->limit(10)
+            ->get();
+
+        return response()->json($insumos);
     }
 
 }

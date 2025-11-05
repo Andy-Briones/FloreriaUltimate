@@ -10,176 +10,200 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-/* ===== RESET ===== */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
-}
-
-/* ===== BODY ===== */
+/* 🎨 Fondo general floral */
 body {
-  background: linear-gradient(120deg, #ffeef2, #fff8f7);
-  min-height: 100vh;
+  background-color: #d28cdbff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem 0;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
 }
 
-/* ===== FORMULARIO PRINCIPAL ===== */
-.container form {
-  background: #fff;
-  border-radius: 20px;
-  padding: 2.5rem;
-  box-shadow: 0 8px 25px rgba(201, 79, 124, 0.15);
-  max-width: 700px;
+/* 🌸 Contenedor principal (centrado y compacto) */
+.container {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(201, 79, 124, 0.15);
+  padding: 25px 30px;
+  width: 90%;
+  max-width: 650px;
+  margin: 20px auto;
+  animation: fadeIn 0.4s ease;
+}
+
+/* ✨ Animación de aparición */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🩷 Encabezados */
+h2, h4 {
+  color: #c94f7c;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px rgba(201, 79, 124, 0.1);
+}
+
+/* 🌿 Botones principales */
+.btn {
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: #e58ba3;
+  border-color: #e58ba3;
+}
+
+.btn-primary:hover {
+  background-color: #c94f7c;
+  border-color: #c94f7c;
+}
+
+.btn-outline-secondary {
+  border-color: #c94f7c;
+  color: #c94f7c;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #c94f7c;
+  color: white;
+}
+
+.btn-success {
+  background-color: #d47a96;
+  border: none;
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #c94f7c;
+}
+
+.btn-info {
+  background-color: #f4b7c2;
+  color: white;
+}
+
+.btn-info:hover {
+  background-color: #c94f7c;
+}
+
+/* ✏️ Formularios */
+form input,
+form select,
+form textarea {
+  border-radius: 12px;
+  border: 1px solid #f2b1c2;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(201,79,124,0.05);
   width: 100%;
   transition: all 0.3s ease;
 }
 
-.container form:hover {
-  box-shadow: 0 12px 35px rgba(201, 79, 124, 0.25);
+form input:focus,
+form select:focus,
+form textarea:focus {
+  border-color: #c94f7c;
+  box-shadow: 0 0 5px rgba(201,79,124,0.2);
+  outline: none;
 }
 
-/* ===== BOTONES ===== */
-.btn {
-  border-radius: 30px;
-  font-weight: 500;
-  padding: 10px 22px;
-  transition: all 0.3s ease;
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, #ff7aa8, #c94f7c);
-  border: none;
-}
-
-.btn-primary:hover {
-  background: linear-gradient(135deg, #c94f7c, #a62c5f);
-  transform: translateY(-2px);
-}
-
-.btn-outline-secondary {
-  border: 2px solid #c94f7c;
+form label {
   color: #c94f7c;
-  background: transparent;
-}
-
-.btn-outline-secondary:hover {
-  background: #c94f7c;
-  color: #fff;
-  transform: translateY(-2px);
-}
-
-/* ===== BOTONES NUEVA CATEGORÍA / PROVEEDOR ===== */
-#btnOpenCarac, #btnOpenSupplier {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  z-index: 100;
-  border-radius: 50px;
-  padding: 12px 18px;
   font-weight: 600;
-  font-size: 0.95rem;
-  box-shadow: 0 4px 15px rgba(201, 79, 124, 0.25);
-  transition: all 0.3s ease;
 }
 
-#btnOpenCarac:hover, #btnOpenSupplier:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(201, 79, 124, 0.35);
-}
-
+/* 💐 Botones externos (nueva categoría y proveedor) */
+#btnOpenCarac,
 #btnOpenSupplier {
-  right: 190px;
-  background: linear-gradient(135deg, #4fb1c9, #6ad7f2);
-  border: none;
+  margin: 10px 8px;
+  border-radius: 10px;
+  font-weight: 500;
+  box-shadow: 0 3px 6px rgba(201, 79, 124, 0.15);
 }
 
-/* ===== FORMULARIOS FLOTANTES ===== */
+/* 🪻 Formularios flotantes */
 .form-container {
+  display: none;
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.95);
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 25px rgba(201, 79, 124, 0.3);
-  border-radius: 20px;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(201, 79, 124, 0.25);
+  padding: 25px 30px;
   width: 90%;
-  max-width: 600px;
-  padding: 2rem;
-  z-index: 2000;
-  animation: fadeIn 0.3s ease forwards;
+  max-width: 500px;
+  z-index: 1050;
+  animation: fadeIn 0.3s ease;
 }
 
-/* ===== ENCABEZADO DEL FORMULARIO FLOTANTE ===== */
+/* 🌷 Encabezado de los formularios flotantes */
 .form-header {
-  font-size: 1.4rem;
-  font-weight: 600;
+  font-size: 1.3rem;
   color: #c94f7c;
+  font-weight: bold;
   text-align: center;
-  margin-bottom: 1.5rem;
-  text-shadow: 0 1px 2px rgba(201, 79, 124, 0.3);
+  margin-bottom: 15px;
 }
 
-/* ===== BOTÓN CERRAR (X) ===== */
+/* ❌ Botón de cierre */
 .close-btn {
   position: absolute;
-  top: 12px;
-  right: 18px;
-  font-size: 1.8rem;
-  cursor: pointer;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
   color: #c94f7c;
-  transition: all 0.3s ease;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
 
 .close-btn:hover {
-  color: #a62c5f;
-  transform: scale(1.1);
+  color: #a73d62;
 }
 
-/* ===== EFECTO DE ANIMACIÓN ===== */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -48%) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
+/* 🌙 Fondo difuminado detrás del modal */
+body::before {
+  content: "";
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(201, 79, 124, 0.15);
+  backdrop-filter: blur(3px);
+  z-index: 1000;
 }
 
-/* ===== FORMULARIO INTERNO ===== */
-.form-container form {
-  background: transparent;
-  box-shadow: none;
-  padding: 0;
+/* Mostrar fondo cuando hay formulario abierto */
+body.modal-open::before {
+  display: block;
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  body {
-    padding: 1rem;
+/* 📱 Ajuste responsivo */
+@media (max-width: 576px) {
+  .container {
+    padding: 20px;
+    max-width: 95%;
   }
 
-  .container form {
-    padding: 1.5rem;
-  }
-
-  #btnOpenCarac, #btnOpenSupplier {
-    font-size: 0.85rem;
-    padding: 10px 14px;
-  }
-
-  #btnOpenSupplier {
-    right: 150px;
+  .form-container {
+    width: 95%;
+    padding: 20px;
   }
 }
 </style>
+
 </head>
 
 <body>

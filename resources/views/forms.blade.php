@@ -652,48 +652,126 @@
     </div>
 </div>
 
-{{-- Insumos --}}
+{{-- Insumos dinámicos --}}
 <div class="card shadow mb-4 border-0">
-    <div class="card-header bg-success text-white">
-        <h4 class="mb-0">🧾 Seleccionar Insumos para el Producto</h4>
+    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">🧾 Agregar Insumos al Producto</h4>
+        <div class="d-flex align-items-center">
+            <input type="text" id="searchInsumo" class="form-control me-2" placeholder="Buscar insumo...">
+            <button type="button" class="btn btn-light" id="btnBuscarInsumo">🔍 Buscar</button>
+        </div>
     </div>
 
     <div class="card-body">
-        <div class="table-responsive">
+
+        {{-- Resultados de búsqueda --}}
+        <div id="resultadoBusqueda" class="mt-2" style="display: none;">
+            <h6>Resultados:</h6>
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th>Stock</th>
+                        <th>Unidad</th>
+                        <th>Costo Unitario</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaResultados">
+                    {{-- Resultados dinámicos por JS --}}
+                </tbody>
+            </table>
+        </div>
+
+        {{-- Tabla de insumos seleccionados --}}
+        <div class="mt-4">
+            <h6>Insumos seleccionados:</h6>
             <table class="table table-bordered align-middle">
                 <thead class="table-light">
                     <tr>
                         <th>Nombre</th>
                         <th>Tipo</th>
-                        <th>Stock Disponible</th>
+                        <th>Stock</th>
                         <th>Unidad</th>
                         <th>Costo Unitario</th>
                         <th>Cantidad a Usar</th>
+                        <th>Eliminar</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach($insumos as $index => $insumo)
-                    <tr>
-                        <td>
-                            {{ $insumo->nombre }}
-                            <input type="hidden" name="insumos[{{ $index }}][id]" value="{{ $insumo->id }}">
-                        </td>
-                        <td>{{ $insumo->tipo }}</td>
-                        <td>{{ $insumo->stock }}</td>
-                        <td>{{ $insumo->unidad }}</td>
-                        <td>S/ {{ number_format($insumo->costo_unitario, 2) }}</td>
-                        <td>
-                            <input type="number" name="insumos[{{ $index }}][cantidad_usada]" 
-                                class="form-control" min="0" max="{{ $insumo->stock }}" 
-                                placeholder="Ej. 2">
-                        </td>
-                    </tr>
-                    @endforeach
+                <tbody id="tablaSeleccionados">
+                    {{-- Insumos agregados aparecerán aquí --}}
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+{{-- Script dinámico --}}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const inputBuscar = document.getElementById('searchInsumo');
+    const btnBuscar = document.getElementById('btnBuscarInsumo');
+    const resultadoDiv = document.getElementById('resultadoBusqueda');
+    const tablaResultados = document.getElementById('tablaResultados');
+    const tablaSeleccionados = document.getElementById('tablaSeleccionados');
+    let contadorInsumos = 0;
+
+    // 🔍 Buscar insumo (por nombre)
+    btnBuscar.addEventListener('click', function() {
+        const query = inputBuscar.value.trim();
+        if (!query) return;
+
+        fetch(`/api/insumos/buscar?nombre=${query}`)
+            .then(res => res.json())
+            .then(data => {
+                tablaResultados.innerHTML = '';
+                resultadoDiv.style.display = 'block';
+                if (data.length === 0) {
+                    tablaResultados.innerHTML = `<tr><td colspan="6" class="text-center text-muted">No se encontraron insumos</td></tr>`;
+                    return;
+                }
+
+                data.forEach(insumo => {
+                    const fila = `
+                        <tr>
+                            <td>${insumo.nombre}</td>
+                            <td>${insumo.tipo}</td>
+                            <td>${insumo.stock}</td>
+                            <td>${insumo.unidad}</td>
+                            <td>S/ ${parseFloat(insumo.costo_unitario).toFixed(2)}</td>
+                            <td>
+                                <button type="button" class="btn btn-success btn-sm" onclick="agregarInsumo(${insumo.id}, '${insumo.nombre}', '${insumo.tipo}', ${insumo.stock}, '${insumo.unidad}', ${insumo.costo_unitario})">➕</button>
+                            </td>
+                        </tr>`;
+                    tablaResultados.insertAdjacentHTML('beforeend', fila);
+                });
+            });
+    });
+    
+    // 🧩 Función para agregar insumo
+    window.agregarInsumo = function(id, nombre, tipo, stock, unidad, costo_unitario) {
+    if (document.querySelector(`#filaInsumo_${id}`)) {
+        alert('⚠️ Este insumo ya está agregado.');
+        return;
+    }
+
+    const fila = `
+        <tr id="filaInsumo_${id}">
+            <td>${nombre}<input type="hidden" name="insumos[${contadorInsumos}][id]" value="${id}"></td>
+            <td>${tipo}</td>
+            <td>${stock}</td>
+            <td>${unidad}</td>
+            <td>S/ ${costo_unitario.toFixed(2)}</td>
+            <td><input type="number" name="insumos[${contadorInsumos}][cantidad_usada]" class="form-control" min="1" max="${stock}" placeholder="Ej. 2"></td>
+            <td><button type="button" class="btn btn-danger btn-sm" onclick="eliminarInsumo(${id})">🗑️</button></td>
+        </tr>`;
+
+    tablaSeleccionados.insertAdjacentHTML('beforeend', fila);
+    contadorInsumos++;
+};
+});
+</script>
 @endif
 
 {{-- Detalle de Inventario --}}

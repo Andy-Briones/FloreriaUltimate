@@ -8,6 +8,122 @@
     <div>
         @include('forms', ['Modo' => 'Encabezado'])
     </div>
+    <style>
+        /* ======= RESET Y BASE ======= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+:root {
+  --rosa: #c94f7c;
+  --rosa-claro: #ffc6d5;
+  --rosa-borde: #f2b1c2;
+  --fondo: #fff6f8;
+  --muted: #777;
+}
+
+body {
+  background-color: #d28cdbff;
+  color: #4a4a4a;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ======= ENCABEZADO ======= */
+header {
+  background-color: var(--rosa-claro);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  padding: 15px 0;
+}
+
+header .brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--rosa);
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+header .brand div {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+/* ======= CONTENEDOR PRINCIPAL ======= */
+.container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 2rem auto;
+  flex: 1;
+}
+
+/* ======= TARJETA (CARD) ======= */
+.card {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid var(--rosa-borde);
+  box-shadow: 0 4px 15px rgba(201, 79, 124, 0.08);
+  padding: 2rem;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.card h1 {
+  color: var(--rosa);
+  margin-bottom: 0.5rem;
+}
+
+.card h3 {
+  color: var(--rosa);
+  margin-bottom: 0.3rem;
+}
+
+.card .lead {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+/* ======= GRID (TRES COLUMNAS) ======= */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+/* ======= MAPA ======= */
+iframe {
+  display: block;
+  margin: 2rem auto;
+  width: 100%;
+  max-width: 900px;
+  height: 400px;
+  border: 2px solid var(--rosa-borde);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(201, 79, 124, 0.08);
+}
+
+/* ======= FOOTER ======= */
+footer {
+  background-color: var(--rosa-claro);
+  text-align: center;
+  padding: 1rem;
+  color: #6b2c48;
+  border-top: 1px solid var(--rosa-borde);
+  font-size: 14px;
+}
+
+    </style>
 </head>
 
 <body>
