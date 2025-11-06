@@ -152,7 +152,7 @@
         @endif
 
         <footer>
-            <p>🌷 Florería "Alessa" — Amor y frescura en cada detalle 🌿</p>
+            <p>🌷 Florería "AriDetalles" — Amor y frescura en cada detalle 🌿</p>
         </footer>
     </div>
 

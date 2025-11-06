@@ -173,7 +173,7 @@
     </div>
 
     <footer>
-        <p>🌷 Florería "Alessa" — Cuidando cada detalle de la naturaleza 🌿</p>
+        <p>🌷 Florería "AriDetalles" — Cuidando cada detalle de la naturaleza 🌿</p>
     </footer>
 </div>
 
