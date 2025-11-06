@@ -15,6 +15,20 @@ class productController extends Controller
         $products = alsProduct::with('inventario')->latest()->get();
         return view('productGeneral.product.index', compact('products'));
     }
+    public function indexcli(Request $request)
+    {
+         // Vista del CLIENTE (con buscador y filtro)
+        $query = alsProduct::query();
+
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%')
+                ->orWhere('description', 'like', '%' . $request->search . '%');
+        }
+
+        $products = $query->where('estado', 'activo')->latest()->get();
+
+        return view('productGeneral.product.indexcli', compact('products'));
+    }
 
     public function create()
     {
@@ -42,7 +56,7 @@ class productController extends Controller
 
     public function edit($id)
     {
-        $products = alsProduct::findOrFail($id);
+        $producto = alsProduct::findOrFail($id);
         return view('productGeneral.product.edit', compact('producto'));
     }
 

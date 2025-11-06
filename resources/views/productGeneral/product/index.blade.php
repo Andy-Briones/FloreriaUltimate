@@ -1,17 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos</title>
+    <title>Catálogo de Productos</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <div>
         @include('forms', ['Modo' => 'Encabezado'])
     </div>
+
+    <style>
+        .product-card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .product-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+    </style>
 </head>
+
 <body>
-    <div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>🪴 Productos</h2>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>🪴 Catálogo de Productos</h2>
         <a href="{{ route('inventario.create') }}" class="btn btn-success">+ Nuevo Producto</a>
     </div>
 
@@ -20,49 +43,49 @@
     @endif
 
     @if($products->count())
-        <table class="table table-bordered table-hover">
-            <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Precio (S/)</th>
-                    <th>Stock</th>
-                    <th>Costo Producción</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($products as $product)
-                    <tr>
-                        <td>{{ $product->id }}</td>
-                        <td>{{ $product->name }}</td>
-                        <td>{{ number_format($product->price, 2) }}</td>
-                        <td>{{ $product->stock }}</td>
-                        <td>S/ {{ number_format($product->costo_produccion, 2) }}</td>
-                        <td>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach ($products as $product)
+                <div class="col">
+                    <div class="card product-card">
+                        <!-- Si tienes imagen -->
+                        @if($product->image_path)
+                            <img src="{{ asset('imgs/' . $product->image_path) }}" alt="{{ $product->name }}" class="product-img">
+
+                        @else
+                            <img src="https://via.placeholder.com/300x200?text=Sin+Imagen" class="product-img" alt="Sin imagen">
+                        @endif
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $product->name }}</h5>
+                            <p class="card-text mb-1"><strong>Precio:</strong> S/ {{ number_format($product->price, 2) }}</p>
+                            <p class="card-text mb-1"><strong>Stock:</strong> {{ $product->stock }}</p>
+                            <p class="card-text mb-1"><strong>Costo Producción:</strong> S/ {{ number_format($product->costo_produccion, 2) }}</p>
                             <span class="badge {{ $product->estado == 'activo' ? 'bg-success' : 'bg-secondary' }}">
                                 {{ ucfirst($product->estado) }}
                             </span>
-                        </td>
-                        <td>
-                            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                        </div>
+
+                        <div class="card-footer d-flex justify-content-between">
+                            {{--  <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning btn-sm">Editar</a>  --}}
                             <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro de eliminar este producto?')">Eliminar</button>
                             </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     @else
-        <div class="alert alert-warning">No hay productos registrados aún.</div>
+        <div class="alert alert-warning mt-4">No hay productos registrados aún.</div>
     @endif
 </div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 
 {{--  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">  --}}
 

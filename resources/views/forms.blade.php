@@ -147,7 +147,7 @@
 </div> --}}
 {{--  @endif  --}}
 
-{{-- Listado de Productos --}}
+{{--  Listado de Productos
 @if($Modo == 'listarProd')
 <div class="card shadow mb-4 border-0">
     <div class="card-header bg-dark text-white">
@@ -189,7 +189,7 @@
         </div>
     </div>
 </div>
-@endif
+@endif  --}}
 
 
 {{-- Proveedor --}}
@@ -445,9 +445,9 @@
         <li class="nav-item">
           <a class="nav-link" href="{{url('/inventario')}}">Crear Producto</a>
         </li>
-        {{--  <li class="nav-item">
-          <a class="nav-link" href="{{ route('orders.create') }}">Pedido</a>
-        </li>  --}}
+        <li class="nav-item">
+          <a class="nav-link" href="{{url('/products')}}">Catálogo</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="{{route('contactanos')}}">Contacto</a>
         </li>
@@ -455,7 +455,7 @@
           <a class="nav-link" href="{{url('/nosotros') }}">Sobre Nosotros</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Iniciar Sesion</a>
+          <a class="nav-link" href="{{ url('/login') }}">Iniciar Sesion</a>
         </li>
       </ul>
     </div>
@@ -579,7 +579,7 @@
           <a class="nav-link active" aria-current="page" href="/">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url('/products')}}">Producto</a>
+          <a class="nav-link" href="{{url('/products')}}">Catálogo</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ url('/orders') }}">Pedido</a>
@@ -588,15 +588,116 @@
           <a class="nav-link" href="{{route('contactanos')}}">Contacto</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Sobre Nosotros</a>
+          <a class="nav-link" href="/nosotros">Sobre Nosotros</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Iniciar Sesion</a>
-        </li>
+        </li>       
       </ul>
     </div>
   </div>
 </nav>
+<style>
+/* ===== NAVBAR GENERAL ===== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #ffd9e0, #ffeef2);
+  box-shadow: 0 4px 15px rgba(201, 79, 124, 0.25);
+  border-bottom: 2px solid #ffb6c1;
+  padding: 0.8rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* ===== LOGO / TÍTULO ===== */
+.navbar-brand {
+  font-family: "Playfair Display", serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #c94f7c;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar-brand:hover {
+  color: #a6315b;
+}
+
+/* ===== CONTENEDOR DE LINKS ===== */
+.navbar-nav {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== LINKS ===== */
+.navbar-nav .nav-link {
+  color: #4b3b3b;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* ===== EFECTO DE SUBRAYADO ===== */
+.navbar-nav .nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #c94f7c;
+  transition: width 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+  width: 100%;
+}
+
+/* ===== LINK ACTIVO ===== */
+.navbar-nav .nav-link.active {
+  color: #c94f7c;
+  font-weight: 600;
+}
+
+/* ===== BOTÓN DE SESIÓN DESTACADO ===== */
+.navbar-nav .nav-link:last-child {
+  background-color: #c94f7c;
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:last-child:hover {
+  background-color: #a6315b;
+  transform: translateY(-2px);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 0.8rem;
+  }
+}
+</style>
 @endif
 
 {{-- Inventario + Producto --}}
@@ -631,10 +732,25 @@
             </div>
 
             <div class="col-md-6">
-                <label for="image_path" class="form-label">🖼️ Imagen (opcional)</label>
+            <label for="image_path" class="form-label">🖼️ Imagen (opcional)</label>
+            <div class="input-group">
                 <input type="text" name="image_path" id="image_path" class="form-control"
-                    value="{{ isset($producto->image_path) ? $producto->image_path : '' }}">
+                    placeholder="Ruta de la imagen" readonly>
+                <input type="file" id="file_selector" class="form-control" accept="image/*">
             </div>
+        </div>
+
+        <script>
+        document.getElementById('file_selector').addEventListener('change', function() {
+            const fileInput = this;
+            if (fileInput.files.length > 0) {
+                // Solo toma el nombre del archivo (sin la ruta completa por seguridad)
+                document.getElementById('image_path').value = fileInput.files[0].name;
+            } else {
+                document.getElementById('image_path').value = '';
+            }
+        });
+        </script>
 
             <div class="col-md-12">
                 <label for="description" class="form-label">📝 Descripción</label>
