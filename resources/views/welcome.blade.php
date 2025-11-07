@@ -116,7 +116,7 @@
 </head>
 
 <body>
-    <div><h3>🌸 AriDetalless 🌸</h3></div>
+    <div><h3>🌸 AriDetalles 🌸</h3></div>
 
     {{-- Carrusel de imágenes --}}
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
