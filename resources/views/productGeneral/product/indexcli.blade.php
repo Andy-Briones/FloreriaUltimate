@@ -50,7 +50,7 @@
         </div>
 
         <!-- Buscador -->
-        <form action="{{ route('products.index') }}" method="GET" class="mb-4">
+        <form action="{{ route('productGeneral.product.index') }}" method="GET" class="mb-4">
             <div class="row g-2 align-items-center">
                 <div class="col-md-8">
                     <input type="text" name="search" class="form-control"
@@ -61,7 +61,7 @@
                     <button type="submit" class="btn btn-primary">Buscar</button>
                 </div>
                 <div class="col-md-2 d-grid">
-                    <a href="{{ route('products.index') }}" class="btn btn-outline-secondary">Limpiar</a>
+                    <a href="{{ route('productGeneral.product.index') }}" class="btn btn-outline-secondary">Limpiar</a>
                 </div>
             </div>
         </form>
