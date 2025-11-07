@@ -454,9 +454,20 @@
         <li class="nav-item">
           <a class="nav-link" href="{{url('/nosotros') }}">Sobre Nosotros</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url('/login') }}">Iniciar Sesion</a>
-        </li>
+         @auth
+          {{-- Si el usuario está logueado --}}
+          <li class="nav-item">
+            <span class="nav-link">👋 {{ Auth::user()->name }}</span>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-succesful" href="{{ route('logout') }}">Cerrar sesión</a>
+          </li>
+        @else
+          {{-- Si NO está logueado --}}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
+          </li>
+        @endauth
       </ul>
     </div>
   </div>
@@ -590,9 +601,20 @@
         <li class="nav-item">
           <a class="nav-link" href="/nosotros">Sobre Nosotros</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Iniciar Sesion</a>
-        </li>       
+         @auth
+          {{-- Si el usuario está logueado --}}
+          <li class="nav-item">
+            <span class="nav-link">👋 {{ Auth::user()->name }}</span>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-succesful" href="{{ route('logout') }}">Cerrar sesión</a>
+          </li>
+        @else
+          {{-- Si NO está logueado --}}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
+          </li>
+        @endauth
       </ul>
     </div>
   </div>

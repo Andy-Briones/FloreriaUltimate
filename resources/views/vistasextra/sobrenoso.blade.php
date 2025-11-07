@@ -6,7 +6,19 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Sobre Nosotros</title>
     <div>
+        @auth
+    @if (Auth::user()->role === 'admin')
+        {{-- Navbar ADMIN --}}
         @include('forms', ['Modo' => 'Encabezado'])
+
+    @elseif (Auth::user()->role === 'cliente')
+        {{-- Navbar CLIENTE --}}
+        @include('forms', ['Modo' => 'EncabezadoClie'])
+    @endif
+    @else
+        {{-- Navbar PÚBLICO (sin login) --}}
+        @include('forms', ['Modo' => 'EncabezadoClie'])
+    @endauth
     </div>
     <style>
         /* ======= RESET Y BASE ======= */

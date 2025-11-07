@@ -4,7 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro - Florería</title>
-    @include('forms', ['Modo' => 'Encabezado'])
+    @auth
+          @if (Auth::user()->role === 'admin')
+              {{-- Navbar ADMIN --}}
+              @include('forms', ['Modo' => 'Encabezado'])
+
+          @elseif (Auth::user()->role === 'cliente')
+              {{-- Navbar CLIENTE --}}
+              @include('forms', ['Modo' => 'EncabezadoClie'])
+          @endif
+          @else
+              {{-- Navbar PÚBLICO (sin login) --}}
+              @include('forms', ['Modo' => 'EncabezadoClie'])
+        @endauth
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>

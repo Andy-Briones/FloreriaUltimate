@@ -9,7 +9,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <div>
+        @auth
+    @if (Auth::user()->role === 'admin')
+        {{-- Navbar ADMIN --}}
         @include('forms', ['Modo' => 'Encabezado'])
+
+    @elseif (Auth::user()->role === 'cliente')
+        {{-- Navbar CLIENTE --}}
+        @include('forms', ['Modo' => 'EncabezadoClie'])
+    @endif
+    @else
+        {{-- Navbar PÚBLICO (sin login) --}}
+        @include('forms', ['Modo' => 'EncabezadoClie'])
+    @endauth
     </div>
 
     <style>

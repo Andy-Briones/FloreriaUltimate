@@ -16,9 +16,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 //Vistas segun rol
-Route::get('/products', [ProductController::class, 'indexcli'])->name('productGeneral.product.indexcli'); // cliente
-Route::get('/admin/products', [ProductController::class, 'index'])->name('productGeneral.product.index'); // admin
-
+// Route::middleware(['auth', 'role:admin'])->get('/products', [ProductController::class, 'index'])->name('products.admin');
+// Route::middleware(['auth', 'role:cliente'])->get('/products', [ProductController::class, 'indexcli'])->name('products.cliente');
 
 Route::resource('suppliers', supplierController::class);
 Route::resource('buys', buyController::class);
@@ -34,7 +33,7 @@ Route::get('inventario/{id}/detalle', [inventarioController::class, 'detalle'])-
 //Buscador de Insumos
 Route::get('/api/insumos/buscar', [App\Http\Controllers\inventarioController::class, 'buscarInsumo']);
 
-//Vistas extras
+//Vistas extras (Rutas publicas)
 Route::get('/contactanos', function () {
     return view('vistasextra.contactanos');
 })->name('contactanos');
@@ -60,3 +59,18 @@ Route::get('register', [UserController::class, 'showRegisterForm'])->name('regis
 Route::post('register', [UserController::class, 'register'])->name('register.post');
 
 
+//Rutas para admin
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/insumos', [insumoController::class, 'index'])->name('insumos.index');
+    Route::get('/inventario', [inventarioController::class, 'index'])->name('inventario.index');
+    Route::post('/inventario', [inventarioController::class, 'store'])->name('inventario.store');
+    // agrega aquí las demás rutas de gestión
+});
+
+//Rutas user
+Route::middleware(['auth', 'role:cliente'])->group(function () {
+    Route::get('/orders', [App\Http\Controllers\OrderController::class, 'index'])->name('orders.index');
+});
+
+// Catalogo
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');

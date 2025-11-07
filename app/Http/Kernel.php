@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -50,5 +51,6 @@ class Kernel extends HttpKernel
         'auth' => Authenticate::class,
         'guest' => RedirectIfAuthenticated::class,
         'admin' => AdminMiddleware::class, // <-- nuestro admin
+        'role' => RoleMiddleware::class,
     ];
 }

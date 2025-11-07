@@ -6,18 +6,22 @@ use App\Models\alsCategory;
 use App\Models\alsProduct;
 use App\Models\alsSupplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class productController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
-        $products = alsProduct::with('inventario')->latest()->get();
-        return view('productGeneral.product.index', compact('products'));
-    }
-    public function indexcli(Request $request)
-    {
-         // Vista del CLIENTE (con buscador y filtro)
+        $user = Auth::user(); // puede ser null si es público
+
+        // Si el usuario está logueado y es ADMIN → vista completa
+        if ($user && $user->rol == 'admin') {
+            $products = alsProduct::with('inventario')->latest()->get();
+            return view('productGeneral.product.index', compact('products'));
+        }
+
+        // CLIENTE o PÚBLICO → solo productos activos con buscador
         $query = alsProduct::query();
 
         if ($request->filled('search')) {
@@ -27,8 +31,23 @@ class productController extends Controller
 
         $products = $query->where('estado', 'activo')->latest()->get();
 
+        // 👇 Usa una vista distinta si quieres (indexcli)
         return view('productGeneral.product.indexcli', compact('products'));
     }
+    // public function indexcli(Request $request)
+    // {
+    //      // Vista del CLIENTE (con buscador y filtro)
+    //     $query = alsProduct::query();
+
+    //     if ($request->filled('search')) {
+    //         $query->where('name', 'like', '%' . $request->search . '%')
+    //             ->orWhere('description', 'like', '%' . $request->search . '%');
+    //     }
+
+    //     $products = $query->where('estado', 'activo')->latest()->get();
+
+    //     return view('productGeneral.product.indexcli', compact('products'));
+    // }
 
     public function create()
     {
@@ -51,7 +70,7 @@ class productController extends Controller
             'estado' => 'activo',
         ]);
 
-        return redirect()->route('productGeneral.product.index')->with('success', 'Producto agregado correctamente');
+        return redirect()->route('products.index')->with('success', 'Producto agregado correctamente');
     }
 
     public function edit($id)

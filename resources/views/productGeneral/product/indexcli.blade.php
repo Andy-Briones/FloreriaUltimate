@@ -25,11 +25,23 @@
             border-top-right-radius: 10px;
         }
     </style>
+    @auth
+    @if (Auth::user()->role === 'admin')
+        {{-- Navbar ADMIN --}}
+        @include('forms', ['Modo' => 'Encabezado'])
+
+    @elseif (Auth::user()->role === 'cliente')
+        {{-- Navbar CLIENTE --}}
+        @include('forms', ['Modo' => 'EncabezadoClie'])
+    @endif
+    @else
+        {{-- Navbar PÚBLICO (sin login) --}}
+        @include('forms', ['Modo' => 'EncabezadoClie'])
+    @endauth
 </head>
 
 <body>
-    <!-- Navbar Cliente -->
-    @include('forms', ['Modo' => 'EncabezadoClie'])
+    
 
     <div class="container mt-4">
 
@@ -38,7 +50,7 @@
         </div>
 
         <!-- Buscador -->
-        <form action="{{ route('productGeneral.product.indexcli') }}" method="GET" class="mb-4">
+        <form action="{{ route('products.index') }}" method="GET" class="mb-4">
             <div class="row g-2 align-items-center">
                 <div class="col-md-8">
                     <input type="text" name="search" class="form-control"
@@ -49,7 +61,7 @@
                     <button type="submit" class="btn btn-primary">Buscar</button>
                 </div>
                 <div class="col-md-2 d-grid">
-                    <a href="{{ route('productGeneral.product.indexcli') }}" class="btn btn-outline-secondary">Limpiar</a>
+                    <a href="{{ route('products.index') }}" class="btn btn-outline-secondary">Limpiar</a>
                 </div>
             </div>
         </form>

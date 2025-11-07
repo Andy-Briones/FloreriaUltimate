@@ -98,7 +98,19 @@
         }
     </style>
 
-    @include('forms', ['Modo' => 'Encabezado'])
+    @auth
+    @if (Auth::user()->role === 'admin')
+        {{-- Navbar ADMIN --}}
+        @include('forms', ['Modo' => 'Encabezado'])
+
+    @elseif (Auth::user()->role === 'cliente')
+        {{-- Navbar CLIENTE --}}
+        @include('forms', ['Modo' => 'EncabezadoClie'])
+    @endif
+    @else
+        {{-- Navbar PÚBLICO (sin login) --}}
+        @include('forms', ['Modo' => 'EncabezadoClie'])
+    @endauth
 </head>
 
 <body>
