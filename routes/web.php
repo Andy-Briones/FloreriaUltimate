@@ -16,7 +16,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 //Vistas segun rol
-Route::get('/products', [ProductController::class, 'indexcli'])->name('productGeneral.product.indexcli'); // cliente
+Route::get('/products', [ProductController::class, 'index'])->name('productGeneral.product.indexcli'); // cliente
 Route::get('/admin/products', [ProductController::class, 'index'])->name('productGeneral.product.index'); // admin
 
 
