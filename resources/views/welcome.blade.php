@@ -15,11 +15,11 @@
 
     @elseif (Auth::user()->role === 'cliente')
         {{-- Navbar CLIENTE --}}
-        @include('forms', ['Modo' => 'EncabezadoClie'])
+        @include('forms', ['Modo' => 'Encabezado'])
     @endif
     @else
         {{-- Navbar PÚBLICO (sin login) --}}
-        @include('forms', ['Modo' => 'EncabezadoClie'])
+        @include('forms', ['Modo' => 'Encabezado'])
     @endauth
 
     {{-- Bootstrap CSS --}}

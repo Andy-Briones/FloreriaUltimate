@@ -23,7 +23,7 @@ class RoleMiddleware
         $user = Auth::user();
 
         // Verifica si el rol del usuario está permitido
-        if (!in_array($user->rol, $roles)) {
+        if (!in_array($user->role, $roles)) {
             return redirect('/')->with('error', 'Acceso denegado.');
         }
 

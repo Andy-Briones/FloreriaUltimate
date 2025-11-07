@@ -2,10 +2,6 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\AdminMiddleware;
-use App\Http\Middleware\RoleMiddleware;
-use Illuminate\Auth\Middleware\Authenticate;
-use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Foundation\Http\Middleware\TrimStrings;
@@ -48,9 +44,9 @@ class Kernel extends HttpKernel
      * Middleware disponibles para rutas individuales.
      */
     protected $routeMiddleware = [
-        'auth' => Authenticate::class,
-        'guest' => RedirectIfAuthenticated::class,
-        'admin' => AdminMiddleware::class, // <-- nuestro admin
-        'role' => RoleMiddleware::class,
+        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+        'guest' => \Illuminate\Auth\Middleware\RedirectIfAuthenticated::class,
+        'admin' => \App\Http\Middleware\AdminMiddleware::class, // <-- nuestro admin
+        'role' => \App\Http\Middleware\RoleMiddleware::class
     ];
 }

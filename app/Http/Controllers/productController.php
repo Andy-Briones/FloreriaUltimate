@@ -16,7 +16,7 @@ class productController extends Controller
         $user = Auth::user(); // puede ser null si es público
 
         // Si el usuario está logueado y es ADMIN → vista completa
-        if ($user && $user->rol == 'admin') {
+        if ($user && $user->role == 'admin') {
             $products = alsProduct::with('inventario')->latest()->get();
             return view('productGeneral.product.index', compact('products'));
         }
