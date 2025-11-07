@@ -70,6 +70,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 //Rutas user
 Route::middleware(['auth', 'role:cliente'])->group(function () {
     Route::get('/orders', [App\Http\Controllers\OrderController::class, 'index'])->name('orders.index');
+    //Para realizar las pruebas de selenium
+    Route::get('/insumos', [insumoController::class, 'index'])->name('insumos.index');
+    Route::get('/inventario', [inventarioController::class, 'index'])->name('inventario.index');
+    Route::post('/inventario', [inventarioController::class, 'store'])->name('inventario.store');
 });
 
 // Catalogo
