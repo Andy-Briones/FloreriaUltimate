@@ -123,5 +123,12 @@ class inventarioController extends Controller
 
         return response()->json($insumos);
     }
+    public function destroy($id)
+    {
+        $inventario = alsinvetory::findOrFail($id); // Ajusta según tu modelo
+        $inventario->delete();
+
+        return redirect()->route('inventario.index')->with('success', 'Inventario eliminado correctamente');
+    }
 
 }
