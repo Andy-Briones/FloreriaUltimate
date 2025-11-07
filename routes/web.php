@@ -17,7 +17,7 @@ Route::get('/', function () {
 });
 //Vistas segun rol
 Route::get('/products', [ProductController::class, 'index'])->name('productGeneral.product.index'); // cliente
-Route::get('/admin/products', [ProductController::class, 'index'])->name('productGeneral.product.index'); // admin
+// Route::get('/admin/products', [ProductController::class, 'index'])->name('productGeneral.product.index'); // admin
 
 
 Route::resource('suppliers', supplierController::class);
