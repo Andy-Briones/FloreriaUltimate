@@ -521,11 +521,11 @@
 
         @elseif (Auth::user()->role === 'cliente')
           {{-- Navbar CLIENTE --}}
-          @include('forms', ['Modo' => 'Encabezado'])
+          @include('forms', ['Modo' => 'EncabezadoClie'])
         @endif
       @else
         {{-- Navbar PÚBLICO (sin login) --}}
-        @include('forms', ['Modo' => 'Encabezado'])
+        @include('forms', ['Modo' => 'EncabezadoClie'])
       @endauth
 
       <button class="menu-toggle">Menú</button>

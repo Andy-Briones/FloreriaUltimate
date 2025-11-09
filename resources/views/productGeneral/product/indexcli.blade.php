@@ -423,10 +423,10 @@
     @if (Auth::user()->role === 'admin')
         @include('forms', ['Modo' => 'Encabezado'])
     @elseif (Auth::user()->role === 'cliente')
-        @include('forms', ['Modo' => 'Encabezado'])
+        @include('forms', ['Modo' => 'EncabezadoClie'])
     @endif
     @else
-        @include('forms', ['Modo' => 'Encabezado'])
+        @include('forms', ['Modo' => 'EncabezadoClie'])
     @endauth
 </head>
 
