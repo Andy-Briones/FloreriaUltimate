@@ -10,450 +10,500 @@
     href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
     rel="stylesheet">
     <style>
-      <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro - Aridetalles</title>
+      /* ===== RESET & BASE ===== */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-    <!-- Fuentes -->
-    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  body {
+    font-family: 'Inria Serif', serif;
+    background-color: #F9F5EC;
+    color: #38122A;
+    line-height: 1.6;
+    font-weight: 400;
+  }
 
-    <!-- Estilos -->
-    <style>
-        /* ===== RESET & BASE ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
 
-        body {
-            font-family: 'Inria Serif', serif;
-            background: linear-gradient(135deg, #F9F5EC 0%, #fdf2f8 100%);
-            color: #38122A;
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding-top: 2rem;
-        }
+  /* ===== TIPOGRAFÍA ===== */
+  h1,
+  h3,
+  .brand,
+  .promo-title,
+  .price,
+  .promo-text {
+    font-family: 'Inria Serif', serif;
+    font-weight: 700;
+  }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 1rem;
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-        }
+  h1 {
+    font-size: 3.2rem;
+  }
 
-        /* ===== HEADER ===== */
-        .header {
-            background: #38122A;
-            color: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            margin-bottom: 2rem;
-        }
+  h3 {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+  }
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+  .price {
+    font-size: 1.1rem;
+  }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.4rem;
-            font-weight: 700;
-        }
+  .promo-text {
+    font-size: 0.95rem;
+  }
 
-        .flower-icon {
-            width: 24px;
-            height: 24px;
-        }
+  /* Inputs y botones pequeños usan Inter */
+  input,
+  textarea,
+  button,
+  .quantity span {
+    font-family: 'Inter', sans-serif;
+  }
 
-        .menu-toggle {
-            display: none;
-            background: white;
-            color: #38122A;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-        }
+  /* ===== HEADER ===== */
+  .header {
+    background: #38122A;
+    color: white;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
 
-        /* ===== REGISTRO CARD ===== */
-        .register-card {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-            padding: 2.5rem;
-            width: 100%;
-            max-width: 500px;
-            animation: fadeInUp 0.6s ease;
-            margin-top: 2rem;
-        }
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.4rem;
+  }
 
-        .register-title {
-            font-size: 1.9rem;
-            color: #38122A;
-            text-align: center;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
+  .flower-icon {
+    width: 24px;
+    height: 24px;
+  }
 
-        .register-title svg {
-            width: 30px;
-            height: 30px;
-            fill: #FF69B4;
-        }
+  .nav {
+    display: flex;
+    gap: 2rem;
+  }
 
-        .register-subtitle {
-            text-align: center;
-            color: #777;
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
-            font-family: 'Inter', sans-serif;
-        }
+  .nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
 
-        /* ===== FORMULARIO ===== */
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.2rem;
-        }
+  .nav a:hover {
+    color: #FF69B4;
+  }
 
-        .form-group {
-            margin-bottom: 1.3rem;
-        }
+  .menu-toggle {
+    display: none;
+    background: white;
+    color: #38122A;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+  }
 
-        .form-group.full {
-            grid-column: 1 / -1;
-        }
+  /* ===== HERO ===== */
+  .hero {
+    padding: 2rem 0;
+    background: #38122A;
+  }
 
-        label {
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            color: #38122A;
-            margin-bottom: 0.5rem;
-            display: block;
-            font-size: 0.95rem;
-        }
+  .hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 3rem;
+    background: #F9F5EC;
+    border-radius: 20px;
+    align-items: start;
+  }
 
-        input {
-            font-family: 'Inter', sans-serif;
-            width: 100%;
-            padding: 0.9rem 1rem;
-            border: 1.5px solid #ddd;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            background: #fdfbfc;
-        }
+  /* FULL: arriba, ocupa todo el ancho */
+  .hero-full {
+    grid-column: 1 / -1;
+    position: relative;
+    width: 100%;
+    height: 40vh;
+    overflow: hidden;
+    border-radius: 20px;
+  }
 
-        input:focus {
-            outline: none;
-            border-color: #FF69B4;
-            box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
-        }
+  .hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
 
-        /* ===== BOTONES ===== */
-        .btn-custom {
-            padding: 0.9rem 1.8rem;
-            border-radius: 25px;
-            font-weight: 600;
-            text-decoration: none;
-            display: block;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-            cursor: pointer;
-            border: none;
-            width: 100%;
-            margin-top: 0.5rem;
-        }
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(56, 18, 42, 0.6) 35%, rgba(56, 18, 42, 0.2) 100%);
+    display: flex;
+    align-items: center;
+    z-index: 2;
+  }
 
-        .btn-success-custom {
-            background: #7acb77;
-            color: #2e5930;
-        }
+  .hero-logo-center {
+    margin-left: 80px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-        .btn-success-custom:hover {
-            background: #58b368;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(122, 203, 119, 0.3);
-        }
+  .hero-logo-center .flower-big {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+    stroke: #fff;
+  }
 
-        .btn-secondary-custom {
-            background: #f8d7e3;
-            color: #38122A;
-            border: 1.5px solid #38122A;
-            font-size: 0.9rem;
-            padding: 0.7rem 1.5rem;
-            margin-top: 1.5rem;
-            text-align: center;
-        }
+  .hero-title {
+    font-size: 3.8rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #fff;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  }
 
-        .btn-secondary-custom:hover {
-            background: #38122A;
-            color: white;
-        }
+  /* LEFT y RIGHT: debajo, en columnas */
+  .hero-left {
+    grid-column: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
 
-        .login-link {
-            text-align: center;
-            margin-top: 1.5rem;
-        }
+  .hero-right {
+    grid-column: 2;
+  }
 
-        /* ===== ALERTAS ===== */
-        .alert-custom {
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            text-align: left;
-            font-size: 0.92rem;
-            margin-bottom: 1.5rem;
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
+  /* ===== CARRUSEL PRODUCTOS ===== */
+  .carousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+  }
 
-        .alert-success-custom {
-            background: #d9fdd3;
-            border: 1.5px solid #b2e8a7;
-            color: #2e7d32;
-        }
+  .carousel-track-container {
+    overflow: hidden;
+  }
 
-        .alert-error-custom {
-            background: #fde8e8;
-            color: #9b1d1d;
-            border: 1.5px solid #f5c6cb;
-        }
+  .carousel-track {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
 
-        .alert-error-custom ul {
-            margin: 0.5rem 0 0;
-            padding-left: 1.2rem;
-        }
+  .product {
+    min-width: 33.333%;
+    padding: 0 0.5rem;
+    text-align: center;
+  }
 
-        .alert-error-custom li {
-            margin-bottom: 0.3rem;
-        }
+  .product img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 15px;
+  }
 
-        /* ===== FOOTER ===== */
-        footer {
-            text-align: center;
-            padding: 2rem 0;
-            color: #777;
-            font-size: 0.9rem;
-            margin-top: 3rem;
-            font-family: 'Inter', sans-serif;
-            border-top: 1px solid #eee;
-            background: #fdf9fb;
-        }
+  .price {
+    margin: 0.8rem 0 0.5rem;
+    font-weight: 700;
+    color: #38122A;
+  }
 
-        footer p {
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
+  .quantity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+  }
 
-        footer svg {
-            width: 20px;
-            height: 20px;
-            fill: #FF69B4;
-        }
+  .quantity button {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #38122A;
+    background: white;
+    color: #38122A;
+    border-radius: 50%;
+    font-weight: bold;
+    cursor: pointer;
+  }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(56, 18, 42, 0.7);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 10;
+  }
 
-            .register-card {
-                padding: 2rem;
-                margin: 1rem;
-            }
+  .prev {
+    left: 10px;
+  }
 
-            .menu-toggle {
-                display: block;
-            }
+  .next {
+    right: 10px;
+  }
 
-            .nav {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: #38122A;
-                padding: 1rem;
-            }
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
 
-            .nav.active {
-                display: flex;
-            }
-        }
-    </style>
+  .dot {
+    width: 10px;
+    height: 10px;
+    background: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+  }
 
-    @auth
-    @if (Auth::user()->role === 'admin')
-        @include('forms', ['Modo' => 'Encabezado'])
-    @elseif (Auth::user()->role === 'cliente')
-        @include('forms', ['Modo' => 'EncabezadoClie'])
-    @endif
-    @else
-        @include('forms', ['Modo' => 'EncabezadoClie'])
-    @endauth
-</head>
+  .dot.active {
+    background: #38122A;
+  }
 
-<body>
+  /* ===== FORMULARIO ===== */
+  .custom-form {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  }
 
-<!-- HEADER -->
-<header class="header">
-    <div class="nav-container">
-        <div class="logo">
-            <svg class="flower-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
-            </svg>
-            <span>ARIDETALLES</span>
-        </div>
-        <button class="menu-toggle">Menú</button>
-    </div>
-</header>
+  .custom-form p {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    color: #555;
+    font-family: 'Inria Serif', serif;
+  }
 
-<!-- CONTENIDO -->
-<div class="container">
-    <div class="register-card">
-        <h1 class="register-title">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-            </svg>
-            Crear Cuenta
-        </h1>
-        <p class="register-subtitle">
-            Únete a nuestra comunidad y disfruta de ofertas exclusivas.
-        </p>
+  .custom-form input,
+  .custom-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+  }
 
-        @if(session('success'))
-            <div class="alert-custom alert-success-custom">
-                {{ session('success') }}
-            </div>
-        @endif
+  .custom-form button {
+    background: #38122A;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    float: right;
+    font-family: 'Inter', sans-serif;
+  }
 
-        @if($errors->any())
-            <div class="alert-custom alert-error-custom">
-                <strong>Por favor corrige los siguientes errores:</strong>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+  .custom-form button:hover {
+    background: #2a0d1e;
+  }
 
-        <form action="{{ route('register.post') }}" method="POST">
-            @csrf
+  /* ===== PROMO ===== */
+  .promo-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 40px auto;
+    width: fit-content;
+  }
 
-            <div class="form-grid">
-                <div class="form-group">
-                    <label for="name">Nombre</label>
-                    <input type="text" name="name" id="name" value="{{ old('name') }}" required>
-                </div>
+  .promo-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    letter-spacing: 1px;
+  }
 
-                <div class="form-group">
-                    <label for="surname">Apellido</label>
-                    <input type="text" name="surname" id="surname" value="{{ old('surname') }}" required>
-                </div>
+  .promo-title span {
+    color: #ff7ea3;
+  }
 
-                <div class="form-group">
-                    <label for="phone">Teléfono</label>
-                    <input type="text" name="phone" id="phone" value="{{ old('phone') }}" required>
-                </div>
+  .promo-title .arrow {
+    font-size: 1rem;
+    margin-left: 8px;
+    color: #ff7ea3;
+  }
 
-                <div class="form-group">
-                    <label for="fecha_nacimiento">Fecha de Nacimiento</label>
-                    <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" value="{{ old('fecha_nacimiento') }}" required>
-                </div>
+  .promo-card img {
+    width: 300px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+  }
 
-                <div class="form-group full">
-                    <label for="email">Correo Electrónico</label>
-                    <input type="email" name="email" id="email" value="{{ old('email') }}" required>
-                </div>
+  .promo-card img:hover {
+    transform: scale(1.05);
+  }
 
-                <div class="form-group full">
-                    <label for="password">Contraseña</label>
-                    <input type="password" name="password" id="password" required>
-                </div>
+  /* ===== FOOTER ===== */
+  .footer {
+    background-color: #38122A;
+    color: #F9F5EC;
+  }
 
-                <div class="form-group full">
-                    <label for="password_confirmation">Confirmar Contraseña</label>
-                    <input type="password" name="password_confirmation" id="password_confirmation" required>
-                </div>
-            </div>
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: flex-start;
+  }
 
-            <button type="submit" class="btn-custom btn-success-custom">
-                Registrarse
-            </button>
-        </form>
+  .footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
 
-        <div class="login-link">
-            <a href="{{ route('login') }}" class="btn-custom btn-secondary-custom">
-                Ya tienes cuenta? Inicia sesión
-            </a>
-        </div>
-    </div>
-</div>
+  .footer-brand {
+    display: flex;
+    align-items: center;
+  }
 
-<footer>
-    <p>
-        <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-        </svg>
-        © Aridetalles 2025 — Amor y frescura en cada detalle
-        <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-        </svg>
-    </p>
-</footer>
+  .footer-brand .flower-icon {
+    width: 28px;
+    height: 28px;
+    color: #ffb6c1;
+    margin-right: 10px;
+  }
 
-<script>
-    // Menu mobile
-    document.querySelector('.menu-toggle')?.addEventListener('click', () => {
-        document.querySelector('.nav')?.classList.toggle('active');
-    });
-</script>
+  .footer-brand .brand {
+    font-size: 1.3rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
 
-</body>
-</html>
+  .footer-info h4 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #ffb6c1;
+  }
+
+  .footer-info p {
+    line-height: 1.6;
+    color: #dcdcdc;
+    text-align: justify;
+  }
+
+  .footer-map iframe {
+    width: 100%;
+    height: 200px;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 0 30px rgba(238, 228, 230, 0.2);
+    margin-bottom: 20px;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .hero-content {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
+    }
+
+    .hero-full,
+    .hero-left,
+    .hero-right {
+      grid-column: 1 / -1;
+    }
+
+    .hero-full {
+      height: 70vh;
+    }
+
+    .promo-title {
+      font-size: 1.4rem;
+    }
+
+    .promo-card img {
+      width: 80%;
+    }
+
+    .footer-grid {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .footer-left {
+      align-items: center;
+    }
+
+    .footer-info p {
+      text-align: center;
+    }
+
+    .footer-map iframe {
+      height: 220px;
+    }
+
+    .menu-toggle {
+      display: block;
+    }
+
+    .nav {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: #38122A;
+      padding: 1rem;
+    }
+
+    .nav.active {
+      display: flex;
+    }
+  }
     </style>
 </head>
 
