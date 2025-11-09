@@ -3,130 +3,300 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌼 Inventario de Producción - Florería</title>
+    <title>Inventario de Producción - Aridetalles</title>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <!-- Estilos Florería -->
+    <!-- Estilos (mismo que página principal) -->
     <style>
-        body {
-            {{--  background: linear-gradient(to bottom right, #f9fff9, #fff0f5);  --}}
-            background-color: #d28cdbff;
-            font-family: 'Poppins', sans-serif;
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        h2 {
-            color: #3c6e47;
-            font-weight: 600;
-            font-family: 'Georgia', serif;
+        body {
+            font-family: 'Inria Serif', serif;
+            background-color: #F9F5EC;
+            color: #38122A;
+            line-height: 1.6;
+            font-weight: 400;
         }
 
         .container {
-            background-color: #ffffffee;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-            margin-top: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
         }
 
-        .btn-success {
-            background: linear-gradient(90deg, #7acb77, #a5e8a0);
+        /* ===== HEADER ===== */
+        .header {
+            background: #38122A;
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            margin-bottom: 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .flower-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: white;
+            color: #38122A;
             border: none;
-            color: #2e5930;
-            font-weight: 500;
-            transition: 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
         }
 
-        .btn-success:hover {
+        /* ===== CARD ===== */
+        .inventory-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            color: #38122A;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        /* ===== BOTONES ===== */
+        .btn-custom {
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-success-custom {
+            background: #7acb77;
+            color: #2e5930;
+        }
+
+        .btn-success-custom:hover {
             background: #58b368;
             color: white;
+            transform: translateY(-1px);
         }
 
-        .btn-info {
-            background-color: #a7d8ff;
-            border: none;
+        .btn-info-custom {
+            background: #a7d8ff;
             color: #1f4f68;
         }
 
-        .btn-info:hover {
-            background-color: #6bc3ff;
-        }
-
-        .btn-danger {
-            background-color: #f26a6a;
-            border: none;
-            transition: 0.3s;
-        }
-
-        .btn-danger:hover {
-            background-color: #e74c3c;
-        }
-
-        table {
-            background-color: #ffffffdd;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        thead {
-            background-color: #7dcfb6;
+        .btn-info-custom:hover {
+            background: #6bc3ff;
             color: white;
         }
 
-        tbody tr:hover {
-            background-color: #f0fdf0;
+        .btn-danger-custom {
+            background: #f26a6a;
+            color: white;
         }
 
-        .alert-success {
-            background-color: #d9fdd3;
+        .btn-danger-custom:hover {
+            background: #e74c3c;
+        }
+
+        /* ===== TABLA ===== */
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: #ffffffee;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .table-custom thead {
+            background: #7d4a6d;
+            color: white;
+        }
+
+        .table-custom th,
+        .table-custom td {
+            padding: 1rem;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .table-custom tbody tr {
+            transition: background 0.3s ease;
+            border-bottom: 1px solid #eee;
+        }
+
+        .table-custom tbody tr:hover {
+            background: #fdf2f8;
+        }
+
+        .table-custom tbody tr:nth-child(even) {
+            background: #faf5f7;
+        }
+
+        .table-custom .price {
+            font-weight: 700;
+            color: #38122A;
+        }
+
+        /* ===== ALERTAS ===== */
+        .alert-custom {
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .alert-success-custom {
+            background: #d9fdd3;
             border: 1px solid #b2e8a7;
             color: #2e7d32;
         }
 
-        .alert-warning {
-            background-color: #fff7e6;
+        .alert-warning-custom {
+            background: #fff7e6;
             border: 1px solid #ffe1a3;
             color: #8b6b00;
         }
 
+        /* ===== FOOTER ===== */
         footer {
             text-align: center;
-            margin-top: 30px;
-            color: #5b705c;
+            padding: 2rem 0;
+            color: #777;
             font-size: 0.9rem;
+            margin-top: 3rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .card-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .table-custom {
+                font-size: 0.85rem;
+            }
+
+            .table-custom th,
+            .table-custom td {
+                padding: 0.6rem;
+            }
+
+            .btn-custom {
+                font-size: 0.8rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #38122A;
+                padding: 1rem;
+            }
+
+            .nav.active {
+                display: flex;
+            }
         }
     </style>
 
     @auth
     @if (Auth::user()->role === 'admin')
-        {{-- Navbar ADMIN --}}
         @include('forms', ['Modo' => 'Encabezado'])
-
     @elseif (Auth::user()->role === 'cliente')
-        {{-- Navbar CLIENTE --}}
         @include('forms', ['Modo' => 'Encabezado'])
     @endif
     @else
-        {{-- Navbar PÚBLICO (sin login) --}}
         @include('forms', ['Modo' => 'Encabezado'])
     @endauth
 </head>
 
 <body>
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>🌿 Inventario de Producción</h2>
-            <a href="{{ route('inventario.create') }}" class="btn btn-success">➕ Nuevo Producto</a>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="nav-container">
+        <button class="menu-toggle">Menú</button>
+    </div>
+</header>
+
+<!-- CONTENIDO -->
+<div class="container">
+    <div class="inventory-card">
+        <div class="card-header">
+            <h2 class="card-title">Inventario de Producción</h2>
+            <a href="{{ route('inventario.create') }}" class="btn-custom btn-success-custom">
+                Nuevo Producto
+            </a>
         </div>
 
         @if(session('success'))
-            <div class="alert alert-success text-center">{{ session('success') }}</div>
+            <div class="alert-custom alert-success-custom">
+                {{ session('success') }}
+            </div>
         @endif
 
         @if($inventarios->count())
             <div class="table-responsive">
-                <table class="table table-bordered table-hover align-middle text-center">
+                <table class="table-custom">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -141,16 +311,18 @@
                             <tr>
                                 <td>{{ $inventario->id }}</td>
                                 <td><strong>{{ $inventario->products->first()->name ?? 'Sin producto' }}</strong></td>
-                                <td>S/ {{ number_format($inventario->costo_total, 2) }}</td>
+                                <td class="price">S/ {{ number_format($inventario->costo_total, 2) }}</td>
                                 <td>{{ $inventario->created_at->format('d/m/Y H:i') }}</td>
                                 <td>
-                                    <a href="{{ route('inventario.detalle', $inventario->id) }}" class="btn btn-info btn-sm">👁️ Ver Detalle</a>
+                                    <a href="{{ route('inventario.detalle', $inventario->id) }}" class="btn-custom btn-info-custom btn-sm">
+                                        Ver Detalle
+                                    </a>
                                     <form action="{{ route('inventario.destroy', $inventario->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-danger btn-sm"
-                                            onclick="return confirm('¿Seguro que deseas eliminar este inventario? 🌸')">
-                                            🗑️ Eliminar
+                                        <button type="submit" class="btn-custom btn-danger-custom btn-sm"
+                                            onclick="return confirm('¿Seguro que deseas eliminar este inventario?')">
+                                            Eliminar
                                         </button>
                                     </form>
                                 </td>
@@ -160,14 +332,23 @@
                 </table>
             </div>
         @else
-            <div class="alert alert-warning text-center">🌼 No hay inventarios registrados aún.</div>
+            <div class="alert-custom alert-warning-custom">
+                No hay inventarios registrados aún.
+            </div>
         @endif
-
-        <footer>
-            <p>🌷 Florería "AriDetalles" — Amor y frescura en cada detalle 🌿</p>
-        </footer>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <footer>
+        <p>Florería "AriDetalles" — Amor y frescura en cada detalle</p>
+    </footer>
+</div>
+
+<script>
+    // Menu mobile
+    document.querySelector('.menu-toggle')?.addEventListener('click', () => {
+        document.querySelector('.nav')?.classList.toggle('active');
+    });
+</script>
+
 </body>
 </html>

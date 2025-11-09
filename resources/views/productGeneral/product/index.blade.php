@@ -3,343 +3,483 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Productos</title>
+    <title>Catálogo de Productos - Aridetalles</title>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <div>
-        @auth
+    <!-- Estilos (mismo que página principal + catálogo) -->
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inria Serif', serif;
+            background-color: #F9F5EC;
+            color: #38122A;
+            line-height: 1.6;
+            font-weight: 400;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: #38122A;
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            margin-bottom: 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .flower-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: white;
+            color: #38122A;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* ===== CATÁLOGO CARD ===== */
+        .catalog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .catalog-title {
+            font-size: 1.8rem;
+            color: #38122A;
+            font-weight: 700;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .catalog-title svg {
+            width: 28px;
+            height: 28px;
+            fill: #FF69B4;
+        }
+
+        /* ===== GRID PRODUCTOS ===== */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.8rem;
+            margin: 1.5rem 0;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 25px rgba(255, 105, 180, 0.15);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 2px solid #ffe4ec;
+        }
+
+        .product-img-placeholder {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #ffe4ec, #f8d7e3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #38122A;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            border-bottom: 2px solid #ffe4ec;
+        }
+
+        .product-body {
+            padding: 1.2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #38122A;
+            margin-bottom: 0.6rem;
+            font-family: 'Inria Serif', serif;
+        }
+
+        .product-info {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 0.4rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .product-info strong {
+            color: #38122A;
+        }
+
+        .product-badge {
+            align-self: flex-start;
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            margin-top: 0.5rem;
+        }
+
+        .badge-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-inactive {
+            background: #e2e3e5;
+            color: #6c757d;
+        }
+
+        .product-footer {
+            padding: 0.8rem 1.2rem;
+            background: #fdf9fb;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+
+        /* ===== BOTONES ===== */
+        .btn-custom {
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-success-custom {
+            background: #7acb77;
+            color: #2e5930;
+        }
+
+        .btn-success-custom:hover {
+            background: #58b368;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .btn-danger-custom {
+            background: #f26a6a;
+            color: white;
+        }
+
+        .btn-danger-custom:hover {
+            background: #e74c3c;
+        }
+
+        /* ===== ALERTAS ===== */
+        .alert-custom {
+            padding: 1rem 1.5rem;
+            border-radius: 14px;
+            text-align: center;
+            font-size: 0.95rem;
+            margin: 1rem 0;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .alert-success-custom {
+            background: #d9fdd3;
+            border: 1.5px solid #b2e8a7;
+            color: #2e7d32;
+        }
+
+        .alert-warning-custom {
+            background: #fff7e6;
+            border: 1.5px solid #ffe1a3;
+            color: #8b6b00;
+        }
+
+        /* ===== PAGINACIÓN ===== */
+        .pagination-custom {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 2.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .pagination-custom a,
+        .pagination-custom span {
+            padding: 0.6rem 1rem;
+            background: white;
+            color: #38122A;
+            border: 1.5px solid #ddd;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .pagination-custom a:hover {
+            background: #38122A;
+            color: white;
+            border-color: #38122A;
+            transform: translateY(-1px);
+        }
+
+        .pagination-custom .current {
+            background: #38122A;
+            color: white;
+            border-color: #38122A;
+            font-weight: 600;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            color: #777;
+            font-size: 0.9rem;
+            margin-top: 4rem;
+            font-family: 'Inter', sans-serif;
+            border-top: 1px solid #eee;
+            background: #fdf9fb;
+        }
+
+        footer p {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        footer svg {
+            width: 20px;
+            height: 20px;
+            fill: #FF69B4;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .catalog-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .product-img,
+            .product-img-placeholder {
+                height: 160px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #38122A;
+                padding: 1rem;
+            }
+
+            .nav.active {
+                display: flex;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 992px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+
+    @auth
     @if (Auth::user()->role === 'admin')
-        {{-- Navbar ADMIN --}}
         @include('forms', ['Modo' => 'Encabezado'])
-
     @elseif (Auth::user()->role === 'cliente')
-        {{-- Navbar CLIENTE --}}
         @include('forms', ['Modo' => 'Encabezado'])
     @endif
     @else
-        {{-- Navbar PÚBLICO (sin login) --}}
         @include('forms', ['Modo' => 'Encabezado'])
     @endauth
-    </div>
-
-    <style>
-        .product-card {
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
-        }
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-        .product-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-        }
-    </style>
 </head>
 
 <body>
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>🪴 Catálogo de Productos</h2>
-        <a href="{{ route('inventario.create') }}" class="btn btn-success">+ Nuevo Producto</a>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="nav-container">
+        <button class="menu-toggle">Menú</button>
+    </div>
+</header>
+
+<!-- CONTENIDO -->
+<div class="container">
+    <div class="catalog-header">
+        <h2 class="catalog-title">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14h-4v-2h4v2zm0-4h-4V9h4v4z"/>
+            </svg>
+            Catálogo de Productos
+        </h2>
+        <a href="{{ route('inventario.create') }}" class="btn-custom btn-success-custom">
+            Nuevo Producto
+        </a>
     </div>
 
     @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        <div class="alert-custom alert-success-custom">
+            {{ session('success') }}
+        </div>
     @endif
 
     @if($products->count())
-        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="products-grid">
             @foreach ($products as $product)
-                <div class="col">
-                    <div class="card product-card">
-                        <!-- Si tienes imagen -->
-                        @if($product->image_path)
-                            <img src="{{ asset('imgs/' . $product->image_path) }}" alt="{{ $product->name }}" class="product-img">
-
-                        @else
-                            <img src="https://via.placeholder.com/300x200?text=Sin+Imagen" class="product-img" alt="Sin imagen">
-                        @endif
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $product->name }}</h5>
-                            <p class="card-text mb-1"><strong>Precio:</strong> S/ {{ number_format($product->price, 2) }}</p>
-                            <p class="card-text mb-1"><strong>Stock:</strong> {{ $product->stock }}</p>
-                            <p class="card-text mb-1"><strong>Costo Producción:</strong> S/ {{ number_format($product->costo_produccion, 2) }}</p>
-                            <span class="badge {{ $product->estado == 'activo' ? 'bg-success' : 'bg-secondary' }}">
-                                {{ ucfirst($product->estado) }}
-                            </span>
+                <div class="product-card">
+                    @if($product->image_path)
+                        <img src="{{ asset('imgs/' . $product->image_path) }}" alt="{{ $product->name }}" class="product-img">
+                    @else
+                        <div class="product-img-placeholder">
+                            Sin imagen
                         </div>
+                    @endif
 
-                        <div class="card-footer d-flex justify-content-between">
-                            {{--  <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning btn-sm">Editar</a>  --}}
-                            <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro de eliminar este producto?')">Eliminar</button>
-                            </form>
+                    <div class="product-body">
+                        <h3 class="product-name">{{ $product->name }}</h3>
+                        <div class="product-info">
+                            <span><strong>Precio:</strong> S/ {{ number_format($product->price, 2) }}</span>
                         </div>
+                        <div class="product-info">
+                            <span><strong>Stock:</strong> {{ $product->stock }}</span>
+                        </div>
+                        <div class="product-info">
+                            <span><strong>Costo:</strong> S/ {{ number_format($product->costo_produccion, 2) }}</span>
+                        </div>
+                        <span class="product-badge {{ $product->estado == 'activo' ? 'badge-active' : 'badge-inactive' }}">
+                            {{ ucfirst($product->estado) }}
+                        </span>
+                    </div>
+
+                    <div class="product-footer">
+                        {{-- <a href="{{ route('products.edit', $product->id) }}" class="btn-custom btn-warning-custom btn-sm">Editar</a> --}}
+                        <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn-custom btn-danger-custom btn-sm"
+                                onclick="return confirm('¿Seguro de eliminar este producto?')">
+                                Eliminar
+                            </button>
+                        </form>
                     </div>
                 </div>
             @endforeach
         </div>
+
+        <!-- PAGINACIÓN PERSONALIZADA -->
+        <div class="pagination-custom">
+            {{ $products->links() }}
+        </div>
     @else
-        <div class="alert alert-warning mt-4">No hay productos registrados aún.</div>
+        <div class="alert-custom alert-warning-custom">
+            No hay productos registrados aún.
+        </div>
     @endif
 </div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<footer>
+    <p>
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+        </svg>
+        Florería "AriDetalles" — Amor y frescura en cada detalle
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+        </svg>
+    </p>
+</footer>
+
+<script>
+    // Menu mobile
+    document.querySelector('.menu-toggle')?.addEventListener('click', () => {
+        document.querySelector('.nav')?.classList.toggle('active');
+    });
+</script>
+
 </body>
 </html>
-
-
-{{--  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">  --}}
-
-    {{-- Tu CSS personalizado --}}
-    {{--  <link href="{{ asset('css/app.css') }}" rel="stylesheet">  --}}
-{{--  <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-    /* Fondo general */
-body {
-    background: linear-gradient(135deg, #e6ffe6 0%, #ffffff 100%);
-    font-family: "Poppins", sans-serif;
-    color: #333;
-}
-
-/* Título principal */
-h4 {
-    font-weight: 600;
-    letter-spacing: 0.5px;
-}
-
-/* Tarjeta principal */
-.card {
-    border-radius: 15px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Encabezado de la tarjeta */
-.card-header {
-    background: linear-gradient(90deg, #198754, #25a86d);
-    border: none;
-    font-weight: 500;
-    letter-spacing: 0.4px;
-}
-
-/* Botones del encabezado */
-.card-header .btn {
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    font-weight: 500;
-}
-
-.card-header .btn:hover {
-    background-color: #f8f9fa;
-    color: #198754;
-    transform: scale(1.05);
-}
-
-/* Tabla */
-.table {
-    margin-top: 10px;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.table thead {
-    background-color: #212529;
-    color: #fff;
-    font-weight: 500;
-}
-
-.table-hover tbody tr:hover {
-    background-color: #d1f3d1;
-    transition: 0.2s ease-in-out;
-}
-
-/* Celdas */
-.table td, .table th {
-    vertical-align: middle;
-    text-align: center;
-}
-
-/* Imagen o texto en columna imagen */
-.table td:nth-child(6) {
-    font-style: italic;
-    color: #666;
-}
-
-/* Botones de acción */
-.btn-warning {
-    background-color: #ffc107;
-    border: none;
-    color: #fff;
-    font-weight: 500;
-}
-
-.btn-warning:hover {
-    background-color: #e0a800;
-    transform: scale(1.05);
-}
-
-.btn-danger {
-    background-color: #dc3545;
-    border: none;
-    font-weight: 500;
-}
-
-.btn-danger:hover {
-    background-color: #c82333;
-    transform: scale(1.05);
-}
-
-/* Alertas */
-.alert-success {
-    background-color: #d4edda;
-    color: #155724;
-    border-left: 5px solid #198754;
-    border-radius: 10px;
-}
-
-/* Paginación */
-.pagination {
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.page-link {
-    color: #198754;
-    border-radius: 10px;
-}
-
-.page-item.active .page-link {
-    background-color: #198754;
-    border-color: #198754;
-}
-
-/* Responsivo */
-@media (max-width: 768px) {
-    .card-header {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-    }
-    .table thead {
-        display: none;
-    }
-    .table tbody tr {
-        display: block;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        padding: 10px;
-    }
-    .table td {
-        display: flex;
-        justify-content: space-between;
-        padding: 6px 0;
-    }
-    .table td::before {
-        content: attr(data-label);
-        font-weight: bold;
-        color: #198754;
-    }
-}
-
-</style>
-</head>
-<body>
-<div class="container mt-4">
-    <div class="card shadow border-0">
-        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
-            <h4 class="mb-0">📋 Lista de Productos</h4>
-            <a href="{{ route('products.create') }}" class="btn btn-light">➕ Nuevo Producto</a>
-            <a href="{{url('/')}}" class="btn btn-light">Regresar</a>
-        </div>
-        <div class="card-body">
-            @if(session('mensaje'))
-                <div class="alert alert-success">{{ session('mensaje') }}</div>
-            @endif
-
-            <div class="table-responsive">
-                <table class="table table-hover align-middle">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Precio</th>
-                            <th>Stock</th>
-                            <th>imagen</th>
-                            <th>Categoría</th>
-                            <th>Proveedor</th>
-                            <th class="text-center">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($products as $product)
-                            <tr>
-                                <td>{{ $product->id }}</td>
-                                <td>{{ $product->name }}</td>
-                                <td>{{ $product->description }}</td>
-                                <td>💲{{ number_format($product->price, 2) }}</td>
-                                <td>{{ $product->stock }}</td>
-                                <td>{{ $product->image_path }}</td>
-                                <td>{{ $product->category->name ?? 'N/A' }}</td>
-                                <td>{{ $product->supplier->name ?? 'N/A' }}</td>
-                                <td class="text-center">
-                                    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-warning">
-                                        ✏️ Editar
-                                    </a>
-                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger"
-                                            onclick="return confirm('¿Seguro que deseas eliminar este producto?')">
-                                            🗑️ Eliminar
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="8" class="text-center text-muted">No hay productos registrados</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-
-            {{-- Paginación --}}
-            {{--  <div class="mt-3">
-                {{ $products->links() }}
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>  --}}  
-
-

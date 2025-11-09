@@ -429,190 +429,297 @@
 
 {{--  NavbarAdministrador  --}}
 @if ($Modo == 'Encabezado')
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+<nav class="navbar">
+  <div class="container-fluid nav-container">
+
+    {{-- LOGO --}}
+    <a href="/" class="navbar-brand">
+      <svg class="flower-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+      </svg>
+      ARIDETALLES
+    </a>
+
+    {{-- BOTÓN HAMBURGUESA (MÓVIL) --}}
+    <button class="navbar-toggler" type="button">
+      <span class="toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+
+    {{-- MENÚ --}}
+    <div class="navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+          <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="/">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url('/insumos')}}">Insumos</a>
+          <a class="nav-link {{ request()->is('insumos*') ? 'active' : '' }}" href="{{ url('/insumos') }}">Insumos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url('/inventario')}}">Crear Producto</a>
+          <a class="nav-link {{ request()->is('inventario*') ? 'active' : '' }}" href="{{ url('/inventario') }}">Crear Producto</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url('/products')}}">Catálogo</a>
+          <a class="nav-link {{ request()->is('products*') ? 'active' : '' }}" href="{{ url('/products') }}">Catálogo</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{route('contactanos')}}">Contacto</a>
+          <a class="nav-link {{ request()->is('contacto*') ? 'active' : '' }}" href="{{ route('contactanos') }}">Contacto</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url('/nosotros') }}">Sobre Nosotros</a>
+          <a class="nav-link {{ request()->is('nosotros*') ? 'active' : '' }}" href="{{ url('/nosotros') }}">Sobre Nosotros</a>
         </li>
-         @auth
-          {{-- Si el usuario está logueado --}}
+
+        @auth
           <li class="nav-item">
-            <span class="nav-link">👋 {{ Auth::user()->name }}</span>
+            <span class="nav-link user-greeting">Hola, {{ Auth::user()->name }}</span>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-succesful" href="{{ route('logout') }}">Cerrar sesión</a>
+            <a class="nav-link logout-btn" href="{{ route('logout') }}">Cerrar sesión</a>
           </li>
         @else
-          {{-- Si NO está logueado --}}
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
+            <a class="nav-link login-btn" href="{{ route('login') }}">Iniciar sesión</a>
           </li>
         @endauth
       </ul>
     </div>
   </div>
 </nav>
+
 <style>
-/* ===== NAVBAR GENERAL ===== */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(135deg, #ffd9e0, #ffeef2);
-  box-shadow: 0 4px 15px rgba(201, 79, 124, 0.25);
-  border-bottom: 2px solid #ffb6c1;
-  padding: 0.8rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-/* ===== LOGO / TÍTULO ===== */
-.navbar-brand {
-  font-family: "Playfair Display", serif;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #c94f7c;
-  letter-spacing: 1px;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.navbar-brand:hover {
-  color: #a6315b;
-}
-
-/* ===== CONTENEDOR DE LINKS ===== */
-.navbar-nav {
-  display: flex;
-  gap: 1.5rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* ===== LINKS ===== */
-.navbar-nav .nav-link {
-  color: #4b3b3b;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1rem;
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-/* ===== EFECTO DE SUBRAYADO ===== */
-.navbar-nav .nav-link::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0%;
-  height: 2px;
-  background-color: #c94f7c;
-  transition: width 0.3s ease;
-}
-
-.navbar-nav .nav-link:hover::after,
-.navbar-nav .nav-link.active::after {
-  width: 100%;
-}
-
-/* ===== LINK ACTIVO ===== */
-.navbar-nav .nav-link.active {
-  color: #c94f7c;
-  font-weight: 600;
-}
-
-/* ===== BOTÓN DE SESIÓN DESTACADO ===== */
-.navbar-nav .nav-link:last-child {
-  background-color: #c94f7c;
-  color: #fff;
-  padding: 8px 18px;
-  border-radius: 25px;
-  transition: all 0.3s ease;
-}
-
-.navbar-nav .nav-link:last-child:hover {
-  background-color: #a6315b;
-  transform: translateY(-2px);
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
+  /* ===== NAVBAR ESTILO FIGMA ===== */
   .navbar {
-    flex-direction: column;
-    text-align: center;
-    padding: 1rem;
+    background: linear-gradient(135deg, #561c41, #38122A);
+    box-shadow: 0 4px 15px rgba(201, 79, 124, 0.25);
+    border-bottom: 2px solid #38122A;
+    padding: 0.8rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-family: 'Inria Serif', serif;
+  }
+
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* LOGO */
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #c94f7c;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    margin-right: 100px;
+  }
+
+  .navbar-brand:hover {
+    color: #a6315b;
+  }
+
+  .flower-icon {
+    width: 28px;
+    height: 28px;
+    stroke: #c94f7c;
+  }
+
+  /* TOGGLER */
+  .navbar-toggler {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .toggler-icon {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: white;
+    position: relative;
+    border-radius: 2px;
+  }
+
+  .toggler-icon::before,
+  .toggler-icon::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 2px;
+    transition: 0.3s;
+  }
+
+  .toggler-icon::before { top: -8px; }
+  .toggler-icon::after { bottom: -8px; }
+
+  /* COLLAPSE */
+  .navbar-collapse {
+    display: flex;
+    justify-content: flex-end;
   }
 
   .navbar-nav {
-    flex-direction: column;
-    gap: 0.8rem;
-    margin-top: 0.8rem;
+    display: flex;
+    gap: 1.8rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
-}
+
+  .nav-link {
+    color: #F9F5EC;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #c94f7c;
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    width: 100%;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: #c94f7c;
+  }
+
+  /* BOTONES ESPECIALES */
+  .logout-btn,
+  .login-btn {
+    background: #F9F5EC;
+    color: #38122A !important;
+    padding: 8px 18px !important;
+    border-radius: 25px;
+    font-weight: 600;
+  }
+
+  .logout-btn:hover,
+  .login-btn:hover {
+    background: #c94f7c;
+    color: white !important;
+    transform: translateY(-2px);
+  }
+
+  .user-greeting {
+    color: #c94f7c;
+    font-weight: 500;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 992px) {
+    .navbar-toggler {
+      display: block;
+    }
+
+    .navbar-collapse {
+      position: fixed;
+      top: 70px;
+      left: -100%;
+      width: 100%;
+      height: calc(100vh - 70px);
+      background: #38122A;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 2rem;
+      transition: left 0.3s ease;
+    }
+
+    .navbar-collapse.active {
+      left: 0;
+    }
+
+    .navbar-nav {
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+      text-align: center;
+    }
+
+    .nav-link {
+      font-size: 1.2rem;
+      padding: 0.8rem 0;
+    }
+  }
 </style>
+
+<script>
+  // Toggle menú móvil
+  document.querySelector('.navbar-toggler').addEventListener('click', () => {
+    document.querySelector('.navbar-collapse').classList.toggle('active');
+  });
+</script>
 
 @endif
 
 
 {{--  Navbar Cliente  --}}
 @if ($Modo == 'EncabezadoClie')
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+<nav class="navbar">
+  <div class="container-fluid nav-container">
+
+    {{-- LOGO --}}
+    <a href="/" class="navbar-brand">
+      <svg class="flower-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+      </svg>
+      ARIDETALLES
+    </a>
+
+    {{-- BOTÓN HAMBURGUESA (MÓVIL) --}}
+    <button class="navbar-toggler" type="button">
+      <span class="toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+
+    {{-- MENÚ --}}
+    <div class="navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+          <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="/">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url('/products')}}">Catálogo</a>
+          <a class="nav-link {{ request()->is('products*') ? 'active' : '' }}" href="{{ url('/products') }}">Catálogo</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url('/orders') }}">Pedido</a>
+          <a class="nav-link {{ request()->is('contacto*') ? 'active' : '' }}" href="{{ route('contactanos') }}">Contacto</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{route('contactanos')}}">Contacto</a>
+          <a class="nav-link {{ request()->is('nosotros*') ? 'active' : '' }}" href="{{ url('/nosotros') }}">Sobre Nosotros</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/nosotros">Sobre Nosotros</a>
-        </li>
-         @auth
-          {{-- Si el usuario está logueado --}}
+
+        @auth
           <li class="nav-item">
-            <span class="nav-link">👋 {{ Auth::user()->name }}</span>
+            <span class="nav-link user-greeting">Hola, {{ Auth::user()->name }}</span>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-succesful" href="{{ route('logout') }}">Cerrar sesión</a>
+            <a class="nav-link logout-btn" href="{{ route('logout') }}">Cerrar sesión</a>
           </li>
         @else
-          {{-- Si NO está logueado --}}
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
+            <a class="nav-link login-btn" href="{{ route('login') }}">Iniciar sesión</a>
           </li>
         @endauth
       </ul>
@@ -620,106 +727,193 @@
   </div>
 </nav>
 <style>
-/* ===== NAVBAR GENERAL ===== */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(135deg, #ffd9e0, #ffeef2);
-  box-shadow: 0 4px 15px rgba(201, 79, 124, 0.25);
-  border-bottom: 2px solid #ffb6c1;
-  padding: 0.8rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-/* ===== LOGO / TÍTULO ===== */
-.navbar-brand {
-  font-family: "Playfair Display", serif;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #c94f7c;
-  letter-spacing: 1px;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.navbar-brand:hover {
-  color: #a6315b;
-}
-
-/* ===== CONTENEDOR DE LINKS ===== */
-.navbar-nav {
-  display: flex;
-  gap: 1.5rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* ===== LINKS ===== */
-.navbar-nav .nav-link {
-  color: #4b3b3b;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1rem;
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-/* ===== EFECTO DE SUBRAYADO ===== */
-.navbar-nav .nav-link::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0%;
-  height: 2px;
-  background-color: #c94f7c;
-  transition: width 0.3s ease;
-}
-
-.navbar-nav .nav-link:hover::after,
-.navbar-nav .nav-link.active::after {
-  width: 100%;
-}
-
-/* ===== LINK ACTIVO ===== */
-.navbar-nav .nav-link.active {
-  color: #c94f7c;
-  font-weight: 600;
-}
-
-/* ===== BOTÓN DE SESIÓN DESTACADO ===== */
-.navbar-nav .nav-link:last-child {
-  background-color: #c94f7c;
-  color: #fff;
-  padding: 8px 18px;
-  border-radius: 25px;
-  transition: all 0.3s ease;
-}
-
-.navbar-nav .nav-link:last-child:hover {
-  background-color: #a6315b;
-  transform: translateY(-2px);
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
+  /* ===== NAVBAR ESTILO FIGMA ===== */
   .navbar {
-    flex-direction: column;
-    text-align: center;
-    padding: 1rem;
+    background: linear-gradient(135deg, #561c41, #38122A);
+    box-shadow: 0 4px 15px rgba(201, 79, 124, 0.25);
+    border-bottom: 2px solid #38122A;
+    padding: 0.8rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-family: 'Inria Serif', serif;
+  }
+
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* LOGO */
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #c94f7c;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    margin-right: 100px;
+  }
+
+  .navbar-brand:hover {
+    color: #a6315b;
+  }
+
+  .flower-icon {
+    width: 28px;
+    height: 28px;
+    stroke: #c94f7c;
+  }
+
+  /* TOGGLER */
+  .navbar-toggler {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .toggler-icon {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: white;
+    position: relative;
+    border-radius: 2px;
+  }
+
+  .toggler-icon::before,
+  .toggler-icon::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 2px;
+    transition: 0.3s;
+  }
+
+  .toggler-icon::before { top: -8px; }
+  .toggler-icon::after { bottom: -8px; }
+
+  /* COLLAPSE */
+  .navbar-collapse {
+    display: flex;
+    justify-content: flex-end;
   }
 
   .navbar-nav {
-    flex-direction: column;
-    gap: 0.8rem;
-    margin-top: 0.8rem;
+    display: flex;
+    gap: 1.8rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
-}
+
+  .nav-link {
+    color: #F9F5EC;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #c94f7c;
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    width: 100%;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: #c94f7c;
+  }
+
+  /* BOTONES ESPECIALES */
+  .logout-btn,
+  .login-btn {
+    background: #F9F5EC;
+    color: #38122A !important;
+    padding: 8px 18px !important;
+    border-radius: 25px;
+    font-weight: 600;
+  }
+
+  .logout-btn:hover,
+  .login-btn:hover {
+    background: #c94f7c;
+    color: white !important;
+    transform: translateY(-2px);
+  }
+
+  .user-greeting {
+    color: #c94f7c;
+    font-weight: 500;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 992px) {
+    .navbar-toggler {
+      display: block;
+    }
+
+    .navbar-collapse {
+      position: fixed;
+      top: 70px;
+      left: -100%;
+      width: 100%;
+      height: calc(100vh - 70px);
+      background: #38122A;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 2rem;
+      transition: left 0.3s ease;
+    }
+
+    .navbar-collapse.active {
+      left: 0;
+    }
+
+    .navbar-nav {
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+      text-align: center;
+    }
+
+    .nav-link {
+      font-size: 1.2rem;
+      padding: 0.8rem 0;
+    }
+  }
 </style>
+
+<script>
+  // Toggle menú móvil
+  document.querySelector('.navbar-toggler').addEventListener('click', () => {
+    document.querySelector('.navbar-collapse').classList.toggle('active');
+  });
+</script>
 @endif
 
 {{-- Inventario + Producto --}}

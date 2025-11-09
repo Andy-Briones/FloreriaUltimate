@@ -1,172 +1,188 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio - Florería Alessa</title>
-
-    {{-- Encabezado general --}}
-    {{--  @include('forms', ['Modo' => 'Encabezado'])  --}}
-
-    @auth
-    @if (Auth::user()->role === 'admin')
-        {{-- Navbar ADMIN --}}
-        @include('forms', ['Modo' => 'Encabezado'])
-
-    @elseif (Auth::user()->role === 'cliente')
-        {{-- Navbar CLIENTE --}}
-        @include('forms', ['Modo' => 'Encabezado'])
-    @endif
-    @else
-        {{-- Navbar PÚBLICO (sin login) --}}
-        @include('forms', ['Modo' => 'Encabezado'])
-    @endauth
-
-    {{-- Bootstrap CSS --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-      /* ===== RESET GENERAL ===== */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Poppins", sans-serif;
-      }
-
-      /* ===== BODY ===== */
-      body {
-        background-color: #ba72c3ff;
-        color: #333;
-        overflow-x: hidden;
-      }
-
-      /* ===== TÍTULO PRINCIPAL ===== */
-      h3 {
-        text-align: center;
-        font-size: 2.2rem;
-        color: #c94f7c;
-        margin: 1.5rem 0;
-        letter-spacing: 2px;
-        text-shadow: 1px 1px 2px rgba(201, 79, 124, 0.2);
-        font-weight: 700;
-      }
-
-      /* ===== CARRUSEL ===== */
-      .carousel {
-        width: 90%;
-        max-width: 1100px;
-        margin: 0 auto 3rem auto;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-      }
-
-      /* Imagen del carrusel */
-      .carousel-item img {
-        height: 500px;
-        object-fit: cover;
-        filter: brightness(85%);
-      }
-
-      /* ===== CAPTIONS ===== */
-      .carousel-caption {
-        background: rgba(0, 0, 0, 0.45);
-        border-radius: 15px;
-        padding: 1.2rem 2rem;
-        backdrop-filter: blur(5px);
-      }
-
-      .carousel-caption h5 {
-        font-size: 1.8rem;
-        font-weight: 600;
-        color: #fff;
-      }
-
-      .carousel-caption p {
-        font-size: 1rem;
-        color: #f0e6e6;
-      }
-
-      /* ===== BOTONES DEL CARRUSEL ===== */
-      .carousel-control-prev-icon,
-      .carousel-control-next-icon {
-        filter: invert(1) drop-shadow(0 0 4px #fff);
-      }
-
-      /* ===== RESPONSIVE ===== */
-      @media (max-width: 768px) {
-        h3 {
-          font-size: 1.7rem;
-        }
-
-        .carousel-item img {
-          height: 350px;
-        }
-
-        .carousel-caption h5 {
-          font-size: 1.4rem;
-        }
-
-        .carousel-caption p {
-          font-size: 0.9rem;
-        }
-      }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aridetalles - Florería Natural</title>
+  @vite(['resources/css/welcome.css', 'resources/js/app.js'])
+  <!-- Fuentes: Inria Serif (principal) + Inter (secundaria) -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
 </head>
 
 <body>
-    <div><h3>🌸 .AriDetalles. 🌸</h3></div>
 
-    {{-- Carrusel de imágenes --}}
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container nav-container">
+      <div class="logo">
       </div>
+      @auth
+        @if (Auth::user()->role === 'admin')
+          {{-- Navbar ADMIN --}}
+          @include('forms', ['Modo' => 'Encabezado'])
 
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="{{ asset('imgs/floreria.jpg') }}" class="d-block w-100" alt="Flores Alessa">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Ramos de Amor</h5>
-            <p>Flores frescas para cada momento especial 💐</p>
-          </div>
-        </div>
+        @elseif (Auth::user()->role === 'cliente')
+          {{-- Navbar CLIENTE --}}
+          @include('forms', ['Modo' => 'Encabezado'])
+        @endif
+      @else
+        {{-- Navbar PÚBLICO (sin login) --}}
+        @include('forms', ['Modo' => 'Encabezado'])
+      @endauth
 
-        <div class="carousel-item">
-          <img src="{{ asset('imgs/flor2.png') }}" class="d-block w-100" alt="Decoraciones Alessa">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Decoraciones Elegantes</h5>
-            <p>Hacemos tus eventos inolvidables 🌸</p>
-          </div>
-        </div>
-
-        <div class="carousel-item">
-          <img src="{{ asset('imgs/flor3.png') }}" class="d-block w-100" alt="Ramos Alessa">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Diseños Personalizados</h5>
-            <p>El detalle perfecto para cada ocasión 💕</p>
-          </div>
-        </div>
-      </div>
-
-      {{-- Controles de navegación --}}
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Anterior</span>
-      </button>
-
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Siguiente</span>
-      </button>
+      <button class="menu-toggle">Menú</button>
     </div>
+  </header>
 
-    {{-- Bootstrap JS --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-content">
+      <div class="hero-full"> <img src="{{ asset('imgs/fondo.jpg') }}" alt="Mujer con ramo" class="hero-bg">
+        <div class="hero-overlay">
+          <div class="hero-logo-center"> <svg class="flower-big" viewBox="0 0 24 24" fill="none" stroke="#38122A"
+              stroke-width="1.5">
+              <img src="{{ asset('/imgs/logo-Photoroom.png') }}" alt="Logo">
+            </svg>
+            <h1 class="hero-title">ARIDETALLES</h1>
+          </div>
+        </div>
+      </div>
+      <div class="hero-left">
+        <!-- CARRUSEL DE PRODUCTOS -->
+        <div class="carousel">
+          <button class="carousel-btn prev">🢠</button>
+          <div class="carousel-track-container">
+            <div class="carousel-track">
+              <div class="product">
+                <img src="{{ asset('imgs/ramo rosas.jpg') }}">
+                <div class="price">$/. 180.00</div>
+              </div>
+              <div class="product">
+                <img src="{{ asset('imgs/ramorosasrojas.jpg') }}">
+                <div class="price">$/. 80.00</div>
+              </div>
+              <div class="product">
+                <img src="{{ asset('imgs/ramosentado.jpg') }}">
+                <div class="price">$/. 65.00</div>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-btn next">➭</button>
+          <div class="carousel-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+        </div>
+
+        <!-- FORMULARIO PERSONALIZACIÓN -->
+        <div class="custom-form">
+          <h3>Arreglos Personalizados</h3>
+          <p>Si buscas algo único, completa el formulario de personalización y nuestro equipo creará un arreglo según tu
+            estilo.</p>
+          <form>
+            <input type="text" placeholder="Nombre" required />
+            <input type="tel" placeholder="Teléfono" required />
+            <input type="text" placeholder="Ocasión (cumpleaños, boda, etc)" required />
+            <textarea placeholder="Descripción..." rows="3" required></textarea>
+            <a class="btn" href="#">Solicitar Cotización</a>
+          </form>
+        </div>
+      </div>
+
+      <!-- IMAGEN HERO + PROMOCIÓN -->
+      <div class="hero-right">
+        {{-- <img src="{{ asset('imgs/floreria.jpg') }}" alt="Mujer con ramo" class="hero-image"> --}}
+        <div class="promo-banner">
+          <div class="promo-title">PROMOS DE <span>Flores</span> <span class="arrow">Up Arrow</span></div>
+          <div class="promo-card">
+            <img src="{{ asset('imgs/promo.jpg') }}" alt="Ramo con descuento">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-grid">
+
+      <div class="footer-left">
+        <div class="footer-brand">
+          <svg class="flower-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <img src="{{ asset('/imgs/logo-Photoroom.png') }}" width="50px" height="50px" alt="Logo">
+          </svg>
+          <span class="brand">ARIDETALLES</span>
+        </div>
+
+        <div class="footer-info">
+          <h4>INFORMACIÓN</h4>
+          <p>Aridetalles nace de la pasión por la belleza natural. Elegimos flores frescas diariamente y cuidamos cada
+            detalle para que tus regalos transmitan emociones memorables.</p>
+        </div>
+      </div>
+
+      <div class="footer-map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247.42243817919737!2d-78.52107202395996!3d-7.153838090714266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91b25a57fd1c8a11%3A0x82686cd346b8aa0b!2sFloreria%20Alessa!5e0!3m2!1ses-419!2spe!4v1760476481888!5m2!1ses-419!2spe"
+          width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <script>
+    // Menu mobile
+    document.querySelector('.menu-toggle').addEventListener('click', () => {
+      document.querySelector('.nav').classList.toggle('active');
+    });
+
+    // Carrusel
+    const track = document.querySelector('.carousel-track');
+    const slides = document.querySelectorAll('.product');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+    let index = 0;
+
+    function updateCarousel() {
+      track.style.transform = `translateX(-${index * 33.333}%)`;
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+    }
+
+    nextBtn.addEventListener('click', () => {
+      index = (index + 1) % slides.length;
+      updateCarousel();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      index = (index - 1 + slides.length) % slides.length;
+      updateCarousel();
+    });
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        index = i;
+        updateCarousel();
+      });
+    });
+
+    // Cantidad
+    document.querySelectorAll('.quantity button').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const span = e.target.parentElement.querySelector('span');
+        let qty = parseInt(span.textContent);
+        if (e.target.textContent === '+') qty++;
+        else if (qty > 1) qty--;
+        span.textContent = qty;
+      });
+    });
+  </script>
 </body>
+
 </html>
-
-
