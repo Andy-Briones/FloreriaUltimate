@@ -950,9 +950,7 @@
             <div class="col-md-6">
             <label for="image_path" class="form-label">🖼️ Imagen (opcional)</label>
             <div class="input-group">
-                <input type="text" name="image_path" id="image_path" class="form-control"
-                    placeholder="Ruta de la imagen" readonly>
-                <input type="file" id="file_selector" class="form-control" accept="image/*">
+                <input type="file" name="image_path" id="image_path" class="form-control" accept="image/*">
             </div>
         </div>
 
@@ -1144,3 +1142,114 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 @endif
 
+{{-- Widget de Accesibilidad --}}
+@if($Modo === 'Accesibilidad')
+
+@once
+@push('styles')
+<style>
+    .acc-widget { position: fixed; bottom: 90px; right: 20px; z-index: 999; font-family: system-ui, sans-serif; }
+    .acc-btn { width: 56px; height: 56px; background: #007bff; color: white; border: none; border-radius: 50%; font-size: 24px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
+    .acc-btn:hover { background: #0056b3; transform: scale(1.1); }
+    .acc-btn:focus { outline: 3px solid #fff; outline-offset: 2px; }
+    .acc-panel { position: absolute; bottom: 70px; right: 0; width: 280px; background: white; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); padding: 16px; display: none; flex-direction: column; gap: 12px; opacity: 0; transform: translateY(10px); transition: all 0.3s ease; border: 1px solid #e0e0e0; }
+    .acc-panel.open { display: flex; opacity: 1; transform: translateY(0); }
+    .acc-title { font-weight: 600; font-size: 16px; margin: 0 0 8px; color: #1a1a1a; text-align: center; }
+    .acc-option { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; background: #f8f9fa; border-radius: 8px; font-size: 14px; color: #333; cursor: pointer; transition: background 0.2s; }
+    .acc-option:hover { background: #e9ecef; }
+    .acc-text-controls { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #f8f9fa; border-radius: 8px; }
+    .acc-text-btn { width: 32px; height: 32px; border: 1px solid #ccc; background: white; border-radius: 6px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+    .acc-text-btn:hover { background: #007bff; color: white; border-color: #007bff; }
+    .acc-text-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .acc-text-value { min-width: 40px; text-align: center; font-weight: 500; }
+    .acc-reset { margin-top: 8px; padding: 10px; background: #dc3545; color: white; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; }
+    .acc-reset:hover { background: #c82333; }
+    .acc-panel::after { content: ''; position: absolute; bottom: -8px; right: 24px; width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 8px solid white; }
+    body.acc-high-contrast, body.acc-high-contrast * { background: black !important; color: white !important; border-color: white !important; }
+    body.acc-high-contrast a { color: #66ccff !important; text-decoration: underline !important; }
+    body.acc-high-contrast img, body.acc-high-contrast video, body.acc-high-contrast iframe { filter: brightness(0.8) contrast(1.2) !important; }
+    body.acc-underline-links a { text-decoration: underline !important; }
+    body.acc-reading-mode *, body.acc-reading-mode *:before, body.acc-reading-mode *:after { animation: none !important; transition: none !important; }
+    body.acc-reading-mode img, body.acc-reading-mode video, body.acc-reading-mode svg, body.acc-reading-mode [style*="background-image"] { filter: grayscale(100%) opacity(0.7) !important; }
+    @media (max-width: 480px) { .acc-panel { width: 260px; right: -10px; } .acc-btn { width: 48px; height: 48px; font-size: 20px; } }
+</style>
+@endpush
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        if (document.querySelector('.acc-widget')) return;
+
+        const CONFIG = { min: 80, max: 150, step: 10, key: 'acc-v1' };
+        let state = { fontSize: 100, highContrast: false, readingMode: false, underlineLinks: false };
+
+        const save = () => localStorage.setItem(CONFIG.key, JSON.stringify(state));
+        const load = () => { const s = localStorage.getItem(CONFIG.key); if (s) try { state = { ...state, ...JSON.parse(s) }; apply(); } catch(e) {} };
+        const applyFontSize = () => {
+            document.documentElement.style.fontSize = state.fontSize + '%';
+            const v = document.querySelector('.acc-text-value'); if (v) v.textContent = state.fontSize + '%';
+            const d = document.querySelector('.acc-decrease'); if (d) d.disabled = state.fontSize <= CONFIG.min;
+            const i = document.querySelector('.acc-increase'); if (i) i.disabled = state.fontSize >= CONFIG.max;
+        };
+        const toggle = (c, e) => e ? document.body.classList.add(c) : document.body.classList.remove(c);
+        const updateStatus = () => {
+            ['high-contrast', 'reading-mode', 'underline-links'].forEach(id => {
+                const el = document.querySelector(`#acc-${id}-status`);
+                if (el) el.textContent = state[id.replace('-', '')] ? 'ON' : 'OFF';
+            });
+        };
+        const apply = () => { applyFontSize(); toggle('acc-high-contrast', state.highContrast); toggle('acc-reading-mode', state.readingMode); toggle('acc-underline-links', state.underlineLinks); updateStatus(); };
+        const reset = () => { state = { fontSize: 100, highContrast: false, readingMode: false, underlineLinks: false }; localStorage.removeItem(CONFIG.key); apply(); };
+
+        const widget = document.createElement('div');
+        widget.className = 'acc-widget';
+        widget.innerHTML = `
+            <button class="acc-btn" aria-label="Accesibilidad" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM4.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm7 0a1.5 1.5 0 1 0 0 3 1.5 1.1 0 0 0 0-3zM2.5 8A1.5 1.5 0 1 0 5 8 1.5 1.5 0 0 0 2.5 8zm11 0A1.5 1.5 0 1 0 16 8a1.5 1.5 0 0 0-2.5 0zM8 6.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+                    <circle cx="8" cy="11" r="2"/>
+                    <path d="M8 13v3m-3-3l1 2m4-2l-1 2"/>
+                </svg>
+            </button>
+            <div class="acc-panel">
+                <h3 class="acc-title">Accesibilidad</h3>
+                <div class="acc-text-controls">
+                    <button class="acc-text-btn acc-decrease" aria-label="Disminuir">-</button>
+                    <span class="acc-text-value">100%</span>
+                    <button class="acc-text-btn acc-increase" aria-label="Aumentar">+</button>
+                </div>
+                <div class="acc-option" id="acc-high-contrast-toggle"><span>Alto Contraste</span><span id="acc-high-contrast-status">OFF</span></div>
+                <div class="acc-option" id="acc-reading-mode-toggle"><span>Modo Lectura</span><span id="acc-reading-mode-status">OFF</span></div>
+                <div class="acc-option" id="acc-underline-links-toggle"><span>Subrayar Enlaces</span><span id="acc-underline-links-status">OFF</span></div>
+                <button class="acc-reset">Restablecer</button>
+            </div>
+        `;
+        document.body.appendChild(widget);
+
+        const btn = widget.querySelector('.acc-btn');
+        const panel = widget.querySelector('.acc-panel');
+
+        btn.addEventListener('click', e => { e.stopPropagation(); const o = panel.classList.toggle('open'); btn.setAttribute('aria-expanded', o); });
+        document.addEventListener('click', () => { panel.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); });
+        panel.addEventListener('click', e => e.stopPropagation());
+
+        widget.querySelector('.acc-decrease').addEventListener('click', () => { if (state.fontSize > CONFIG.min) { state.fontSize -= CONFIG.step; apply(); save(); } });
+        widget.querySelector('.acc-increase').addEventListener('click', () => { if (state.fontSize < CONFIG.max) { state.fontSize += CONFIG.step; apply(); save(); } });
+        widget.querySelector('#acc-high-contrast-toggle').addEventListener('click', () => { state.highContrast = !state.highContrast; apply(); save(); });
+        widget.querySelector('#acc-reading-mode-toggle').addEventListener('click', () => { state.readingMode = !state.readingMode; apply(); save(); });
+        widget.querySelector('#acc-underline-links-toggle').addEventListener('click', () => { state.underlineLinks = !state.underlineLinks; apply(); save(); });
+        widget.querySelector('.acc-reset').addEventListener('click', reset);
+
+        document.addEventListener('keydown', e => { if (e.key === 'Escape' && panel.classList.contains('open')) { panel.classList.remove('open'); btn.focus(); } });
+
+        load();
+    });
+</script>
+@endpush
+@endonce
+
+{{-- Inyectar estilos y scripts al final --}}
+@stack('styles')
+@stack('scripts')
+
+@endif

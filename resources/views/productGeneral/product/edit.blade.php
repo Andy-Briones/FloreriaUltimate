@@ -17,5 +17,6 @@
         <a href="{{ url('/products') }}" class="btn btn-outline-secondary">⬅️ Regresar</a>
     </div>
 </form>
+@include('forms', ['Modo' => 'Accesibilidad'])
 </body>
 </html>

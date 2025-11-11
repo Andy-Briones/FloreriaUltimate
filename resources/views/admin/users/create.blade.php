@@ -309,6 +309,29 @@
                 display: flex;
             }
         }
+        /*boton what*/
+    .wsp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25d366;
+      color: white;
+      border-radius: 50%;
+      padding: 15px;
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s;
+    }
+
+    .wsp-float:hover {
+      transform: scale(1.1);
+      text-decoration: none;
+    }
+
+    .wsp-icon {
+      font-size: 24px;
+    }
+  </style>
     </style>
 
     @auth
@@ -323,7 +346,7 @@
 </head>
 
 <body>
-
+@include('forms', ['Modo' => 'Accesibilidad'])
 <!-- HEADER -->
 <header class="header">
     <div class="nav-container">

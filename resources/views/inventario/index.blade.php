@@ -256,6 +256,29 @@
                 display: flex;
             }
         }
+        /*boton what*/
+    .wsp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25d366;
+      color: white;
+      border-radius: 50%;
+      padding: 15px;
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s;
+    }
+
+    .wsp-float:hover {
+      transform: scale(1.1);
+      text-decoration: none;
+    }
+
+    .wsp-icon {
+      font-size: 24px;
+    }
+  </style>
     </style>
 
     @auth
@@ -270,7 +293,9 @@
 </head>
 
 <body>
-
+<a href="https://wa.me/51999369837?text=Hola%2C%20quisiera%20hacer%20un%20pedido%20AriDetalles" class="wsp-float" target="_blank" title="Contáctanos por WhatsApp">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp" width="30" height="30">
+  </a>
 <!-- HEADER -->
 <header class="header">
     <div class="nav-container">
@@ -342,6 +367,7 @@
         <p>Florería "AriDetalles" — Amor y frescura en cada detalle</p>
     </footer>
 </div>
+@include('forms', ['Modo' => 'Accesibilidad'])
 
 <script>
     // Menu mobile

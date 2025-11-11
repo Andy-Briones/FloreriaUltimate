@@ -17,7 +17,7 @@ class productController extends Controller
 
         // Si el usuario está logueado y es ADMIN → vista completa
         if ($user && $user->role == 'admin') {
-            $products = alsProduct::with('inventario')->latest()->get();
+            $products = alsProduct::with('inventario')->latest()->paginate(8);
             return view('productGeneral.product.index', compact('products'));
         }
 
@@ -29,7 +29,7 @@ class productController extends Controller
                 ->orWhere('description', 'like', '%' . $request->search . '%');
         }
 
-        $products = $query->where('estado', 'activo')->latest()->get();
+        $products = $query->where('estado', 'activo')->latest()->paginate(8);
 
         // 👇 Usa una vista distinta si quieres (indexcli)
         return view('productGeneral.product.indexcli', compact('products'));

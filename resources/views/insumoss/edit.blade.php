@@ -17,5 +17,6 @@
         <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">⬅️ Cancelar</a>
     </div>
 </form>
+@include('forms', ['Modo' => 'Accesibilidad'])
 </body>
 </html>

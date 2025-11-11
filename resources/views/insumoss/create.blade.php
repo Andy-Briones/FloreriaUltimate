@@ -326,6 +326,7 @@
         </div>
     </div>
 </div>
+@include('forms', ['Modo' => 'Accesibilidad'])
 
 <!-- MODAL: NUEVA CATEGORÍA -->
 <div id="modalCarac" class="modal-floating">

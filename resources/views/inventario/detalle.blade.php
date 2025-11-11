@@ -78,6 +78,7 @@
     @include('forms', ['Modo' => 'Encabezado'])
 </head>
 <body>
+@include('forms', ['Modo' => 'Accesibilidad'])
     <div class="container">
         <h2 class="mb-4 text-center">🌸 Detalle del Producto #{{ $inventario->id }}</h2>
 

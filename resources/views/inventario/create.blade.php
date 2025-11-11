@@ -133,5 +133,6 @@
         </div>
     </form>
 </div>
+@include('forms', ['Modo' => 'Accesibilidad'])
 </body>
 </html>

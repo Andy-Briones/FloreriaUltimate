@@ -27,6 +27,7 @@ class inventarioController extends Controller
     public function store(Request $request)
     {
         DB::beginTransaction();
+
         try {
             $request->validate([
                 'name' => 'required|string|max:255',
@@ -34,6 +35,7 @@ class inventarioController extends Controller
                 'insumos' => 'required|array',
                 'insumos.*.id' => 'required|exists:als_insumos,id',
                 'insumos.*.cantidad_usada' => 'required|integer|min:1',
+                'image_path' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048', // validación imagen
             ]);
 
             // Crear registro de inventario
@@ -66,11 +68,13 @@ class inventarioController extends Controller
                 $costoTotal += $insumo->costo_unitario * $cantidad;
             }
 
-            // Actualizar inventario
-            $inventario->update([
-                'costo_total' => $costoTotal,
-                'cantidad_usada' => collect($request->insumos)->sum('cantidad_usada'),
-            ]);
+            // Subir imagen si se envía
+            $nombreImagen = null;
+            if ($request->hasFile('image_path')) {
+                $file = $request->file('image_path');
+                $nombreImagen = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('imgs'), $nombreImagen);
+            }
 
             // Crear producto
             AlsProduct::create([
@@ -78,21 +82,27 @@ class inventarioController extends Controller
                 'description' => $request->description ?? null,
                 'price' => $request->price,
                 'stock' => $request->stock ?? 1,
-                'image_path' => $request->image_path ?? null,
+                'image_path' => $nombreImagen, // ahora guarda el nombre real
                 'costo_produccion' => $costoTotal,
                 'estado' => 'activo',
                 'alsinvetories_id' => $inventario->id,
             ]);
 
+            // Actualizar inventario
+            $inventario->update([
+                'costo_total' => $costoTotal,
+                'cantidad_usada' => collect($request->insumos)->sum('cantidad_usada'),
+            ]);
+
             DB::commit();
             return redirect()->route('inventario.index')->with('success', 'Producto e inventario creados correctamente.');
-
 
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Error: ' . $e->getMessage());
         }
     }
+
 
     public function show($id)
     {
