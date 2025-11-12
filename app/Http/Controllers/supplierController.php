@@ -19,6 +19,12 @@ class supplierController extends Controller
     }
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'contact_email' => 'required|email|max:255',
+            'phone_number' => 'required|string|max:20',
+            'address' => 'required|string|max:255',
+        ]);
         $supplier = request()->except('_token');
         alsSupplier::insert($supplier);
         return response()->json(['success' => true]);//->with('mensaje', 'Categoría agregada con éxito');
@@ -34,6 +40,12 @@ class supplierController extends Controller
     }
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'contact_email' => 'required|email|max:255',
+            'phone_number' => 'required|string|max:20',
+            'address' => 'required|string|max:255',
+        ]);
         $supplier = request()->except(['_token', '_method']);
         alsSupplier::where('id', '=', $id)->update($supplier);
         return redirect()->route('supplier.index');

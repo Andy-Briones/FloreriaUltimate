@@ -58,8 +58,10 @@ class productController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:500',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
+            'estado' => 'nullable|in:activo,inactivo',
         ]);
 
         alsProduct::create([
@@ -85,8 +87,10 @@ class productController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:500',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
+            'estado' => 'nullable|in:activo,inactivo',
         ]);
 
         $products->update($request->all());

@@ -74,6 +74,17 @@ class insumoController extends Controller
     }
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'nullable|string|max:255',
+            'tipo' => 'nullable|string|max:100',
+            'stock' => 'required|integer|min:0',
+            'unidad' => 'nullable|string|max:50',
+            'estado' => 'required|in:activo,inactivo',
+            'costo_unitario' => 'required|numeric|min:0',
+            'als_category_id' => 'required|exists:als_categories,id',
+            'als_supplier_id' => 'required|exists:als_suppliers,id',
+        ]);
         $insumo = request()->except(['_token', '_method']);
         alsInsumo::where('id', '=', $id)->update($insumo);
         return redirect()->route('insumos.index');

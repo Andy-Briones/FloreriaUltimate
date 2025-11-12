@@ -19,6 +19,10 @@ class categoryController extends Controller
     }
     public function store(Request $request)
     {
+        $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'nullable|string|max:500',
+        ]);
         $categoria = $request->except('_token');
         alsCategory::insert($categoria);
         return response()->json(['success' => true]);//->with('mensaje', 'Categoría agregada con éxito');
@@ -34,6 +38,10 @@ class categoryController extends Controller
     }
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:500',
+        ]);
         $categoria = $request->except('_token', '_method');
         alsCategory::where('id', '=', $id)->update($categoria);
         return redirect()->route('productGeneral.productCategory.index');
