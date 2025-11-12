@@ -83,18 +83,18 @@ class productController extends Controller
 
     public function update(Request $request, $id)
     {
-        $products = alsProduct::findOrFail($id);
+        // $products = alsProduct::findOrFail($id);
 
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string|max:500',
-            'price' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
-            'estado' => 'nullable|in:activo,inactivo',
-        ]);
+        // $request->validate([
+        //     'name' => 'required|string|max:255',
+        //     'description' => 'nullable|string|max:500',
+        //     'price' => 'required|numeric|min:0',
+        //     'stock' => 'required|integer|min:0',
+        //     'estado' => 'nullable|in:activo,inactivo',
+        // ]);
 
-        $products->update($request->all());
-        return redirect()->route('productGeneral.product.index')->with('success', 'Producto actualizado correctamente');
+        // $products->update($request->all());
+        // return redirect()->route('productGeneral.product.index')->with('success', 'Producto actualizado correctamente');
     }
 
     public function destroy($id)
