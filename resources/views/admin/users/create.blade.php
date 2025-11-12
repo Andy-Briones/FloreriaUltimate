@@ -390,17 +390,17 @@
             <div class="form-grid">
                 <div class="form-group">
                     <label for="name">Nombre</label>
-                    <input type="text" name="name" id="name" value="{{ old('name') }}" required>
+                    <input type="text" name="name" id="name" value="{{ old('name') }}" required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,100}" title="Solo letras, mínimo 3 caracteres">
                 </div>
 
                 <div class="form-group">
                     <label for="surname">Apellido</label>
-                    <input type="text" name="surname" id="surname" value="{{ old('surname') }}" required>
+                    <input type="text" name="surname" id="surname" value="{{ old('surname') }}" required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,100}" title="Solo letras, mínimo 3 caracteres">
                 </div>
 
                 <div class="form-group">
                     <label for="phone">Teléfono</label>
-                    <input type="text" name="phone" id="phone" value="{{ old('phone') }}" required>
+                    <input type="text" name="phone" id="phone" value="{{ old('phone') }}" required pattern="[0-9]{9,15}" title="Debe tener entre 9 y 15 dígitos">
                 </div>
 
                 <div class="form-group">
@@ -415,12 +415,12 @@
 
                 <div class="form-group full">
                     <label for="password">Contraseña</label>
-                    <input type="password" name="password" id="password" required>
+                    <input type="password" name="password" id="password" required minlength="8" title="Mínimo 8 caracteres">
                 </div>
 
                 <div class="form-group full">
                     <label for="password_confirmation">Confirmar Contraseña</label>
-                    <input type="password" name="password_confirmation" id="password_confirmation" required>
+                    <input type="password" name="password_confirmation" id="password_confirmation" required minlength="8" title="Debe coincidir con la contraseña anterior">
                 </div>
             </div>
 

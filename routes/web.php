@@ -19,14 +19,22 @@ Route::get('/', function () {
 Route::get('/products', [ProductController::class, 'index'])->name('productGeneral.product.index'); // cliente
 // Route::get('/admin/products', [ProductController::class, 'index'])->name('productGeneral.product.index'); // admin
 
+Route::middleware(['auth'])->group(function () {
+    Route::resource('insumos', insumoController::class);
+    Route::resource('product_categories', categoryController::class);
+    Route::resource('supplier', supplierController::class);
+    Route::resource('inventario', inventarioController::class);
+    Route::resource('products', ProductController::class);
+    Route::resource('inventario_insumo', InventarioInsumoController::class);
+    Route::resource('suppliers', supplierController::class);
+    // cualquier otra ruta de administración
+});
 
-Route::resource('suppliers', supplierController::class);
 Route::resource('buys', buyController::class);
-Route::resource('product_categories', categoryController::class);
+
 Route::resource('orders', orderController::class);
-Route::resource('insumos', insumoController::class);
-Route::resource('inventario', inventarioController::class);
-Route::resource('inventario_insumo', InventarioInsumoController::class);
+
+
 
 //Detalle
 Route::get('inventario/{id}/detalle', [inventarioController::class, 'detalle'])->name('inventario.detalle');

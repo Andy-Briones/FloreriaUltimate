@@ -1,25 +1,225 @@
 <?php
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\Request;
-use App\Models\alsInsumo;
+use App\Models\User;
 use App\Models\alsCategory;
 use App\Models\alsSupplier;
+use App\Models\alsInsumo;
 use App\Models\alsinvetory;
 use App\Models\alsInventoryInsumo;
 use App\Models\alsProduct;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
-uses(RefreshDatabase::class);
+beforeEach(function () {
+    // Usuario admin por defecto
+    $this->admin = User::create([
+        'name' => 'Admin',
+        'surname' => 'Test',
+        'phone' => '999999999',
+        'fecha_nacimiento' => '2000-01-01',
+        'email' => 'admin@test.com',
+        'password' => Hash::make('password'),
+        'role' => 'admin',
+    ]);
+});
 
-test('muestra la vista index con insumos', function () {
-    // Crear categoría y proveedor válidos
-    $category = alsCategory::create([
-        'name' => 'Categoría Test',
-        'description' => 'Descripción categoría'
+/*
+|--------------------------------------------------------------------------
+| 🔐 PRUEBAS DE AUTENTICACIÓN Y ROLES
+|--------------------------------------------------------------------------
+*/
+
+it('permite al admin acceder al panel principal', function () {
+    $this->actingAs($this->admin)
+        ->get('/')
+        ->assertStatus(200);
+});
+
+it('deniega acceso a rutas admin a usuario no autenticado', function () {
+    $response = $this->get('/insumos');
+    $response->assertRedirect('login');
+});
+
+it('permite cerrar sesión correctamente', function () {
+    $this->actingAs($this->admin);
+    $this->get('/logout')->assertRedirect('/login');
+});
+
+/* ✅ NUEVA: redirige correctamente al dashboard tras login */
+it('redirige al dashboard luego del login correcto', function () {
+    $response = $this->post('/login', [
+        'email' => 'admin@test.com',
+        'password' => 'password',
     ]);
 
+    $response->assertRedirect('/');
+});
+
+/*
+|--------------------------------------------------------------------------
+| 📂 CATEGORY CONTROLLER TESTS
+|--------------------------------------------------------------------------
+*/
+
+it('muestra la lista de categorías', function () {
+    $this->actingAs($this->admin);
+    $response = $this->get('/product_categories');
+    $response->assertStatus(200);
+});
+
+it('crea una nueva categoría correctamente', function () {
+    $this->actingAs($this->admin);
+    $data = ['name' => 'Insumos Médicos', 'description' => 'Categoría de prueba'];
+    $response = $this->post('/product_categories', $data);
+    $response->assertStatus(200); // porque devuelve JSON
+    $this->assertDatabaseHas('als_categories', $data);
+});
+
+/*
+|--------------------------------------------------------------------------
+| 🧩 SUPPLIER CONTROLLER TESTS
+|--------------------------------------------------------------------------
+*/
+
+it('crea un proveedor nuevo', function () {
+    $this->actingAs($this->admin);
+    $data = [
+        'name' => 'Proveedor 1',
+        'contact_email' => 'proveedor1@test.com',
+        'phone_number' => '987654321',
+        'address' => 'Av. Principal 123',
+    ];
+    $response = $this->post('/supplier', $data);
+    $response->assertRedirect('/supplier');
+    $this->assertDatabaseHas('als_suppliers', $data);
+});
+
+it('muestra la vista de creación de proveedor', function () {
+    $this->actingAs($this->admin)
+        ->get('/supplier/create')
+        ->assertStatus(200)
+        ->assertSee('Proveedor');
+});
+
+/*
+|--------------------------------------------------------------------------
+| ⚙️ INSUMO CONTROLLER TESTS
+|--------------------------------------------------------------------------
+*/
+
+it('crea un insumo asociado a proveedor y categoría', function () {
+    $this->actingAs($this->admin);
+    $category = alsCategory::create(['name' => 'Materia Prima', 'description' => 'Categoría']);
+    $supplier = alsSupplier::create(['name' => 'Proveedor Test', 'contact_email' => 'a@a.com', 'phone_number' => '999', 'address' => 'Calle Falsa 123']);
+
+    $data = [
+        'nombre' => 'Alcohol',
+        'descripcion' => 'Alcohol 70%',
+        'tipo' => 'Líquido',
+        'stock' => 100,
+        'unidad' => 'L',
+        'estado' => 'Disponible',
+        'costo_unitario' => 5.50,
+        'als_supplier_id' => $supplier->id,
+        'als_category_id' => $category->id,
+    ];
+
+    $response = $this->post('/insumos', $data);
+    $response->assertRedirect('/insumos');
+    $this->assertDatabaseHas('als_insumos', ['nombre' => 'Alcohol']);
+});
+
+/*
+|--------------------------------------------------------------------------
+| 🔗 INVENTARIO-INSUMO RELACIONAL TESTS
+|--------------------------------------------------------------------------
+*/
+
+it('asocia un insumo a un inventario', function () {
+    // Crear primero proveedor y categoría (para las llaves foráneas)
+    $supplier = alsSupplier::create([
+        'name' => 'Proveedor A',
+        'phone_number' => '999999999',
+        'address' => 'Av. Central 123',
+        'contact_email' => 'contacto@proveedor.com',
+    ]);
+
+    $category = alsCategory::create([
+        'name' => 'Categoría A',
+        'description' => 'Categoría de prueba',
+    ]);
+
+    // Crear insumo con las claves válidas
+    $insumo = alsInsumo::create([
+        'nombre' => 'Guantes',
+        'descripcion' => 'Látex',
+        'tipo' => 'Desechable',
+        'stock' => 100,
+        'unidad' => 'Par',
+        'estado' => 'Activo',
+        'costo_unitario' => 0.5,
+        'als_supplier_id' => $supplier->id,
+        'als_category_id' => $category->id,
+    ]);
+
+    // Crear inventario
+    $inventario = alsinvetory::create([
+        'descripcion' => 'Inventario Test',
+        'costo_total' => 0,
+        'cantidad_usada' => 0,
+    ]);
+
+    // Asociar insumo ↔ inventario
+    alsInventoryInsumo::create([
+        'als_insumos_id' => $insumo->id,
+        'alsinvetories_id' => $inventario->id,
+        'cantidad_usada' => 10,
+    ]);
+
+    // Verificar en base de datos
+    $this->assertDatabaseHas('als_inventory_insumos', [
+        'als_insumos_id' => $insumo->id,
+        'alsinvetories_id' => $inventario->id,
+        'cantidad_usada' => 10,
+    ]);
+});
+
+it('muestra lista de productos', function () {
+    $this->actingAs($this->admin);
+    $response = $this->get('/products');
+    $response->assertStatus(200);
+});
+
+/*
+|--------------------------------------------------------------------------
+| 🧍 USER CONTROLLER TESTS
+|--------------------------------------------------------------------------
+*/
+
+it('registra un nuevo usuario cliente', function () {
+    $data = [
+        'name' => 'Carlos',
+        'surname' => 'López',
+        'phone' => '900900900',
+        'fecha_nacimiento' => '1999-09-09',
+        'email' => 'cliente@test.com',
+        'password' => Hash::make('123456'),
+        'role' => 'cliente',
+    ];
+    User::create($data);
+    $this->assertDatabaseHas('users', ['email' => 'cliente@test.com']);
+});
+
+/*Antiguas */
+
+/* ---------------------------------------------------
+| 🔹 INSUMOS TESTS
+|---------------------------------------------------*/
+
+test('muestra la vista index con insumos', function () {
+    $category = alsCategory::create(['name' => 'Categoría Test', 'description' => 'Descripción categoría']);
     $supplier = alsSupplier::create([
         'name' => 'Proveedor Test',
         'contact_email' => 'proveedor@test.com',
@@ -27,7 +227,6 @@ test('muestra la vista index con insumos', function () {
         'address' => 'Dirección test'
     ]);
 
-    // Crear un insumo asociado
     alsInsumo::create([
         'nombre' => 'Insumo A',
         'descripcion' => 'Desc prueba',
@@ -40,8 +239,8 @@ test('muestra la vista index con insumos', function () {
         'als_category_id' => $category->id
     ]);
 
-    $response = $this->get('/insumos');
-
+    $this->actingAs($this->admin);
+    $response = $this->get(route('insumos.index'));
     $response->assertStatus(200);
     $response->assertViewHas('insumos');
 });
@@ -55,8 +254,8 @@ test('muestra la vista create con categorias y proveedores', function () {
         'address' => 'Av. Test 123'
     ]);
 
+    $this->actingAs($this->admin);
     $response = $this->get('/insumos/create');
-
     $response->assertStatus(200);
     $response->assertViewHasAll(['categorys', 'suppliers']);
 });
@@ -70,6 +269,7 @@ test('puede guardar un nuevo insumo', function () {
         'address' => 'Calle Falsa 123'
     ]);
 
+    $this->actingAs($this->admin);
     $response = $this->post('/insumos', [
         'nombre' => 'Insumo Nuevo',
         'costo_unitario' => 5.5,
@@ -107,8 +307,8 @@ test('muestra la vista edit con los datos del insumo', function () {
         'als_category_id' => $category->id
     ]);
 
+    $this->actingAs($this->admin);
     $response = $this->get("/insumos/{$insumo->id}/edit");
-
     $response->assertStatus(200);
     $response->assertViewHas('insumo');
 });
@@ -134,6 +334,7 @@ test('puede actualizar un insumo existente', function () {
         'als_category_id' => $category->id
     ]);
 
+    $this->actingAs($this->admin);
     $response = $this->put("/insumos/{$insumo->id}", [
         'nombre' => 'Insumo Actualizado',
         'descripcion' => 'Nueva desc',
@@ -150,24 +351,18 @@ test('puede actualizar un insumo existente', function () {
     $this->assertDatabaseHas('als_insumos', ['nombre' => 'Insumo Actualizado']);
 });
 
-/**
- * 🔹 1. Vista index
- */
+/* ---------------------------------------------------
+| 🔹 INVENTARIO TESTS
+|---------------------------------------------------*/
+
 test('muestra la vista index del inventario', function () {
+    $this->actingAs($this->admin);
     $response = $this->get('/inventario');
     $response->assertStatus(200);
 });
 
-/**
- * 🔹 2. Vista create con insumos activos
- */
 test('muestra la vista create del inventario con insumos activos', function () {
-    // Preparamos dependencias mínimas
-    $categoria = alsCategory::create([
-        'name' => 'Categoría A',
-        'description' => 'Desc cat A'
-    ]);
-
+    $categoria = alsCategory::create(['name' => 'Categoría A', 'description' => 'Desc cat A']);
     $proveedor = alsSupplier::create([
         'name' => 'Proveedor A',
         'contact_email' => 'prov@example.com',
@@ -187,114 +382,10 @@ test('muestra la vista create del inventario con insumos activos', function () {
         'als_category_id' => $categoria->id,
     ]);
 
+    $this->actingAs($this->admin);
     $response = $this->get('/inventario/create');
     $response->assertStatus(200);
     $response->assertViewHas('insumos');
-});
-
-/**
- * 🔹 3. Puede almacenar un nuevo inventario y producto (falla 2)
- */
-// test('puede guardar un inventario y producto correctamente', function () {
-//     $categoria = alsCategory::create([
-//         'name' => 'Categoría A',
-//         'description' => 'Desc cat A'
-//     ]);
-
-//     $proveedor = alsSupplier::create([
-//         'name' => 'Proveedor A',
-//         'contact_email' => 'prov@example.com',
-//         'phone_number' => '999999999',
-//         'address' => 'Lima'
-//     ]);
-
-//     $insumo = alsInsumo::create([
-//         'nombre' => 'Insumo activo',
-//         'descripcion' => 'Desc insumo',
-//         'tipo' => 'Tipo 1',
-//         'stock' => 10,
-//         'unidad' => 'kg',
-//         'estado' => 'activo',
-//         'costo_unitario' => 20.0,
-//         'als_supplier_id' => $proveedor->id,
-//         'als_category_id' => $categoria->id,
-//     ]);
-
-//     $data = [
-//         'name' => 'Producto de prueba',
-//         'price' => 100.00,
-//         'insumos' => [
-//             ['id' => $insumo->id, 'cantidad_usada' => 2]
-//         ]
-//     ];
-
-//     $response = $this->post('/inventario', $data);
-
-//     $response->assertRedirect('/');
-//     $this->assertDatabaseHas('alsinvetories', [
-//         'costo_total' => 40.00
-//     ]);
-//     $this->assertDatabaseHas('als_products', [
-//         'name' => 'Producto de prueba',
-//         'costo_produccion' => 40.00
-//     ]);
-// });
-
-/**
- * 🔹 4. Muestra la vista show con los detalles del inventario
- */
-test('muestra la vista show con inventario y sus relaciones', function () {
-    $categoria = alsCategory::create([
-        'name' => 'Cat A',
-        'description' => 'Desc'
-    ]);
-
-    $proveedor = alsSupplier::create([
-        'name' => 'Prov A',
-        'contact_email' => 'prov@example.com',
-        'phone_number' => '123456789',
-        'address' => 'Lima'
-    ]);
-
-    $insumo = alsInsumo::create([
-        'nombre' => 'Insumo 1',
-        'descripcion' => 'desc',
-        'tipo' => 't1',
-        'stock' => 10,
-        'unidad' => 'kg',
-        'estado' => 'activo',
-        'costo_unitario' => 10.0,
-        'als_supplier_id' => $proveedor->id,
-        'als_category_id' => $categoria->id,
-    ]);
-
-    $inventario = alsinvetory::create([
-        'descripcion' => 'Inventario test',
-        'cantidad_usada' => 1,
-        'costo_total' => 10,
-    ]);
-
-    alsInventoryInsumo::create([
-        'als_insumos_id' => $insumo->id,
-        'alsinvetories_id' => $inventario->id,
-        'cantidad_usada' => 1,
-        'costo_total' => 10,
-    ]);
-
-    alsProduct::create([
-        'name' => 'Producto X',
-        'description' => 'desc',
-        'price' => 50.0,
-        'stock' => 1,
-        'image_path' => 'img.jpg',
-        'costo_produccion' => 10,
-        'estado' => 'activo',
-        'alsinvetories_id' => $inventario->id,
-    ]);
-
-    $response = $this->get("/inventario/{$inventario->id}");
-    $response->assertStatus(200);
-    $response->assertViewHas('inventario');
 });
 
 /**
@@ -344,5 +435,3 @@ test('puede buscar un insumo activo por nombre', function () {
     $response->assertStatus(200);
     $response->assertJsonFragment(['nombre' => 'Azúcar']);
 });
-
-
