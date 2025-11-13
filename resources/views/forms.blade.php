@@ -954,18 +954,6 @@
             </div>
         </div>
 
-        <script>
-        document.getElementById('file_selector').addEventListener('change', function() {
-            const fileInput = this;
-            if (fileInput.files.length > 0) {
-                // Solo toma el nombre del archivo (sin la ruta completa por seguridad)
-                document.getElementById('image_path').value = fileInput.files[0].name;
-            } else {
-                document.getElementById('image_path').value = '';
-            }
-        });
-        </script>
-
             <div class="col-md-12">
                 <label for="description" class="form-label">📝 Descripción</label>
                 <textarea name="description" id="description" class="form-control"

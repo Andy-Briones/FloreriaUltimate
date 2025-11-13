@@ -123,7 +123,7 @@
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
 
-    <form action="{{ route('inventario.store') }}" method="POST">
+    <form action="{{ route('inventario.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         @include('forms', ['Modo' => 'crearInv'])
         
