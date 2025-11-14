@@ -24,13 +24,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('product_categories', categoryController::class);
     Route::resource('supplier', supplierController::class);
     Route::resource('inventario', inventarioController::class);
+    Route::resource('products', ProductController::class);
     Route::resource('inventario_insumo', InventarioInsumoController::class);
     Route::resource('suppliers', supplierController::class);
     // cualquier otra ruta de administración
 });
 
 Route::resource('buys', buyController::class);
-Route::resource('products', ProductController::class);
 Route::resource('orders', orderController::class);
 
 
