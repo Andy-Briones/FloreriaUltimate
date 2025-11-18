@@ -7,7 +7,7 @@ use App\Models\alsInsumo;
 use App\Models\alsSupplier;
 use Illuminate\Http\Request;
 
-class insumoController extends Controller
+class InsumoController extends Controller
 {
     public function index(Request $request)
     {
@@ -57,7 +57,7 @@ class insumoController extends Controller
     }
     public function show()
     {
-        
+        //no se usa este metodo
     }
     public function edit($id)
     {
@@ -89,8 +89,8 @@ class insumoController extends Controller
         alsInsumo::where('id', '=', $id)->update($insumo);
         return redirect()->route('insumos.index');
     }
-    public function destroy($id)
+    public function destroy()
     {
-        
+        //no se usa este metodo   
     }
 }

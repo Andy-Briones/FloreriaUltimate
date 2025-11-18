@@ -8,7 +8,7 @@ use App\Models\alsSupplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class productController extends Controller
+class ProductController extends Controller
 {
     //
     public function index(Request $request)
@@ -34,20 +34,6 @@ class productController extends Controller
         // 👇 Usa una vista distinta si quieres (indexcli)
         return view('productGeneral.product.indexcli', compact('products'));
     }
-    // public function indexcli(Request $request)
-    // {
-    //      // Vista del CLIENTE (con buscador y filtro)
-    //     $query = alsProduct::query();
-
-    //     if ($request->filled('search')) {
-    //         $query->where('name', 'like', '%' . $request->search . '%')
-    //             ->orWhere('description', 'like', '%' . $request->search . '%');
-    //     }
-
-    //     $products = $query->where('estado', 'activo')->latest()->get();
-
-    //     return view('productGeneral.product.indexcli', compact('products'));
-    // }
 
     public function create()
     {
@@ -81,20 +67,9 @@ class productController extends Controller
         return view('productGeneral.product.edit', compact('producto'));
     }
 
-    public function update(Request $request, $id)
+    public function update()
     {
-        // $products = alsProduct::findOrFail($id);
-
-        // $request->validate([
-        //     'name' => 'required|string|max:255',
-        //     'description' => 'nullable|string|max:500',
-        //     'price' => 'required|numeric|min:0',
-        //     'stock' => 'required|integer|min:0',
-        //     'estado' => 'nullable|in:activo,inactivo',
-        // ]);
-
-        // $products->update($request->all());
-        // return redirect()->route('productGeneral.product.index')->with('success', 'Producto actualizado correctamente');
+        //no se usa este metodo
     }
 
     public function destroy($id)
@@ -102,70 +77,4 @@ class productController extends Controller
         alsProduct::destroy($id);
         return redirect()->route('productGeneral.product.index')->with('success', 'Producto eliminado correctamente');
     }
-    // public function index(Request $request)
-    // {
-    //     // Cargar relaciones correctas (por ejemplo: categories y supplier)
-    //     $query = alsProduct::with(['category', 'supplier']);
-
-    //     if ($request->filled('search')) {
-    //         $search = $request->input('search');
-    //         $query->where('name', 'like', "%{$search}%");
-    //     }
-
-    //     $products = $query->paginate(5);
-
-    //     return view('productGeneral.product.index', compact('products'));
-    // }
-    // // 'productsGeneral.products.vistauser.secindex'
-    // // 'productsGeneral.products.index'
-
-    // public function create()
-    // {
-    //     $categorys = alsCategory::all();   // todas las categorías
-    //     $suppliers = alsSupplier::all();   // todos los proveedores
-
-    //     return view('productGeneral.product.create', [
-    //         'Modo' => 'crearP',
-    //         'categorys' => $categorys,
-    //         'suppliers' => $suppliers
-    //     ]);
-    // }
-    // public function store(Request $request)
-    // {
-    //     $product = request()->except('_token');
-    //     $request->validate([
-    //         'name'        => 'required|string|max:255',
-    //         'price'       => 'required|numeric|min:0',
-    //         'stock'       => 'required|integer|min:0',
-    //     ]);
-    //     alsproduct::insert($product);
-    //     return redirect('products');//->with('mensaje', 'Categoría agregada con éxito');
-    // }
-    // public function show()
-    // {
-        
-    // }
-    // public function edit($id)
-    // {
-    //     $product = alsProduct::findOrFail($id);
-    //     $categorys = alsCategory::all();   // categorías
-    //     $suppliers = alsSupplier::all();           // proveedores
-        
-    //     return view('productGeneral.product.edit', [
-    //     'products' => $product,
-    //     'categorys' => $categorys,
-    //     'suppliers' => $suppliers,
-    //     'Modo' => 'editarP'
-    //     ]);
-    // }
-    // public function update(Request $request, $id)
-    // {
-    //     $product = request()->except(['_token', '_method']);
-    //     alsproduct::where('id', '=', $id)->update($product);
-    //     return redirect()->route('productGeneral.product.index');
-    // }
-    // public function destroy($id)
-    // {
-        
-    // }
 }

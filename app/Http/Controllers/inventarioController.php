@@ -9,7 +9,7 @@ use App\Models\alsProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class inventarioController extends Controller
+class InventarioController extends Controller
 {
     //
     public function index()

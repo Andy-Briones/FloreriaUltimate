@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\alsSupplier;
 use Illuminate\Http\Request;
 
-class supplierController extends Controller
+class SupplierController extends Controller
 {
     //
     public function index()
@@ -32,27 +32,18 @@ class supplierController extends Controller
     }
     public function show()
     {
-        
+        //no se usa este metodo
     }
-    public function edit($id)
+    public function edit()
     {
-        // $supplier = alsSupplier::findOrFail($id);
-        // return view('supplier.edit', compact('supplier'));
+        //no se usa este metodo
     }
-    public function update(Request $request, $id)
+    public function update()
     {
-        // $request->validate([
-        //     'name' => 'required|string|max:255',
-        //     'contact_email' => 'required|email|max:255',
-        //     'phone_number' => 'required|string|max:20',
-        //     'address' => 'required|string|max:255',
-        // ]);
-        // $supplier = request()->except(['_token', '_method']);
-        // alsSupplier::where('id', '=', $id)->update($supplier);
-        // return redirect()->route('supplier.index');
+        //no se usa este metodo
     }
-    public function destroy($id)
+    public function destroy()
     {
-        
+        //no se usa este metodo
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\alsCategory;
 use Illuminate\Http\Request;
 
-class categoryController extends Controller
+class CategoryController extends Controller
 {
     //
      public function index()
@@ -29,21 +29,19 @@ class categoryController extends Controller
     }
     public function show()
     {
-        
+        //No se usa de momento
     }
     public function edit($id)
     {
         $categoria = alsCategory::findOrFail($id);
         return view('productGeneral.productCategory.edit', compact('categoria'));
     }
-    public function update(Request $request, $id)
+    public function update()
     {
-        // $categoria = $request->except('_token', '_method');
-        // alsCategory::where('id', '=', $id)->update($categoria);
-        // return redirect()->route('productGeneral.productCategory.index');
+        //no se usa el metodo editar caracteristica
     }
-    public function destroy($id)
+    public function destroy()
     {
-        
+        //no se usa este metodo
     }
 }

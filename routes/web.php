@@ -30,7 +30,6 @@ Route::middleware(['auth'])->group(function () {
     // cualquier otra ruta de administración
 });
 
-Route::resource('buys', buyController::class);
 Route::resource('orders', orderController::class);
 
 
