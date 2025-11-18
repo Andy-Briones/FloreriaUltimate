@@ -91,6 +91,6 @@ class InsumoController extends Controller
     }
     public function destroy()
     {
-        //no se usa este metodo   
+        //no se usa este metodo
     }
 }

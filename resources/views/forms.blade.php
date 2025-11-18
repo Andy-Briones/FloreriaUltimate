@@ -67,11 +67,10 @@
             <div class="col-md-6">
                 <label for="als_category_id" class="form-label">📂 Categoria</label>
                 <select name="als_category_id" id="als_category_id" class="form-select">
-                    @foreach($categorys as $category) 
+                    @foreach($categorys as $category)
                         <option value="{{ $category->id }}" {{ isset($insumo->als_category_id) && $insumo->als_category_id == $category->id ? 'selected' : '' }}>
                             {{ $category->name }}
                         </option>
-                    @endforeach
                 </select>
             </div>
             <div class="col-md-6">
