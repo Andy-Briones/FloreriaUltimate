@@ -82,7 +82,7 @@
                         </option>
                     @endforeach
                 </select>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
@@ -151,7 +151,7 @@
                 <label for="product_id" class="form-label">📦 Producto</label>
                 <select name="product_id" id="product_id" class="form-select">
                     @foreach($produc as $producto)
-                        <option value="{{ $producto->id }}" 
+                        <option value="{{ $producto->id }}"
                             data-price="{{ $producto->price }}"
                             {{ isset($venta->product_id) && $venta->product_id == $producto->id ? 'selected' : '' }}>
                             {{ $producto->name }}
