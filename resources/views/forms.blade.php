@@ -71,6 +71,7 @@
                         <option value="{{ $category->id }}" {{ isset($insumo->als_category_id) && $insumo->als_category_id == $category->id ? 'selected' : '' }}>
                             {{ $category->name }}
                         </option>
+                    @endforeach
                 </select>
             </div>
             <div class="col-md-6">
