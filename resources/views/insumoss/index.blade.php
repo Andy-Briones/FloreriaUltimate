@@ -350,12 +350,6 @@
 
 <body>
 @include('forms', ['Modo' => 'Accesibilidad'])
-<!-- HEADER -->
-<header class="header">
-    <div class="container nav-container">
-        <button class="menu-toggle">Menú</button>
-    </div>
-</header>
 
 <!-- CONTENIDO -->
 <div class="container">

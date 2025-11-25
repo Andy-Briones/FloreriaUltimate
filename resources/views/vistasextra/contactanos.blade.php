@@ -117,7 +117,7 @@
 
         .contact-subtitle {
             text-align: center;
-            color: #777;
+            color: #000000ff;
             font-size: 1rem;
             margin-bottom: 2rem;
             font-family: 'Inter', sans-serif;
@@ -199,7 +199,7 @@
             align-items: center;
             font-family: 'Inter', sans-serif;
             font-size: 0.9rem;
-            color: #777;
+            color: #000000ff;
             margin-top: 1rem;
         }
 
@@ -278,7 +278,7 @@
         footer {
             text-align: center;
             padding: 2rem 0;
-            color: #777;
+            color: #000000ff;
             font-size: 0.9rem;
             margin-top: 3rem;
             font-family: 'Inter', sans-serif;
@@ -373,12 +373,6 @@
 
 <body>
 @include('forms', ['Modo' => 'Accesibilidad'])
-<!-- HEADER -->
-<header class="header">
-    <div class="nav-container">
-        <button class="menu-toggle">Menú</button>
-    </div>
-</header>
 <a href="https://wa.me/51999369837?text=Hola%2C%20quisiera%20hacer%20un%20pedido%20AriDetalles" class="wsp-float" target="_blank" title="Contáctanos por WhatsApp">
     <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp" width="30" height="30">
   </a>

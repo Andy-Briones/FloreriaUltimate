@@ -295,13 +295,6 @@
 
 <body>
 
-<!-- HEADER -->
-<header class="header">
-    <div class="nav-container">
-        <button class="menu-toggle">Menú</button>
-    </div>
-</header>
-
 <!-- CONTENIDO -->
 <div class="container">
     <div class="form-card">

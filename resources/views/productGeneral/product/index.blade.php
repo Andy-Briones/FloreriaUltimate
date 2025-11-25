@@ -407,12 +407,6 @@
 <a href="https://wa.me/51999369837?text=Hola%2C%20quisiera%20hacer%20un%20pedido%20AriDetalles" class="wsp-float" target="_blank" title="Contáctanos por WhatsApp">
     <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp" width="30" height="30">
   </a>
-<!-- HEADER -->
-<header class="header">
-    <div class="nav-container">
-        <button class="menu-toggle">Menú</button>
-    </div>
-</header>
 
 <!-- CONTENIDO -->
 <div class="container">

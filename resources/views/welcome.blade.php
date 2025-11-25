@@ -364,7 +364,7 @@
     }
 
     .promo-title span {
-      color: #ff7ea3;
+      color: #c02454ff;
     }
 
     .promo-title .arrow {
@@ -550,8 +550,6 @@
         {{-- Navbar PÚBLICO (sin login) --}}
         @include('forms', ['Modo' => 'EncabezadoClie'])
       @endauth
-
-      <button class="menu-toggle">Menú</button>
     </div>
   </header>
 
@@ -604,9 +602,9 @@
           <form>
             <label type="text">Ingresa Nombre: </label>
             <input type="text" placeholder="Nombre" required />
-            <label type="text">Telefono: </label>
+            <label type="text">Ingresa Telefono: </label>
             <input type="tel" placeholder="Teléfono" required />
-            <label type="text">Ocasión: </label>
+            <label type="text">Ingresa la Ocasión: </label>
             <input type="text" placeholder="Ocasión (cumpleaños, boda, etc)" required />
             <label type="text">Ingresa pequeña Descripción: </label>
             <textarea placeholder="Descripción..." rows="3" required></textarea>

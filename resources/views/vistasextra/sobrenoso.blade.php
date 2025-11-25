@@ -140,7 +140,7 @@
         }
 
         .about-text {
-            color: #777;
+            color: #000000ff;
             font-size: 0.95rem;
             font-family: 'Inter', sans-serif;
             line-height: 1.7;
@@ -221,7 +221,7 @@
         footer {
             text-align: center;
             padding: 2.5rem 0;
-            color: #777;
+            color: #000000ff;
             font-size: 0.9rem;
             margin-top: 4rem;
             font-family: 'Inter', sans-serif;
@@ -320,13 +320,6 @@
 </head>
 
 <body>
-
-<!-- HEADER -->
-<header class="header">
-    <div class="nav-container">
-        <button class="menu-toggle">Menú</button>
-    </div>
-</header>
 
   @include('forms', ['Modo' => 'Accesibilidad'])
     

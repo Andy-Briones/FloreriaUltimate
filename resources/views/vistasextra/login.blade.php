@@ -124,7 +124,7 @@
 
         .login-subtitle {
             text-align: center;
-            color: #777;
+            color: #000000ff;
             font-size: 0.95rem;
             margin-bottom: 2rem;
             font-family: 'Inter', sans-serif;
@@ -193,7 +193,7 @@
             margin-top: 1.5rem;
             font-family: 'Inter', sans-serif;
             font-size: 0.92rem;
-            color: #777;
+            color: #000000ff;
         }
 
         .register-link a {
@@ -315,12 +315,6 @@
 
 <body>
   @include('forms', ['Modo' => 'Accesibilidad'])
-<!-- HEADER -->
-<header class="header">
-    <div class="nav-container">
-        <button class="menu-toggle">Menú</button>
-    </div>
-</header>
 
 <!-- CONTENIDO -->
 <div class="container">
