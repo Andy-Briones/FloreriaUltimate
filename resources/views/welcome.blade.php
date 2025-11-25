@@ -370,7 +370,7 @@
     .promo-title .arrow {
       font-size: 1rem;
       margin-left: 8px;
-      color: #ff7ea3;
+      color: #cc2454ff;
     }
 
     .promo-card img {
@@ -575,15 +575,15 @@
           <div class="carousel-track-container">
             <div class="carousel-track">
               <div class="product">
-                <img src="{{ asset('imgs/ramo rosas.jpg') }}">
+                <img src="{{ asset('imgs/ramo rosas.jpg') }}" alt="Ramo 1">
                 <div class="price">$/. 180.00</div>
               </div>
               <div class="product">
-                <img src="{{ asset('imgs/ramorosasrojas.jpg') }}">
+                <img src="{{ asset('imgs/ramorosasrojas.jpg') }}" alt="producto">
                 <div class="price">$/. 80.00</div>
               </div>
               <div class="product">
-                <img src="{{ asset('imgs/ramosentado.jpg') }}">
+                <img src="{{ asset('imgs/ramosentado.jpg') }}" alt="flores">
                 <div class="price">$/. 65.00</div>
               </div>
             </div>
@@ -602,9 +602,13 @@
           <p>Si buscas algo único, completa el formulario de personalización y nuestro equipo creará un arreglo según tu
             estilo.</p>
           <form>
+            <label type="text">Ingresa Nombre: </label>
             <input type="text" placeholder="Nombre" required />
+            <label type="text">Telefono: </label>
             <input type="tel" placeholder="Teléfono" required />
+            <label type="text">Ocasión: </label>
             <input type="text" placeholder="Ocasión (cumpleaños, boda, etc)" required />
+            <label type="text">Ingresa pequeña Descripción: </label>
             <textarea placeholder="Descripción..." rows="3" required></textarea>
             <a class="btn" href="#">Solicitar Cotización</a>
           </form>
