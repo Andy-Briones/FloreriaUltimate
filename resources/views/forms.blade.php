@@ -586,11 +586,6 @@
       ARIDETALLES
     </a>
 
-    {{-- BOTÓN HAMBURGUESA (MÓVIL) --}}
-    <button class="navbar-toggler" type="button">
-      <span class="toggler-icon"></span>
-    </button>
-
     {{-- MENÚ --}}
     <div class="navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">

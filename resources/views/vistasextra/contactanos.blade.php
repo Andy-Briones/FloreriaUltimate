@@ -282,7 +282,7 @@
             font-size: 0.9rem;
             margin-top: 3rem;
             font-family: 'Inter', sans-serif;
-            border-top: 1px solid #eee;
+            border-top: 1px solid #ffffffff;
             background: #fdf9fb;
         }
 

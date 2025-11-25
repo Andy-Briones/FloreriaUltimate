@@ -24,7 +24,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('product_categories', categoryController::class);
     Route::resource('supplier', supplierController::class);
     Route::resource('inventario', inventarioController::class);
-    Route::resource('products', ProductController::class);
     Route::resource('inventario_insumo', InventarioInsumoController::class);
     Route::resource('suppliers', supplierController::class);
     // cualquier otra ruta de administración
@@ -66,3 +65,4 @@ Route::get('register', [UserController::class, 'showRegisterForm'])->name('regis
 Route::post('register', [UserController::class, 'register'])->name('register.post');
 
 
+    Route::resource('products', ProductController::class);
