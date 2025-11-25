@@ -65,4 +65,4 @@ Route::get('register', [UserController::class, 'showRegisterForm'])->name('regis
 Route::post('register', [UserController::class, 'register'])->name('register.post');
 
 
-    Route::resource('products', ProductController::class);
+Route::resource('products', ProductController::class);
