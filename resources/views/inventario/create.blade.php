@@ -7,7 +7,7 @@
     <style>
         /* 🎀 Estilo floral para el formulario de Inventario */
         body {
-            background-color: #d28cdbff;
+            background-color: #38122A;
             font-family: 'Poppins', sans-serif;
             color: #333;
         }

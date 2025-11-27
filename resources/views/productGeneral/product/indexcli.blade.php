@@ -519,6 +519,17 @@
                         <span class="product-badge">
                             {{ ucfirst($product->estado) }}
                         </span>
+                        {{-- BOTÓN WHATSAPP DINÁMICO --}}
+                        @php
+                            $imagenUrl = asset('imgs/' . $product->image_path);
+                            $mensaje = "Hola, me interesa el producto {$product->name} (S/ {$product->price}) de AriDetalles.";
+                        @endphp
+
+                        <a href="https://wa.me/51999369837?text={{ urlencode($mensaje) }}"
+                        class="btn-custom btn-success-custom"
+                        target="_blank">
+                            Consultar por WhatsApp
+                        </a>
                     </div>
                 </div>
             @endforeach

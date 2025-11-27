@@ -23,7 +23,6 @@
             color: #38122A;
             line-height: 1.6;
             min-height: 100vh;
-            padding: 2rem 1rem;
         }
 
         .container {

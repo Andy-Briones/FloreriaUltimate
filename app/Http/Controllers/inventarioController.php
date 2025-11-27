@@ -70,12 +70,17 @@ class InventarioController extends Controller
 
             // Subir imagen si se envía
             $nombreImagen = null;
+
             if ($request->hasFile('image_path')) {
                 $file = $request->file('image_path');
-                $nombreImagen = time() . '_' . $file->getClientOriginalName();
+
+                // Nombre único (evita duplicados)
+                $nombreImagen = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+                // Mover imagen
                 $file->move(public_path('imgs'), $nombreImagen);
             }
-
+            
             // Crear producto
             AlsProduct::create([
                 'name' => $request->name,
@@ -140,5 +145,4 @@ class InventarioController extends Controller
 
         return redirect()->route('inventario.index')->with('success', 'Inventario eliminado correctamente');
     }
-
 }

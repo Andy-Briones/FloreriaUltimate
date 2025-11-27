@@ -18,7 +18,7 @@ class alsinvetory extends Model
     }
     public function insumos()
     {
-        return $this->belongsToMany(AlsInsumo::class, 'als_inventory_insumos', 'alsinvetories_id', 'als_insumos_id')
+        return $this->belongsToMany(alsInsumo::class, 'als_inventory_insumos', 'alsinvetories_id', 'als_insumos_id')
                     ->withPivot('cantidad_usada', 'costo_total')
                     ->withTimestamps();
     }

@@ -32,37 +32,52 @@
             <div class="col-md-6">
                 <label for="nombre" class="form-label">📦 Nombre del Insumo</label>
                 <input type="text" name="nombre" id="nombre" class="form-control"
-                    value="{{ isset($insumo->nombre) ? $insumo->nombre : '' }}">
+                    value="{{ isset($insumo->nombre) ? $insumo->nombre : '' }}" required>
             </div>
             <div class="col-md-6">
                 <label for="descripcion" class="form-label">📝 Descripción</label>
                 <input type="text" name="descripcion" id="descripcion" class="form-control"
-                    value="{{ isset($insumo->descripcion) ? $insumo->descripcion : '' }}">
+                    value="{{ isset($insumo->descripcion) ? $insumo->descripcion : '' }}" required>
             </div>
             <div class="col-md-6">
                 <label for="tipo" class="form-label">Tipo </label>
                 <input type="text" name="tipo" id="tipo" class="form-control"
-                    value="{{ isset($insumo->tipo) ? $insumo->tipo : '' }}">
+                    value="{{ isset($insumo->tipo) ? $insumo->tipo : '' }}" required>
             </div>
             <div class="col-md-6">
                 <label for="costo_unitario" class="form-label">💲 Precio Unitario</label>
-                <input type="number" step="0.01" name="costo_unitario" id="costo_unitario" class="form-control"
-                    value="{{ isset($insumo->costo_unitario) ? $insumo->costo_unitario : '' }}">
+
+                <input 
+                    type="number" 
+                    step="0.01" 
+                    min="0.01"   {{-- evita negativos y 0 --}}
+                    name="costo_unitario" 
+                    id="costo_unitario" 
+                    class="form-control @error('costo_unitario') is-invalid @enderror"
+                    value="{{ old('costo_unitario', $insumo->costo_unitario ?? '') }}"
+                    required
+                >
+
+                @error('costo_unitario')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="col-md-6">
                 <label for="stock" class="form-label">📊 Stock</label>
-                <input type="number" name="stock" id="stock" class="form-control"
-                    value="{{ isset($insumo->stock) ? $insumo->stock : '' }}">
+                <input type="number" step="1" min="1" name="stock" id="stock" class="form-control"
+                    value="{{ isset($insumo->stock) ? $insumo->stock : '' }}" required>
             </div>
             <div class="col-md-6">
             <label for="unidad" class="form-label">📝 Unidad</label>
                 <input type="text" name="unidad" id="unidad" class="form-control"
-                    value="{{ isset($insumo->unidad) ? $insumo->unidad : '' }}">
+                    value="{{ isset($insumo->unidad) ? $insumo->unidad : '' }}" required>
             </div>
             <div class="col-md-6">
             <label for="estado" class="form-label">📝 Estado</label>
                 <input type="text" name="estado" id="estado" class="form-control"
-                    value="{{ isset($insumo->estado) ? $insumo->estado : '' }}">
+                    value="{{ isset($insumo->estado) ? $insumo->estado : 'activo' }}" readonly>
             </div>
             <div class="col-md-6">
                 <label for="als_category_id" class="form-label">📂 Categoria</label>
@@ -389,13 +404,12 @@
     border-bottom: 2px solid #38122A;
     padding: 0.8rem 0;
     position: sticky;
-    top: 0;
     z-index: 1000;
     font-family: 'Inria Serif', serif;
   }
 
   .nav-container {
-    max-width: 1200px;
+    max-width: 1500px;
     margin: 0 auto;
     padding: 0 1rem;
     display: flex;
@@ -585,6 +599,10 @@
       </svg>
       ARIDETALLES
     </a>
+    {{-- BOTÓN HAMBURGUESA (MÓVIL) --}}
+    <button class="navbar-toggler" type="button">
+      <span class="toggler-icon"></span>
+    </button>
 
     {{-- MENÚ --}}
     <div class="navbar-collapse" id="navbarNav">
@@ -829,14 +847,14 @@
 
             <div class="col-md-6">
                 <label for="price" class="form-label">💰 Precio de Venta (S/)</label>
-                <input type="number" step="0.01" name="price" id="price" class="form-control"
+                <input type="number" step="0.01" min="0.01" name="price" id="price" class="form-control"
                     value="{{ isset($producto->price) ? $producto->price : '' }}" required>
             </div>
 
             <div class="col-md-6">
                 <label for="stock" class="form-label">📦 Stock Inicial</label>
-                <input type="number" name="stock" id="stock" class="form-control" min="1"
-                    value="{{ isset($producto->stock) ? $producto->stock : 1 }}">
+                <input type="number" step="1" min="1" name="stock" id="stock" class="form-control" min="1"
+                    value="{{ isset($producto->stock) ? $producto->stock : 1 }}" required>
             </div>
 
             <div class="col-md-6">
