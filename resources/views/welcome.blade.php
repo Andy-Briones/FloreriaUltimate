@@ -190,7 +190,7 @@
       font-size: 3.8rem;
       font-weight: 700;
       letter-spacing: 3px;
-      color: #fff;
+      color: #ffffffff;
       text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
     }
 
@@ -560,7 +560,7 @@
         <div class="hero-overlay">
           <div class="hero-logo-center"> <svg class="flower-big" viewBox="0 0 24 24" fill="none" stroke="#38122A"
               stroke-width="1.5">
-              <img src="{{ asset('/imgs/logo-Photoroom.png') }}" alt="Logo">
+              <img src="{{ asset('/imgs/logo-Photoroom.png') }}" alt="Logo" width="200px" height="100px">
             </svg>
             <h1 class="hero-title">ARIDETALLES</h1>
           </div>
@@ -601,13 +601,13 @@
             estilo.</p>
           <form>
             <label type="text">Ingresa Nombre: </label>
-            <input type="text" placeholder="Nombre" required />
+            <input type="text" name="nombre" placeholder="Nombre" required />
             <label type="text">Ingresa Telefono: </label>
-            <input type="tel" placeholder="Teléfono" required />
+            <input type="text" name="telefono" placeholder="Teléfono" required />
             <label type="text">Ingresa la Ocasión: </label>
-            <input type="text" placeholder="Ocasión (cumpleaños, boda, etc)" required />
+            <input type="text" name="ocacion" placeholder="Ocasión (cumpleaños, boda, etc)" required />
             <label type="text">Ingresa pequeña Descripción: </label>
-            <textarea placeholder="Descripción..." rows="3" required></textarea>
+            <textarea placeholder="Descripción..." rows="3" name="descripcion" required></textarea>
             <a class="btn" href="#">Solicitar Cotización</a>
           </form>
         </div>

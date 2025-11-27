@@ -162,8 +162,8 @@
         }
 
         .btn-primary-custom {
-            background: #FF69B4;
-            color: white;
+            background: #ff0080ff;
+            color: black;
         }
 
         .btn-primary-custom:hover {
@@ -341,7 +341,7 @@
         footer {
             text-align: center;
             padding: 2.5rem 0;
-            color: #777;
+            color: #000000ff;
             font-size: 0.9rem;
             margin-top: 4rem;
             font-family: 'Inter', sans-serif;

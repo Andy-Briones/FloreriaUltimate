@@ -89,8 +89,11 @@ class InsumoController extends Controller
         alsInsumo::where('id', '=', $id)->update($insumo);
         return redirect()->route('insumos.index');
     }
-    public function destroy()
+    public function destroy($id)
     {
-        //no se usa este metodo
+        $insumo = alsInsumo::findOrFail($id); // Ajusta según tu modelo
+        $insumo->delete();
+
+        return redirect()->route('insumos.index')->with('success', 'Inventario eliminado correctamente');
     }
 }
