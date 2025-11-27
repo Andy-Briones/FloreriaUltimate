@@ -80,7 +80,7 @@ class InventarioController extends Controller
                 // Mover imagen
                 $file->move(public_path('imgs'), $nombreImagen);
             }
-            
+
             // Crear producto
             AlsProduct::create([
                 'name' => $request->name,
@@ -144,5 +144,51 @@ class InventarioController extends Controller
         $inventario->delete();
 
         return redirect()->route('inventario.index')->with('success', 'Inventario eliminado correctamente');
+    }
+    public function update(Request $request, $id)
+    {
+        DB::beginTransaction();
+
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'price' => 'required|numeric|min:0.01',
+                'image_path' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            ]);
+
+            $inventario = alsinvetory::findOrFail($id);
+            $producto = AlsProduct::where('alsinvetories_id', $inventario->id)->firstOrFail();
+
+            /* === 1. ACTUALIZAR DATOS DEL PRODUCTO === */
+            $producto->name = $request->name;
+            $producto->price = $request->price;
+            $producto->description = $request->description ?? null;
+
+            /* === 2. Si suben nueva imagen === */
+            if ($request->hasFile('image_path')) {
+
+                // Eliminar imagen anterior si existe
+                if ($producto->image_path && file_exists(public_path('imgs/'.$producto->image_path))) {
+                    unlink(public_path('imgs/'.$producto->image_path));
+                }
+
+                // Nueva imagen
+                $file = $request->file('image_path');
+                $nuevoNombre = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
+                $file->move(public_path('imgs'), $nuevoNombre);
+
+                $producto->image_path = $nuevoNombre;
+            }
+
+            $producto->save();
+
+            DB::commit();
+            return redirect()->route('inventario.index')
+                ->with('success', 'Producto actualizado correctamente.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Error: '.$e->getMessage());
+        }
     }
 }

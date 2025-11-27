@@ -333,6 +333,10 @@
                                 <td class="price">S/ {{ number_format($inventario->costo_total, 2) }}</td>
                                 <td>{{ $inventario->created_at->format('d/m/Y H:i') }}</td>
                                 <td>
+                                    <a href="{{ route('inventario.show', $inventario->id) }}" 
+                                        class="btn-custom btn-success-custom btn-sm" style="margin-right: 5px;">
+                                        Editar
+                                    </a>
                                     <a href="{{ route('inventario.detalle', $inventario->id) }}" class="btn-custom btn-info-custom btn-sm">
                                         Ver Detalle
                                     </a>
