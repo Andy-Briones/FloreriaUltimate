@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto - Aridetalles</title>
 
     <!-- Fuentes -->
-    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
 
     <!-- Estilos (mismo que página principal + mejoras para contacto) -->
     <style>
@@ -93,8 +96,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .contact-title {
@@ -126,9 +136,8 @@
         /* ===== FORMULARIO ===== */
         .contact-form {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
-            margin-bottom: 1.5rem;
         }
 
         .form-group {
@@ -137,9 +146,10 @@
         }
 
         .form-group.full {
-            grid-column: 1 / -1;
+            grid-column: span 2;
         }
 
+        /* alineación limpia */
         label {
             font-family: 'Inter', sans-serif;
             font-weight: 600;
@@ -148,7 +158,9 @@
             font-size: 0.95rem;
         }
 
-        input, select, textarea {
+        input,
+        select,
+        textarea {
             font-family: 'Inter', sans-serif;
             padding: 0.9rem 1rem;
             border: 1.5px solid #ddd;
@@ -156,9 +168,12 @@
             font-size: 0.95rem;
             transition: all 0.3s ease;
             background: #fdfbfc;
+            width: 100%;
         }
 
-        input:focus, select:focus, textarea:focus {
+        input:focus,
+        select:focus,
+        textarea:focus {
             outline: none;
             border-color: #FF69B4;
             box-shadow: 0 0 8px rgba(255, 105, 180, 0.2);
@@ -199,8 +214,8 @@
             align-items: center;
             font-family: 'Inter', sans-serif;
             font-size: 0.9rem;
-            color: #000000ff;
             margin-top: 1rem;
+            grid-column: span 2;
         }
 
         /* ===== INFO BOX ===== */
@@ -259,7 +274,7 @@
             margin: 1rem 0;
             font-family: 'Inter', sans-serif;
             font-weight: 500;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
         }
 
         .alert-success-custom {
@@ -308,8 +323,8 @@
 
             .form-footer {
                 flex-direction: column;
-                gap: 0.5rem;
                 text-align: center;
+                gap: 1rem;
             }
 
             .btn-custom {
@@ -335,175 +350,209 @@
                 display: flex;
             }
         }
-        /*boton what*/
-    .wsp-float {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #25d366;
-      color: white;
-      border-radius: 50%;
-      padding: 15px;
-      z-index: 1000;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s;
-    }
 
-    .wsp-float:hover {
-      transform: scale(1.1);
-      text-decoration: none;
-    }
+        /* ===== WHATSAPP BUTTON ===== */
+        .wsp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50%;
+            padding: 15px;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
 
-    .wsp-icon {
-      font-size: 24px;
-    }
-  </style>
+        .wsp-float:hover {
+            transform: scale(1.1);
+        }
+
+        .wsp-icon {
+            font-size: 24px;
+        }
     </style>
 
     @auth
-    @if (Auth::user()->role === 'admin')
-        @include('forms', ['Modo' => 'Encabezado'])
-    @elseif (Auth::user()->role === 'cliente')
-        @include('forms', ['Modo' => 'EncabezadoClie'])
-    @endif
+        @if (Auth::user()->role === 'admin')
+            @include('forms', ['Modo' => 'Encabezado'])
+        @elseif (Auth::user()->role === 'cliente')
+            @include('forms', ['Modo' => 'EncabezadoClie'])
+        @endif
     @else
         @include('forms', ['Modo' => 'EncabezadoClie'])
     @endauth
 </head>
 
 <body>
-@include('forms', ['Modo' => 'Accesibilidad'])
-<a href="https://wa.me/51999369837?text=Hola%2C%20quisiera%20hacer%20un%20pedido%20AriDetalles" class="wsp-float" target="_blank" title="Contáctanos por WhatsApp">
-    <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp" width="30" height="30">
-  </a>
-<!-- CONTENIDO -->
-<div class="container">
-    <div class="contact-card">
-        <h1 class="contact-title">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9566 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-            </svg>
-            Contáctanos
-        </h1>
-        <p class="contact-subtitle">
-            ¿Tienes una idea o necesitas ayuda? Escríbenos y te responderemos pronto.
-        </p>
-
-        <form id="contactForm">
-            <div id="formAlert"></div>
-
-            <div class="contact-form">
-                <div class="form-group">
-                    <label for="name">Nombre</label>
-                    <input id="name" name="name" placeholder="Tu nombre" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Correo electrónico</label>
-                    <input id="email" name="email" type="email" placeholder="ejemplo@correo.com" required>
-                </div>
-
-                <div class="form-group full">
-                    <label for="reason">Motivo</label>
-                    <select id="reason" name="reason" required>
-                        <option value="">Selecciona...</option>
-                        <option value="consulta">Consulta</option>
-                        <option value="soporte">Soporte</option>
-                        <option value="cotizacion">Cotización</option>
-                    </select>
-                </div>
-
-                <div class="form-group full">
-                    <label for="message">Mensaje</label>
-                    <textarea id="message" name="message" placeholder="Cuéntanos con detalle" required></textarea>
-                </div>
-            </div>
-
-            <div class="form-footer">
-                <small>Responderemos dentro de 48 horas hábiles.</small>
-                <button type="submit" class="btn-custom btn-primary-custom">Enviar</button>
-            </div>
-        </form>
-
-        <!-- INFO BOX -->
-        <div class="info-box">
-            <h3 class="info-title">
+    @include('forms', ['Modo' => 'Accesibilidad'])
+    <a href="https://wa.me/51999369837?text=Hola%2C%20quisiera%20hacer%20un%20pedido%20AriDetalles" class="wsp-float"
+        target="_blank" title="Contáctanos por WhatsApp">
+        <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp" width="30" height="30">
+    </a>
+    <!-- CONTENIDO -->
+    <div class="container">
+        <div class="contact-card">
+            <h1 class="contact-title">
                 <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    <path
+                        d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9566 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                 </svg>
-                Información de Contacto
-            </h3>
-            <ul class="info-list">
-                <li>
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-                    </svg>
-                    Dirección: Av. Central 123, Lima, Perú
-                </li>
-                <li>
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                    </svg>
-                    Teléfono: +51 987 654 321
-                </li>
-                <li>
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14h-4v-2h4v2zm0-4h-4V9h4v4z"/>
-                    </svg>
-                    Horario: Lun-Vie 9:00 - 18:00
-                </li>
-            </ul>
-            <p style="margin-top: 1rem; font-size: 0.9rem; color: #555; font-family: 'Inter', sans-serif;">
-                También puedes enviarnos un mensaje por WhatsApp o escribirnos en nuestras redes sociales.
+                Contáctanos
+            </h1>
+            <p class="contact-subtitle">
+                ¿Tienes una idea o necesitas ayuda? Escríbenos y te responderemos pronto.
             </p>
+
+            <!-- FORMULARIO PERSONALIZACIÓN -->
+            <form id="contactForm" action="https://formspree.io/f/mblvynjy" method="POST" enctype="multipart/form-data">
+                <div id="formAlert"></div>
+                <div class="contact-form">
+                    <div class="form-group">
+                        <label>
+                            Nombre:
+                            <input type="text" name="nombre" placeholder="Tu nombre">
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Ingresa correo:
+                            <input type="email" name="email" placeholder="ejemplo@gmail.com">
+                        </label>
+                    </div>
+
+                    <div class="form-group full">
+                        <label>
+                            Motivo:
+                            <textarea name="motivo"></textarea>
+                        </label>
+                    </div>
+
+                    <div class="form-group full">
+                        <label>
+                            Ingresa el mensaje:
+                            <textarea name="message"></textarea>
+                        </label>
+                    </div>
+
+                    <div class="form-footer">
+                        <small>Responderemos dentro de 48 horas hábiles.</small>
+                        <button type="submit" class="btn-custom btn-primary-custom">Enviar</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- INFO BOX -->
+            <div class="info-box">
+                <h3 class="info-title">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                    </svg>
+                    Información de Contacto
+                </h3>
+                <ul class="info-list">
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                        </svg>
+                        Dirección: Av. Central 123, Lima, Perú
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                        </svg>
+                        Teléfono: +51 987 654 321
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14h-4v-2h4v2zm0-4h-4V9h4v4z" />
+                        </svg>
+                        Horario: Lun-Vie 9:00 - 18:00
+                    </li>
+                </ul>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: #555; font-family: 'Inter', sans-serif;">
+                    También puedes enviarnos un mensaje por WhatsApp o escribirnos en nuestras redes sociales.
+                </p>
+            </div>
         </div>
+
+        <footer>
+            <p>
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                </svg>
+                © Aridetalles 2025 — Amor y frescura en cada detalle
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                </svg>
+            </p>
+        </footer>
     </div>
 
-    <footer>
-        <p>
-            <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-            </svg>
-            © Aridetalles 2025 — Amor y frescura en cada detalle
-            <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-            </svg>
-        </p>
-    </footer>
-</div>
+    <script>
+        // Validación y envío del formulario
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const alert = document.getElementById('formAlert');
+            alert.className = 'alert-custom';
 
-<script>
-    // Validación y envío del formulario
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const alert = document.getElementById('formAlert');
-        alert.className = 'alert-custom';
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const reason = document.getElementById('reason').value;
+            const message = document.getElementById('message').value.trim();
 
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const reason = document.getElementById('reason').value;
-        const message = document.getElementById('message').value.trim();
+            if (!name || !email || !reason || !message) {
+                alert.classList.add('alert-error-custom');
+                alert.textContent = 'Por favor completa todos los campos.';
+                return;
+            }
 
-        if (!name || !email || !reason || !message) {
-            alert.classList.add('alert-error-custom');
-            alert.textContent = 'Por favor completa todos los campos.';
-            return;
-        }
+            // Simular envío
+            alert.classList.add('alert-success-custom');
+            alert.textContent = '¡Mensaje enviado! Gracias — pronto nos comunicaremos contigo.';
+            this.reset();
 
-        // Simular envío
-        alert.classList.add('alert-success-custom');
-        alert.textContent = '¡Mensaje enviado! Gracias — pronto nos comunicaremos contigo.';
-        this.reset();
+            // Opcional: Enviar con AJAX a tu ruta
+            // fetch('/contacto', { method: 'POST', body: new FormData(this) })
+        });
 
-        // Opcional: Enviar con AJAX a tu ruta
-        // fetch('/contacto', { method: 'POST', body: new FormData(this) })
-    });
+        // Menu mobile
+        document.querySelector('.menu-toggle')?.addEventListener('click', () => {
+            document.querySelector('.nav')?.classList.toggle('active');
+        });
+    </script>
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", async function (e) {
+            e.preventDefault(); // Evita el envío normal
 
-    // Menu mobile
-    document.querySelector('.menu-toggle')?.addEventListener('click', () => {
-        document.querySelector('.nav')?.classList.toggle('active');
-    });
-</script>
+            const form = e.target;
+
+            // Enviar datos a Formspree
+            const res = await fetch(form.action, {
+                method: "POST",
+                body: new FormData(form),
+                headers: { "Accept": "application/json" }
+            });
+
+            if (res.ok) {
+                form.reset(); // 💥 LIMPIA TODOS LOS CAMPOS
+
+                // Mostrar mensaje de éxito
+                document.getElementById("success-msg").style.display = "block";
+
+                // Ocultar mensaje después de 3s
+                setTimeout(() => {
+                    document.getElementById("success-msg").style.display = "none";
+                }, 3000);
+            }
+        });
+    </script>
 
 </body>
+
 </html>

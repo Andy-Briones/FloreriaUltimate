@@ -599,16 +599,24 @@
           <h3>Arreglos Personalizados</h3>
           <p>Si buscas algo único, completa el formulario de personalización y nuestro equipo creará un arreglo según tu
             estilo.</p>
-          <form>
-            <label type="text">Ingresa Nombre: </label>
-            <input type="text" name="nombre" placeholder="Nombre" required />
-            <label type="text">Ingresa Telefono: </label>
-            <input type="text" name="telefono" placeholder="Teléfono" required />
-            <label type="text">Ingresa la Ocasión: </label>
-            <input type="text" name="ocacion" placeholder="Ocasión (cumpleaños, boda, etc)" required />
-            <label type="text">Ingresa pequeña Descripción: </label>
-            <textarea placeholder="Descripción..." rows="3" name="descripcion" required></textarea>
-            <a class="btn" href="#">Solicitar Cotización</a>
+          <form id="form-personalizado" action="https://formspree.io/f/mblvynjy" method="POST" enctype="multipart/form-data">
+            <label>
+              Ingresa correo:
+              <input type="email" name="email" placeholder="ejemplo@gmail.com">
+            </label>
+            <label>
+              Ingresa Télefono:
+              <input type="number" name="telefono" placeholder="123456789"/>
+            </label>
+            <label>
+              Ingresa la Ocasión:
+              <textarea name="ocacion"></textarea>
+            </label>
+            <label>
+              Ingresa el mensaje:
+              <textarea name="message"></textarea>
+            </label>
+            <button type="submit">Enviar</button>
           </form>
         </div>
       </div>
@@ -708,6 +716,32 @@
       });
     });
   </script>
+  <script>
+document.getElementById("form-personalizado").addEventListener("submit", async function(e) {
+    e.preventDefault(); // Evita el envío normal
+
+    const form = e.target;
+
+    // Enviar datos a Formspree
+    const res = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { "Accept": "application/json" }
+    });
+
+    if (res.ok) {
+        form.reset(); // 💥 LIMPIA TODOS LOS CAMPOS
+
+        // Mostrar mensaje de éxito
+        document.getElementById("success-msg").style.display = "block";
+
+        // Ocultar mensaje después de 3s
+        setTimeout(() => {
+            document.getElementById("success-msg").style.display = "none";
+        }, 3000);
+    }
+});
+</script>
 </body>
 
 </html>
