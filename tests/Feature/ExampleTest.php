@@ -71,7 +71,7 @@ it('muestra la lista de categorías', function () {
 
 it('crea una nueva categoría correctamente', function () {
     $this->actingAs($this->admin);
-    $data = ['name' => 'Insumos Médicos', 'description' => 'Categoría de prueba'];
+    $data = ['name' => 'Insumos ', 'description' => 'Categoría de prueba'];
     $response = $this->post('/product_categories', $data);
     $response->assertStatus(200); // porque devuelve JSON
     $this->assertDatabaseHas('als_categories', $data);
@@ -112,7 +112,8 @@ it('muestra la vista de creación de proveedor', function () {
 it('crea un insumo asociado a proveedor y categoría', function () {
     $this->actingAs($this->admin);
     $category = alsCategory::create(['name' => 'Materia Prima', 'description' => 'Categoría']);
-    $supplier = alsSupplier::create(['name' => 'Proveedor Test', 'contact_email' => 'a@a.com', 'phone_number' => '999', 'address' => 'Calle Falsa 123']);
+    $supplier = alsSupplier::create(['name' => 'Proveedor Test', 'contact_email' => 'a@a.com', 
+    'phone_number' => '999', 'address' => 'Calle Falsa 123']);
 
     $data = [
         'nombre' => 'Alcohol',

@@ -8,12 +8,12 @@
         <div class="row g-3">
             <div class="col-md-6">
                 <label for="name" class="form-label">📌 Nombre de la Categoria</label>
-                <input type="text" name="name" id="name" class="form-control"
+                <input type="text" name="name" id="name" class="form-control" required
                     value="{{ isset($categoria->name) ? $categoria->name : '' }}">
             </div>
             <div class="col-md-6">
                 <label for="description" class="form-label">📝 Descripción</label>
-                <input type="text" name="description" id="description" class="form-control"
+                <input type="text" name="description" id="description" class="form-control" required
                     value="{{ isset($categoria->description) ? $categoria->description : '' }}">
             </div>
         </div>
@@ -114,22 +114,22 @@
         <div class="row g-3">
             <div class="col-md-6">
                 <label for="name" class="form-label">👤 Nombre del Proveedor</label>
-                <input type="text" name="name" id="name" class="form-control"
+                <input type="text" name="name" id="name" class="form-control" required
                     value="{{ isset($supplier->name) ? $supplier->name : '' }}">
             </div>
             <div class="col-md-6">
                 <label for="contact_email" class="form-label">🏢 Correo de contacto</label>
-                <input type="text" name="contact_email" id="contact_email" class="form-control"
+                <input type="email" name="contact_email" id="contact_email" class="form-control" required
                     value="{{ isset($supplier->contact_email) ? $supplier->contact_email : '' }}">
             </div>
             <div class="col-md-6">
                 <label for="phone_number" class="form-label">🏢 Telefono</label>
-                <input type="text" name="phone_number" id="phone_number" class="form-control"
+                <input type="number" name="phone_number" id="phone_number" class="form-control" required min="9"
                     value="{{ isset($supplier->phone_number) ? $supplier->phone_number : '' }}">
             </div>
             <div class="col-md-6">
                 <label for="address" class="form-label">📍 Dirección</label>
-                <input type="text" name="address" id="address" class="form-control"
+                <input type="text" name="address" id="address" class="form-control" required
                     value="{{ isset($supplier->address) ? $supplier->address : '' }}">
             </div>
         </div>
