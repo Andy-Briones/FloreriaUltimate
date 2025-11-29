@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('description');
             $table->decimal('price', 10, 2);
             $table->integer('stock');
-            $table->string('image_path');
+            $table->string('image_path')->nullable();
             $table->decimal('costo_produccion', 10, 2);
             $table->string('estado')->default('activo');
             $table->foreignId('alsinvetories_id')->constrained('alsinvetories')->onDelete('cascade');

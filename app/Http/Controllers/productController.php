@@ -24,9 +24,18 @@ class ProductController extends Controller
         // CLIENTE o PÚBLICO → solo productos activos con buscador
         $query = alsProduct::query();
 
-        if ($request->filled('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%')
-                ->orWhere('description', 'like', '%' . $request->search . '%');
+        $search = $request->input('search');
+        $onlyDescription = $request->has('only_description'); // nuevo checkbox
+
+        if ($search) {
+            if ($onlyDescription) {
+                // Busca SOLO en descripción
+                $query->where('description', 'like', '%' . $search . '%');
+            } else {
+                // Busca en nombre Y descripción (como antes)
+                $query->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
+            }
         }
 
         $products = $query->where('estado', 'activo')->latest()->paginate(8);

@@ -865,7 +865,7 @@
         </div>
 
             <div class="col-md-12">
-                <label for="description" class="form-label">📝 Descripción</label>
+                <label for="description" class="form-label">📝 Ocación</label>
                 <textarea name="description" id="description" class="form-control"
                     rows="2">{{ isset($producto->description) ? $producto->description : '' }}</textarea>
             </div>
