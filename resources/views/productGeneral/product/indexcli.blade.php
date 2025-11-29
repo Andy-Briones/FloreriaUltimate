@@ -501,7 +501,7 @@
             @foreach ($products as $product)
                 <div class="product-card">
                     @if($product->image_path)
-                        <img src="{{ asset('imgs/' . $product->image_path) }}" alt="{{ $product->name }}" class="product-img">
+                        <img src="{{ asset('public/imgs/' . $product->image_path) }}" alt="{{ $product->name }}" class="product-img">
                     @else
                         <div class="product-img-placeholder">
                             Sin imagen
