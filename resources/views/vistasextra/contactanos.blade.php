@@ -458,21 +458,21 @@
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
                         </svg>
-                        Dirección: Av. Central 123, Lima, Perú
+                        Dirección: Jr. Revilla Perez 411, Cajamarca, Perú
                     </li>
                     <li>
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path
                                 d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
                         </svg>
-                        Teléfono: +51 987 654 321
+                        Teléfono: +51 999 369 837
                     </li>
                     <li>
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path
                                 d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14h-4v-2h4v2zm0-4h-4V9h4v4z" />
                         </svg>
-                        Horario: Lun-Vie 9:00 - 18:00
+                        Horario: Lun-Vie 4:00 - 10:00
                     </li>
                 </ul>
                 <p style="margin-top: 1rem; font-size: 0.9rem; color: #555; font-family: 'Inter', sans-serif;">
