@@ -353,9 +353,9 @@
             </button>
         </form>
 
-        <div class="register-link">
+        {{--  <div class="register-link">
             <a href="{{ route('register') }}">¿No tienes cuenta? Regístrate aquí</a>
-        </div>
+        </div>  --}}
     </div>
 </div>
 <a href="https://wa.me/51999369837?text=Hola%2C%20quisiera%20hacer%20un%20pedido%20AriDetalles" class="wsp-float" target="_blank" title="Contáctanos por WhatsApp">

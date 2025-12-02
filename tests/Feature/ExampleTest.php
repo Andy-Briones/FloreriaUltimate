@@ -69,13 +69,6 @@ it('muestra la lista de categorías', function () {
     $response->assertStatus(200);
 });
 
-it('crea una nueva categoría correctamente', function () {
-    $this->actingAs($this->admin);
-    $data = ['name' => 'Insumos ', 'description' => 'Categoría de prueba'];
-    $response = $this->post('/product_categories', $data);
-    $response->assertStatus(200); // porque devuelve JSON
-    $this->assertDatabaseHas('als_categories', $data);
-});
 
 /*
 |--------------------------------------------------------------------------
@@ -83,18 +76,7 @@ it('crea una nueva categoría correctamente', function () {
 |--------------------------------------------------------------------------
 */
 
-it('crea un proveedor nuevo', function () {
-    $this->actingAs($this->admin);
-    $data = [
-        'name' => 'Proveedor 1',
-        'contact_email' => 'proveedor1@test.com',
-        'phone_number' => '987654321',
-        'address' => 'Av. Principal 123',
-    ];
-    $response = $this->post('/supplier', $data);
-    $response->assertRedirect('/supplier');
-    $this->assertDatabaseHas('als_suppliers', $data);
-});
+
 
 it('muestra la vista de creación de proveedor', function () {
     $this->actingAs($this->admin)

@@ -249,7 +249,7 @@
             </div>
             <div class="col-md-6">
                 <label for="correo" class="form-label">📧 Correo</label>
-                <input type="email" name="correo" id="correo" class="form-control"
+                <input type="email" name="correo" id="correo" class="form-control" min="{{ date('Y-m-d') }}
                     value="{{ isset($client->correo) ? $client->correo : '' }}">
             </div>
             <div class="col-md-6">
