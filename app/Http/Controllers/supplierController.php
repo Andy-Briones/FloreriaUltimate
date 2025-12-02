@@ -27,8 +27,7 @@ class SupplierController extends Controller
         ]);
         $supplier = request()->except('_token');
         alsSupplier::insert($supplier);
-        return redirect('/supplier')
-        ->with('success', 'Proveedor creado correctamente.');
+        return response()->json(['success' => true]);
     }
     public function show()
     {
