@@ -31,18 +31,27 @@
         <div class="row g-3">
             <div class="col-md-6">
                 <label for="nombre" class="form-label">📦 Nombre del Insumo</label>
-                <input type="text" name="nombre" id="nombre" class="form-control"
-                    value="{{ isset($insumo->nombre) ? $insumo->nombre : '' }}" required>
+                <input type="text" name="nombre" id="nombre" class="form-control" required
+                    minlength="3"
+                    maxlength="50"
+                    pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s\-]+$"
+                    title="Solo letras, números, espacios y guiones. Mínimo 3 caracteres."
+                    value="{{ isset($insumo->nombre) ? $insumo->nombre : '' }}">
             </div>
             <div class="col-md-6">
                 <label for="descripcion" class="form-label">📝 Descripción</label>
                 <input type="text" name="descripcion" id="descripcion" class="form-control"
-                    value="{{ isset($insumo->descripcion) ? $insumo->descripcion : '' }}" required>
+                required
+                    minlength="3"
+                    maxlength="50"
+                    pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s\-]+$"
+                    title="Solo letras, números, espacios y guiones. Mínimo 3 caracteres."
+                    value="{{ isset($insumo->descripcion) ? $insumo->descripcion : '' }}">
             </div>
             <div class="col-md-6">
                 <label for="tipo" class="form-label">Tipo </label>
-                <input type="text" name="tipo" id="tipo" class="form-control"
-                    value="{{ isset($insumo->tipo) ? $insumo->tipo : '' }}" required>
+                <input type="text" name="tipo" id="tipo" class="form-control" required
+                    value="{{ isset($insumo->tipo) ? $insumo->tipo : '' }}">
             </div>
             <div class="col-md-6">
                 <label for="costo_unitario" class="form-label">💲 Precio Unitario</label>
